@@ -7,15 +7,24 @@ namespace Tetris
     {
         static void Main(string[] args)
         {
-            Game g = new Game();
-            Console.WriteLine("Hello World!");
-            //console menu
-
-            //if play
-            g.Start();
-            while(true)
+            while (true)
             {
-                //tick
+                Console.WriteLine("Hello Menu!");
+                //console menu
+                Console.WriteLine("Do you wanna play tetris");
+                Console.WriteLine("1. Play");
+                Console.WriteLine("2. View Highscore");
+                Console.WriteLine("0. Quit");
+                //if play
+                Game game;
+                bool play = true;
+
+                if (play)
+                {
+                    game = new Game();
+                    game.Loop();
+                }
+                
                 //print spelplan
                 //print tetromino J 
                 //print points

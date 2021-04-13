@@ -1,4 +1,5 @@
 ﻿using System;
+using TetrisClassLibrary;
 
 namespace Tetris
 {
@@ -6,6 +7,7 @@ namespace Tetris
     {
         static void Main(string[] args)
         {
+            Game g = new Game();
             Console.WriteLine("Hello World!");
         }
     }

@@ -10,7 +10,7 @@ namespace TetrisClassLibrary.Tetrominos
     {
         public ZShape()
         {
-            Position = new int[0, 5];
+            //Position = new System.Drawing.Point(5, 0);
             Color = ConsoleColor.Cyan;
 
             //1 1 0 0
@@ -25,6 +25,10 @@ namespace TetrisClassLibrary.Tetrominos
                 new List<char>
                 {
                     ' ', '@', '@', ' '
+                },
+                new List<char>
+                {
+                    ' ', ' ', ' ', ' '
                 },
                 new List<char>
                 {

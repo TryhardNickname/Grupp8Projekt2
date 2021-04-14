@@ -1,14 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading;
 
 namespace TetrisClassLibrary
 {
     public class Game
     {
-        public List<List<string>> PlayingField { get; set; }
+        public Grid grid { get; set; }
+
+        public Game()
+        {
+            Start();
+        }
         public void Start()
         {
-            PlayingField = new List<List<string>>();
+            grid = new Grid();
         }
 
         /// <summary>
@@ -18,7 +24,17 @@ namespace TetrisClassLibrary
         /// </summary>
         public void Loop()
         {
+            bool playing = true;
+            grid.AddNewRandomTetromino();
 
+            while (playing)
+            {
+                grid.UpdateTetromino();
+                Console.SetCursorPosition(0, 0);
+
+                DrawGameField();
+                Thread.Sleep(1000);
+            }
             //loop (playing){
             //  printField 
             //  printCurrenttetrino
@@ -36,40 +52,24 @@ namespace TetrisClassLibrary
             //  update field
             //}
         }
-        static void BuildMap(List<List<string>> playingField)
-        {
-            for (int i = 0; i < 22; i++)
-            {
-                playingField.Add(new List<string>() { " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " " });
-            }
-        }
-        static void BuildBarrier(List<List<string>> playingField)
-        {
 
-            for (int i = 0; i < playingField[0].Count; i++)
-            {
-                playingField[0][i] = "░";  // Top
 
-                playingField[playingField[0].Count - 1][i] = "░";  // Bottom
-
-                playingField[i][0] = "░";  // Left
-
-                playingField[i][playingField[0].Count - 1] = "░";  // Right
-
-            }
-        }
-
-        static void DrawGameField(List<List<string>> playingField)
+        private void DrawGameField()
         {
             for (int i = 0; i < 22; i++)
             {
                 for (int j = 0; j < 12; j++)
                 {
-                    Console.Write(playingField[i][j]);
+                    Console.Write(grid.GridArea[i][j]);
                 }
                 Console.WriteLine();
 
             }
+        }
+
+        private void DrawTetromino()
+        {
+
         }
 
     }

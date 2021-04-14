@@ -10,7 +10,7 @@ namespace TetrisClassLibrary
 {
     public abstract class Tetromino
     {
-        //[y , x] == [row, column]
+        //Point(X,Y);
         protected Point Position { get; set; }
         public List<List<char>> Shape { get; set; }
         protected ConsoleColor Color { get; set; }
@@ -35,6 +35,14 @@ namespace TetrisClassLibrary
         }
         public void Move(string direction)
         {
+            if (direction == "left")
+            {
+                Position = new Point(Position.X-1, Position.Y);
+            }
+            else
+            {
+                Position = new Point(Position.X + 1, Position.Y);
+            }
             
         }
 

@@ -1,5 +1,5 @@
 <diagram program="umletino" version="14.4.0-SNAPSHOT"><zoom_level>10</zoom_level><help_text>/TETROMINO/
-</help_text><element><id>UMLClass</id><coordinates><x>300</x><y>458</y><w>220</w><h>150</h></coordinates><panel_attributes>/Tetromino/
+</help_text><element><id>UMLClass</id><coordinates><x>160</x><y>358</y><w>220</w><h>150</h></coordinates><panel_attributes>/Tetromino/
 --
 -string/enum?: color
 -Point :Position (X &amp; Y) 
@@ -11,11 +11,11 @@ Move (direction)
 Rotate ()
 
 abstract class för alla tetrominos
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>270</x><y>728</y><w>100</w><h>30</h></coordinates><panel_attributes>Tetromino-L</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>390</x><y>728</y><w>100</w><h>30</h></coordinates><panel_attributes>Tetromino-J</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>510</x><y>728</y><w>100</w><h>70</h></coordinates><panel_attributes>Tetromino-Z
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>130</x><y>628</y><w>100</w><h>30</h></coordinates><panel_attributes>Tetromino-L</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>250</x><y>628</y><w>100</w><h>30</h></coordinates><panel_attributes>Tetromino-J</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>370</x><y>628</y><w>100</w><h>70</h></coordinates><panel_attributes>Tetromino-Z
 --
 
 --
-override Shape?</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>140</x><y>728</y><w>100</w><h>30</h></coordinates><panel_attributes>Tetromino-O</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>630</x><y>678</y><w>100</w><h>30</h></coordinates><panel_attributes>Tetromino-I</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>630</x><y>728</y><w>100</w><h>30</h></coordinates><panel_attributes>Tetromino-S</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>850</x><y>408</y><w>290</w><h>260</h></coordinates><panel_attributes>Grid
+override Shape?</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>0</x><y>628</y><w>100</w><h>30</h></coordinates><panel_attributes>Tetromino-O</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>490</x><y>578</y><w>100</w><h>30</h></coordinates><panel_attributes>Tetromino-I</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>490</x><y>628</y><w>100</w><h>30</h></coordinates><panel_attributes>Tetromino-S</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>710</x><y>308</y><w>290</w><h>260</h></coordinates><panel_attributes>Grid
 --
 List&lt;List&lt;char&gt;&gt; : 2d-array[10+2 , 20+2].
 Tetromino: CurrentTetromino
@@ -32,13 +32,13 @@ kollision med fyllda rutor
 
 Nytt block: CurrentTetromino = AddNewBlock
 
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>140</x><y>648</y><w>100</w><h>60</h></coordinates><panel_attributes>Tetromino-T
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>0</x><y>548</y><w>100</w><h>60</h></coordinates><panel_attributes>Tetromino-T
 -
 Tetromino-T():
 sets own shape in constructor
 
 -
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>430</x><y>598</y><w>30</w><h>110</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>10;10;10;90</additional_attributes></element><element><id>Relation</id><coordinates><x>430</x><y>668</y><w>160</w><h>80</h></coordinates><panel_attributes></panel_attributes><additional_attributes>10;20;140;20;140;60</additional_attributes></element><element><id>Relation</id><coordinates><x>230</x><y>668</y><w>110</w><h>40</h></coordinates><panel_attributes></panel_attributes><additional_attributes>10;20;90;20</additional_attributes></element><element><id>Relation</id><coordinates><x>430</x><y>678</y><w>30</w><h>70</h></coordinates><panel_attributes></panel_attributes><additional_attributes>10;10;10;50</additional_attributes></element><element><id>Relation</id><coordinates><x>560</x><y>668</y><w>90</w><h>40</h></coordinates><panel_attributes></panel_attributes><additional_attributes>10;20;70;20</additional_attributes></element><element><id>Relation</id><coordinates><x>560</x><y>678</y><w>140</w><h>70</h></coordinates><panel_attributes></panel_attributes><additional_attributes>10;10;120;50</additional_attributes></element><element><id>Relation</id><coordinates><x>310</x><y>668</y><w>150</w><h>80</h></coordinates><panel_attributes></panel_attributes><additional_attributes>130;20;10;20;10;60</additional_attributes></element><element><id>Relation</id><coordinates><x>180</x><y>678</y><w>160</w><h>70</h></coordinates><panel_attributes></panel_attributes><additional_attributes>10;50;140;10</additional_attributes></element><element><id>Relation</id><coordinates><x>510</x><y>498</y><w>360</w><h>30</h></coordinates><panel_attributes>lt=&lt;.</panel_attributes><additional_attributes>10;10;335;10</additional_attributes></element><element><id>UMLClass</id><coordinates><x>860</x><y>128</y><w>300</w><h>160</h></coordinates><panel_attributes>Game
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>290</x><y>498</y><w>30</w><h>110</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>10;10;10;90</additional_attributes></element><element><id>Relation</id><coordinates><x>290</x><y>568</y><w>160</w><h>80</h></coordinates><panel_attributes></panel_attributes><additional_attributes>10;20;140;20;140;60</additional_attributes></element><element><id>Relation</id><coordinates><x>90</x><y>568</y><w>110</w><h>40</h></coordinates><panel_attributes></panel_attributes><additional_attributes>10;20;90;20</additional_attributes></element><element><id>Relation</id><coordinates><x>290</x><y>578</y><w>30</w><h>70</h></coordinates><panel_attributes></panel_attributes><additional_attributes>10;10;10;50</additional_attributes></element><element><id>Relation</id><coordinates><x>420</x><y>568</y><w>90</w><h>40</h></coordinates><panel_attributes></panel_attributes><additional_attributes>10;20;70;20</additional_attributes></element><element><id>Relation</id><coordinates><x>420</x><y>578</y><w>140</w><h>70</h></coordinates><panel_attributes></panel_attributes><additional_attributes>10;10;120;50</additional_attributes></element><element><id>Relation</id><coordinates><x>170</x><y>568</y><w>150</w><h>80</h></coordinates><panel_attributes></panel_attributes><additional_attributes>130;20;10;20;10;60</additional_attributes></element><element><id>Relation</id><coordinates><x>40</x><y>578</y><w>160</w><h>70</h></coordinates><panel_attributes></panel_attributes><additional_attributes>10;50;140;10</additional_attributes></element><element><id>Relation</id><coordinates><x>370</x><y>398</y><w>360</w><h>30</h></coordinates><panel_attributes>lt=&lt;.</panel_attributes><additional_attributes>10;10;335;10</additional_attributes></element><element><id>UMLClass</id><coordinates><x>720</x><y>28</y><w>300</w><h>160</h></coordinates><panel_attributes>Game
 --
 int: GravityCounter
 --
@@ -48,22 +48,22 @@ ReadInput ()
 Loop()
 
 PrintGrid()
-PrintTetromino()</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>620</x><y>128</y><w>150</w><h>100</h></coordinates><panel_attributes>Score
+PrintTetromino()</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>480</x><y>28</y><w>150</w><h>100</h></coordinates><panel_attributes>Score
 --
 int: score
 --
 +UpdateScore(level)
 +SaveScore // to highscore.txt
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLNote</id><coordinates><x>330</x><y>228</y><w>230</w><h>140</h></coordinates><panel_attributes>Note..
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLNote</id><coordinates><x>190</x><y>128</y><w>230</w><h>140</h></coordinates><panel_attributes>Note..
 bg=blue
 
 Rotation saktar ned fallet?
-Rotation för evigt i botten?</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>1266</x><y>128</y><w>190</w><h>130</h></coordinates><panel_attributes>Level
+Rotation för evigt i botten?</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>1126</x><y>28</y><w>190</w><h>130</h></coordinates><panel_attributes>Level
 --
 int :currentLevel
 Dictionary&lt; int level, int gravity&gt; :D?
 --
 LevelAdvancement()
-UpdateGravity()</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>990</x><y>278</y><w>40</w><h>150</h></coordinates><panel_attributes>lt=-
+UpdateGravity()</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>850</x><y>178</y><w>40</w><h>150</h></coordinates><panel_attributes>lt=-
 m2=1
-</panel_attributes><additional_attributes>10;10;10;130</additional_attributes></element><element><id>Relation</id><coordinates><x>758</x><y>198</y><w>130</w><h>30</h></coordinates><panel_attributes>lt=&lt;.</panel_attributes><additional_attributes>10;10;105;10</additional_attributes></element><element><id>Relation</id><coordinates><x>1148</x><y>198</y><w>140</w><h>30</h></coordinates><panel_attributes>lt=&lt;.</panel_attributes><additional_attributes>120;10;15;10</additional_attributes></element></diagram>
+</panel_attributes><additional_attributes>10;10;10;130</additional_attributes></element><element><id>Relation</id><coordinates><x>618</x><y>98</y><w>130</w><h>30</h></coordinates><panel_attributes>lt=&lt;.</panel_attributes><additional_attributes>10;10;105;10</additional_attributes></element><element><id>Relation</id><coordinates><x>1008</x><y>98</y><w>140</w><h>30</h></coordinates><panel_attributes>lt=&lt;.</panel_attributes><additional_attributes>120;10;15;10</additional_attributes></element></diagram>

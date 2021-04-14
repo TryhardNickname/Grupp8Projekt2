@@ -44,7 +44,8 @@ namespace Tetris
                     //clear
                 }
 
-            Console.ReadKey();
+                Console.ReadKey();
+            }
         }
     }
 }

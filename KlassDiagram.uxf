@@ -1,276 +1,69 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<diagram program="umlet" version="14.3.0">
-  <help_text>/TETROMINO/
-</help_text>
-  <zoom_level>7</zoom_level>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>322</x>
-      <y>448</y>
-      <w>154</w>
-      <h>105</h>
-    </coordinates>
-    <panel_attributes>/Tetromino/
+<diagram program="umletino" version="14.4.0-SNAPSHOT"><zoom_level>10</zoom_level><help_text>/TETROMINO/
+</help_text><element><id>UMLClass</id><coordinates><x>300</x><y>458</y><w>220</w><h>150</h></coordinates><panel_attributes>/Tetromino/
 --
-shape?=
-string: color 
-#Position (List&lt;Points&gt;) 
+-string/enum?: color
+-Point :Position (X &amp; Y) 
+
+List&lt;List&lt;char&gt;&gt;: shape
 //4 points represent 1 tetromino
 --
 Move (direction)
 Rotate ()
 
 abstract class för alla tetrominos
-</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>301</x>
-      <y>609</y>
-      <w>70</w>
-      <h>21</h>
-    </coordinates>
-    <panel_attributes>Tetromino-L</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>385</x>
-      <y>609</y>
-      <w>70</w>
-      <h>21</h>
-    </coordinates>
-    <panel_attributes>Tetromino-J</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>469</x>
-      <y>609</y>
-      <w>70</w>
-      <h>49</h>
-    </coordinates>
-    <panel_attributes>Tetromino-Z
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>270</x><y>728</y><w>100</w><h>30</h></coordinates><panel_attributes>Tetromino-L</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>390</x><y>728</y><w>100</w><h>30</h></coordinates><panel_attributes>Tetromino-J</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>510</x><y>728</y><w>100</w><h>70</h></coordinates><panel_attributes>Tetromino-Z
 --
 
 --
-override Draw?</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>210</x>
-      <y>609</y>
-      <w>70</w>
-      <h>21</h>
-    </coordinates>
-    <panel_attributes>Tetromino-O</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>553</x>
-      <y>574</y>
-      <w>70</w>
-      <h>21</h>
-    </coordinates>
-    <panel_attributes>Tetromino-I</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>553</x>
-      <y>609</y>
-      <w>70</w>
-      <h>21</h>
-    </coordinates>
-    <panel_attributes>Tetromino-S</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>588</x>
-      <y>413</y>
-      <w>203</w>
-      <h>154</h>
-    </coordinates>
-    <panel_attributes>PlayField ( spelplan ) / PlayingBoard
-
+override Shape?</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>140</x><y>728</y><w>100</w><h>30</h></coordinates><panel_attributes>Tetromino-O</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>630</x><y>678</y><w>100</w><h>30</h></coordinates><panel_attributes>Tetromino-I</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>630</x><y>728</y><w>100</w><h>30</h></coordinates><panel_attributes>Tetromino-S</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>850</x><y>408</y><w>290</w><h>260</h></coordinates><panel_attributes>Grid
 --
-2d-array[10][20].
+List&lt;List&lt;char&gt;&gt; : 2d-array[10+2 , 20+2].
 Tetromino: CurrentTetromino
 --
 AddNewBlock ()
 UpdatePlayField ()
+CheckIfFullLine()
+CheckCollision()
 --
 klass som representerar spelplanen. 
 innehåller nuvarande tetrominos
 
 kollision med fyllda rutor
 
-Nytt block: CurrentTetromino = AddNewBlock</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>210</x>
-      <y>574</y>
-      <w>70</w>
-      <h>21</h>
-    </coordinates>
-    <panel_attributes>Tetromino-T</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>413</x>
-      <y>546</y>
-      <w>21</w>
-      <h>49</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;50.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>413</x>
-      <y>567</y>
-      <w>112</w>
-      <h>56</h>
-    </coordinates>
-    <panel_attributes/>
-    <additional_attributes>10.0;20.0;140.0;20.0;140.0;60.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>273</x>
-      <y>567</y>
-      <w>77</w>
-      <h>28</h>
-    </coordinates>
-    <panel_attributes/>
-    <additional_attributes>10.0;20.0;90.0;20.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>413</x>
-      <y>574</y>
-      <w>21</w>
-      <h>49</h>
-    </coordinates>
-    <panel_attributes/>
-    <additional_attributes>10.0;10.0;10.0;50.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>504</x>
-      <y>567</y>
-      <w>63</w>
-      <h>28</h>
-    </coordinates>
-    <panel_attributes/>
-    <additional_attributes>10.0;20.0;70.0;20.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>504</x>
-      <y>574</y>
-      <w>98</w>
-      <h>49</h>
-    </coordinates>
-    <panel_attributes/>
-    <additional_attributes>10.0;10.0;120.0;50.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>329</x>
-      <y>567</y>
-      <w>105</w>
-      <h>56</h>
-    </coordinates>
-    <panel_attributes/>
-    <additional_attributes>130.0;20.0;10.0;20.0;10.0;60.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>238</x>
-      <y>574</y>
-      <w>112</w>
-      <h>49</h>
-    </coordinates>
-    <panel_attributes/>
-    <additional_attributes>10.0;50.0;140.0;10.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>469</x>
-      <y>455</y>
-      <w>133</w>
-      <h>21</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;.</panel_attributes>
-    <additional_attributes>170.0;10.0;15.0;10.0</additional_attributes>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>588</x>
-      <y>238</y>
-      <w>210</w>
-      <h>112</h>
-    </coordinates>
-    <panel_attributes>Game
---
+Nytt block: CurrentTetromino = AddNewBlock
 
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>140</x><y>648</y><w>100</w><h>60</h></coordinates><panel_attributes>Tetromino-T
+-
+Tetromino-T():
+sets own shape in constructor
+
+-
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>430</x><y>598</y><w>30</w><h>110</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>10;10;10;90</additional_attributes></element><element><id>Relation</id><coordinates><x>430</x><y>668</y><w>160</w><h>80</h></coordinates><panel_attributes></panel_attributes><additional_attributes>10;20;140;20;140;60</additional_attributes></element><element><id>Relation</id><coordinates><x>230</x><y>668</y><w>110</w><h>40</h></coordinates><panel_attributes></panel_attributes><additional_attributes>10;20;90;20</additional_attributes></element><element><id>Relation</id><coordinates><x>430</x><y>678</y><w>30</w><h>70</h></coordinates><panel_attributes></panel_attributes><additional_attributes>10;10;10;50</additional_attributes></element><element><id>Relation</id><coordinates><x>560</x><y>668</y><w>90</w><h>40</h></coordinates><panel_attributes></panel_attributes><additional_attributes>10;20;70;20</additional_attributes></element><element><id>Relation</id><coordinates><x>560</x><y>678</y><w>140</w><h>70</h></coordinates><panel_attributes></panel_attributes><additional_attributes>10;10;120;50</additional_attributes></element><element><id>Relation</id><coordinates><x>310</x><y>668</y><w>150</w><h>80</h></coordinates><panel_attributes></panel_attributes><additional_attributes>130;20;10;20;10;60</additional_attributes></element><element><id>Relation</id><coordinates><x>180</x><y>678</y><w>160</w><h>70</h></coordinates><panel_attributes></panel_attributes><additional_attributes>10;50;140;10</additional_attributes></element><element><id>Relation</id><coordinates><x>510</x><y>498</y><w>360</w><h>30</h></coordinates><panel_attributes>lt=&lt;.</panel_attributes><additional_attributes>10;10;335;10</additional_attributes></element><element><id>UMLClass</id><coordinates><x>860</x><y>128</y><w>300</w><h>160</h></coordinates><panel_attributes>Game
+--
+int: GravityCounter
 --
 Menu ()
 Start ()
-ReadInput ()</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>448</x>
-      <y>252</y>
-      <w>70</w>
-      <h>21</h>
-    </coordinates>
-    <panel_attributes>Score</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLNote</id>
-    <coordinates>
-      <x>161</x>
-      <y>112</y>
-      <w>161</w>
-      <h>98</h>
-    </coordinates>
-    <panel_attributes>Note..
+ReadInput ()
+Loop()
+
+PrintGrid()
+PrintTetromino()</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>620</x><y>128</y><w>150</w><h>100</h></coordinates><panel_attributes>Score
+--
+int: score
+--
++UpdateScore(level)
++SaveScore // to highscore.txt
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLNote</id><coordinates><x>330</x><y>228</y><w>230</w><h>140</h></coordinates><panel_attributes>Note..
 bg=blue
 
 Rotation saktar ned fallet?
-Rotation för evigt i botten?</panel_attributes>
-    <additional_attributes/>
-  </element>
-</diagram>
+Rotation för evigt i botten?</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>1266</x><y>128</y><w>190</w><h>130</h></coordinates><panel_attributes>Level
+--
+int :currentLevel
+Dictionary&lt; int level, int gravity&gt; :D?
+--
+LevelAdvancement()
+UpdateGravity()</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>990</x><y>278</y><w>40</w><h>150</h></coordinates><panel_attributes>lt=-
+m2=1
+</panel_attributes><additional_attributes>10;10;10;130</additional_attributes></element><element><id>Relation</id><coordinates><x>758</x><y>198</y><w>130</w><h>30</h></coordinates><panel_attributes>lt=&lt;.</panel_attributes><additional_attributes>10;10;105;10</additional_attributes></element><element><id>Relation</id><coordinates><x>1148</x><y>198</y><w>140</w><h>30</h></coordinates><panel_attributes>lt=&lt;.</panel_attributes><additional_attributes>120;10;15;10</additional_attributes></element></diagram>

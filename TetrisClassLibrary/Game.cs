@@ -4,7 +4,7 @@ namespace TetrisClassLibrary
 {
     public class Game
     {
-        public PlayingField PlayingField { get; set; }
+        public Grid PlayingField { get; set; }
         public void Start()
         {
             //Create new spelplan
@@ -17,7 +17,6 @@ namespace TetrisClassLibrary
         /// </summary>
         public void Loop()
         {
-
 
             //loop (playing){
             //  printField 
@@ -37,24 +36,5 @@ namespace TetrisClassLibrary
             //}
         }
 
-        public void Loop()
-        {
-            //loop {
-            //  print field
-            //  print currenttetrino
-            //  takeinput
-
-            //    if (input left
-            //       checkCollision
-            //       currenttetrino.move()
-
-            //    if (input right
-            //        osv
-
-
-            //  check gravityCounter
-            //  update field
-            //}
-        }
     }
 }

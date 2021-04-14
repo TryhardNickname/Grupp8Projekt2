@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using TetrisClassLibrary;
 
 namespace Tetris
@@ -9,6 +10,7 @@ namespace Tetris
         {
             while (true)
             {
+                System.Collections.Generic
                 Console.WriteLine("Hello Menu!");
                 //console menu
                 Console.WriteLine("Do you wanna play tetris");
@@ -23,13 +25,24 @@ namespace Tetris
                 {
                     game = new Game();
                     game.Loop();
+                    Grid grid = new Grid();
+                    bool[][] boolarr;
+
+                    for (int x = 0; x < 10; x++)
+                    {
+
+                        for (int y = 0; y < 20; y++)
+                        {
+
+                        }
+                    }
+
+
+                    //print spelplan
+                    //print tetromino J 
+                    //print points
+                    //clear
                 }
-                
-                //print spelplan
-                //print tetromino J 
-                //print points
-                //clear
-            }
 
             Console.ReadKey();
         }

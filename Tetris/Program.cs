@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using TetrisClassLibrary;
+using System.Collections.Generic;
 
 namespace Tetris
 {
@@ -10,7 +11,6 @@ namespace Tetris
         {
             while (true)
             {
-                System.Collections.Generic
                 Console.WriteLine("Hello Menu!");
                 //console menu
                 Console.WriteLine("Do you wanna play tetris");
@@ -44,7 +44,8 @@ namespace Tetris
                     //clear
                 }
 
-            Console.ReadKey();
+                Console.ReadKey();
+            }
         }
     }
 }

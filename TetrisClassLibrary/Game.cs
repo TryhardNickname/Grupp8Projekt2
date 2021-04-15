@@ -11,6 +11,7 @@ namespace TetrisClassLibrary
         public Grid Grid { get; set; }
         public Score MyScore { get; set; }
 
+        ConsoleKeyInfo key;
         public Game()
         {
             Start();
@@ -38,6 +39,9 @@ namespace TetrisClassLibrary
 
             string input = "";
 
+            Thread inputThread = new Thread(Input);
+            inputThread.Start();
+
             while (playing)
             {
                 //GAME TIMING================
@@ -47,7 +51,7 @@ namespace TetrisClassLibrary
 
                 //HANDLE USER INPUT========== 
                 input = HandleUserInput();
-
+                key = new ConsoleKeyInfo();
 
                 //GAME LOGIC =?============= checking if collision -> if not -> perform action
                 switch (input)
@@ -110,9 +114,11 @@ namespace TetrisClassLibrary
                 DrawTetromino();
                 DrawScore(); //maybe only update when score updates for performance
                 DrawLevel(); // ¨^^^¨
+                
             }
 
         }
+
 
         private void DrawLevel()
         {
@@ -163,29 +169,30 @@ namespace TetrisClassLibrary
             }
         }
 
+
+        private void Input()
+        {
+            do
+            {
+                key = Console.ReadKey(true);
+            } while (true);//Console.KeyAvailable);
+        }
+
         /// <summary>
         /// Moves or rotates based on keyboard input
         /// </summary>
         public string HandleUserInput()
         {
-            
-            ConsoleKey key;
-            if (Console.KeyAvailable)
-            {
-                key = Console.ReadKey().Key;
 
-                return key switch
-                {
-                    ConsoleKey.A => "left",
-                    ConsoleKey.D => "right",
-                    ConsoleKey.Q => "rotate",
-                    _ => "null",
-                };
-            }
-            else
+            return key.Key switch
             {
-                return "null";
-            }
+                ConsoleKey.A => "left",
+                ConsoleKey.D => "right",
+                ConsoleKey.Q => "rotate",
+                _ => "null",
+            };
+
+
         }
 
     }

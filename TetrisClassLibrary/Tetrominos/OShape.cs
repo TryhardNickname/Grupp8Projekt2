@@ -8,5 +8,32 @@ namespace TetrisClassLibrary.Tetrominos
 {
     class OShape : Tetromino
     {
+        public OShape()
+        {
+            Color = ConsoleColor.Blue;
+
+            //1 1 0 0
+            //1 1 0 0 
+            //0 0 0 0
+            Shape = new List<List<char>>
+            {
+                new List<char>
+                {
+                    '@', '@', ' ', ' '
+                },
+                new List<char>
+                {
+                    '@', '@', ' ', ' '
+                },
+                new List<char>
+                {
+                    ' ', ' ', ' ', ' '
+                },
+                new List<char>
+                {
+                    ' ', ' ', ' ', ' '
+                }
+            };
+        }
     }
 }

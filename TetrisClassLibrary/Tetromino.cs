@@ -42,12 +42,56 @@ namespace TetrisClassLibrary
             {
                 Position = new Point(Position.X + 1, Position.Y);
             }
-            
+            else if (direction == "rotate")
+            {
+                Rotate();
+            }
+
         }
 
         public void Rotate()
         {
+            char[,] matrix = new char[4, 4];
+            for (int i = 0; i < 4; i++)
+            {
+                for (int j = 0; j < 4; j++)
+                {
+                    if (Shape[i][j] == '@')
+                    {
+                        matrix[i, j] = '@';
+                    }
+                    else
+                    {
+                        matrix[i, j] = ' ';
+                    }
+                }
+            }
 
+            char[,] newmatrix = new char[4, 4];
+            //rotate 2d array
+            for (int i = 3; i >= 0; --i)
+            {
+                for (int j = 0; j < 4; ++j)
+                {
+                    newmatrix[j, 3 - i] = matrix[i, j];
+                }
+            }
+
+            List<List<char>> newShape = new List<List<char>>();
+            for (int i = 0; i < 4; i++)
+            {
+                newShape.Add(new List<char>());
+            }
+
+            for (int row = 0; row < 4; row++)
+            {
+                for (int col = 0; col < 4; col++)
+                {
+                    newShape[row].Add(newmatrix[row, col]);
+                }
+            }
+
+            Shape = newShape;
         }
 
         public void GravityTick()

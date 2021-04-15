@@ -135,7 +135,7 @@ namespace TetrisClassLibrary
             }
             else if (keyInput == "rotate")
             {
-
+                CurrentTetromino.Move("rotate");
             }
         }
 

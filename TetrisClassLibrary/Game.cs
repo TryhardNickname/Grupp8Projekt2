@@ -19,8 +19,6 @@ namespace TetrisClassLibrary
             grid = new Grid();
         }
 
-        string direction;
-
         /// <summary>
         /// Main Game Loop
         /// takes input, updates fields AND prints to console
@@ -36,6 +34,9 @@ namespace TetrisClassLibrary
             int gravity = 20; //20 game tics
             int tickCounter = 0;
 
+            string input = "";
+
+
             while (playing)
             {
                 //GAME TIMING================
@@ -46,20 +47,43 @@ namespace TetrisClassLibrary
 
 
                 //HANDLE USER INPUT========== check collision etc game logic
-                CheckInput();
+                input = HandleUserInput();
 
                 //GAME LOGIC =?=============
+                switch (input)
+                {
+                    case "left":
+                        if(grid.CanTetroFit(-1, 0))
+                        {
+                            grid.UpdateTetromino("left");
+                        }
+                        break;
+                    case "right":
+                        if (grid.CanTetroFit(1, 0))
+                        {
+                            grid.UpdateTetromino("right");
+                        }
+                        break;
+                    case "rotate":
+                        if (grid.CanTetroFit(0, 0))
+                        {
+                            grid.UpdateTetromino("rotate");
+                        }
+                        break;
+                    default:
+                        break;
+                }
 
                 if (tickCounter == gravity)
                 {
-                    if (grid.TryToMoveDown())
+                    if (grid.CanTetroFit(0, 1))
                     {
                         // it worked
+                        grid.CurrentTetromino.GravityTick();
                     }
                     else
                     {
-                        //Check if new tetro can spawn?
-                        grid.CanTetroFit(0, 1);
+                        // check if game lose
                         grid.AddNewRandomTetromino();
                     }
                     tickCounter = 0;
@@ -96,8 +120,8 @@ namespace TetrisClassLibrary
 
         private void DrawTetromino()
         {
-            Point pos = grid.CurrentTetromino.GetPos();
-
+            int X = grid.CurrentTetromino.GetX();
+            int Y = grid.CurrentTetromino.GetY();
             for (int row = 0; row < 4; row++)
             {
                 for (int col = 0; col < 4; col++)
@@ -110,7 +134,7 @@ namespace TetrisClassLibrary
                     {
                         //GridArea[row][col] = '@';
                         Console.ForegroundColor = grid.CurrentTetromino.Color;
-                        Console.SetCursorPosition(pos.X+col, pos.Y+row);
+                        Console.SetCursorPosition(X+col, Y+row);
                         Console.Write('@');
                         Console.ForegroundColor = ConsoleColor.White;
                     }
@@ -118,28 +142,33 @@ namespace TetrisClassLibrary
             }
         }
 
-        public void CheckInput()
+        /// <summary>
+        /// Moves or rotates based on keyboard input
+        /// </summary>
+        public string HandleUserInput()
         {
             ConsoleKey key;
             if (Console.KeyAvailable)
             {
                 key = Console.ReadKey().Key;
 
-                switch (key)
+                return key switch
                 {
-                    case ConsoleKey.A:
-                        grid.UpdateTetromino("left");
-                        break;
-                    case ConsoleKey.D:
-                        grid.UpdateTetromino("right");
-                        break;
-                    case ConsoleKey.Q:
-                        grid.UpdateTetromino("rotate");
-                        break;
-                    default:
-                        direction = "null";
-                        break;
-                }
+                    ConsoleKey.A => "left",
+                    //grid.UpdateTetromino("left");
+                    //break;
+                    ConsoleKey.D => "right",
+                    //grid.UpdateTetromino("right");
+                    //break;
+                    ConsoleKey.Q => "rotate",
+                    //grid.UpdateTetromino("rotate");
+                    //break;
+                    _ => "null",
+                };
+            }
+            else
+            {
+                return "null";
             }
         }
 

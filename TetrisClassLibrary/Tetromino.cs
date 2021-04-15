@@ -11,13 +11,17 @@ namespace TetrisClassLibrary
     public abstract class Tetromino
     {
         //Point(X,Y);
-        protected Point Position { get; set; }
+        //protected Point Position { get; set; }
+        public int X {protected get; set; }
+        public int Y {protected get; set; }
         public List<List<char>> Shape { get; set; }
         public ConsoleColor Color { get; set; }       
 
         public Tetromino()
         {
-            Position = new System.Drawing.Point(5, 1);
+            //Position = new System.Drawing.Point(5, 1);
+            X = 5;
+            Y = 1;
             //1 = SShape
             //2 = ZShape
             //3 = LShape
@@ -27,20 +31,36 @@ namespace TetrisClassLibrary
             //7 = OShape
             //Enum??
         }
-
-        public Point GetPos()
+        protected Tetromino(Tetromino copy) : this()
         {
-            return Position;
+            this.X = copy.X;
+            this.Y = copy.Y;
+            this.Shape = copy.Shape;
+            this.Color = copy.Color;
+
+        }
+
+        public abstract Tetromino Clone();
+
+        public int GetX()
+        {
+            return X;
+        }
+        public int GetY()
+        {
+            return Y;
         }
         public void Move(string direction)
         {
             if (direction == "left")
             {
-                Position = new Point(Position.X-1, Position.Y);
+                //Position = new Point(Position.X-1, Position.Y);
+                X = X - 1;
             }
             else if (direction == "right")
             {
-                Position = new Point(Position.X + 1, Position.Y);
+                //Position = new Point(Position.X + 1, Position.Y);
+                X = X + 1;
             }
             else if (direction == "rotate")
             {
@@ -96,8 +116,9 @@ namespace TetrisClassLibrary
 
         public void GravityTick()
         {
-            Position = new Point(Position.X, Position.Y + 1);
-            //Position = position;
+            //Position = new Point(Position.X, Position.Y + 1);
+            Y = Y + 1;
+            
         }
     }
 }

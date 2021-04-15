@@ -35,5 +35,15 @@ namespace TetrisClassLibrary.Tetrominos
                 }
             };
         }
+
+        protected TShape(TShape copy) : base(copy)
+        {
+            //?
+        }
+
+        public override Tetromino Clone()
+        {
+            return new TShape(this);
+        }
     }
 }

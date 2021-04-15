@@ -35,5 +35,14 @@ namespace TetrisClassLibrary.Tetrominos
                 }
             };
         }
+        protected OShape(OShape copy) : base(copy)
+        {
+            //?
+        }
+
+        public override Tetromino Clone()
+        {
+            return new OShape(this);
+        }
     }
 }

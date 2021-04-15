@@ -10,7 +10,6 @@ namespace TetrisClassLibrary
     {
         public List<List<char>> GridArea;
         public Tetromino CurrentTetromino { get; set; }
-
         public Grid()
         {
             GridArea = new List<List<char>>();
@@ -90,22 +89,34 @@ namespace TetrisClassLibrary
         public bool CanTetroFit(int X, int Y)
         {
             //Add current tetromino position
-            //Loop through grid to see collission?
-            //if collission == revert tetro position
-            //return false
-            //else true
-            if(X == 1)
+            var copytest = CurrentTetromino.Clone();
+            if (X == 1)
             {
-                CurrentTetromino.Move("right");
+                copytest.Move("right");
+            }
+            else if (X == -1)
+            {
+                copytest.Move("left");
+            }
+            else if ( Y == 1)
+            {
+                copytest.GravityTick();
+            }
+            else if (X == 0 && Y == 0)
+            {
+                //check if you can rotate 
             }
 
+
+            //Loop through grid to see collission?
             for (int row = 0; row < 4; row++)
             {
                 for (int col = 0; col < 4; col++)
                 {
-                    if (CurrentTetromino.Shape[row][col] == '@')
+                    if (copytest.Shape[row][col] == '@')
                     {
-                        if (GridArea[CurrentTetromino.GetPos().Y+row][CurrentTetromino.GetPos().X+col] == '@')
+                        //if collission return false
+                        if (GridArea[copytest.GetY()+row][copytest.GetX()+col] == '@' || GridArea[copytest.GetY() + row][copytest.GetX() + col] == '░')
                         {
                             return false;
                         }
@@ -113,39 +124,43 @@ namespace TetrisClassLibrary
                     }
                 }
             }
+            //else true
             return true;
+            
         }
-        //Checks if tetromino can move down
-        public bool TryToMoveDown()
-        {
-            if (CurrentTetromino.GetPos().Y > 19)
-            {
-                Point pos = CurrentTetromino.GetPos();
 
-                for (int row = 0; row < 4; row++)
-                {
-                    for (int col = 0; col < 4; col++)
-                    {
-                        if (CurrentTetromino.Shape[row][col] == ' ')
-                        {
+        ////Checks if tetromino can move down
+        //public bool TryToMoveDown()
+        //{
+        //    if (CurrentTetromino.GetY > 19)
+        //    {
+        //        Point pos = CurrentTetromino.GetPos();
+
+        //        for (int row = 0; row < 4; row++)
+        //        {
+        //            for (int col = 0; col < 4; col++)
+        //            {
+        //                if (CurrentTetromino.Shape[row][col] == ' ')
+        //                {
                             
-                        }
-                        else
-                        {
-                            GridArea[pos.Y + row][pos.X + col] = '@';
-                        }
-                    }
-                }
-                return false;
-            }
-            else
-            {
-                CurrentTetromino.GravityTick();
-                return true;
+        //                }
+        //                else
+        //                {
+        //                    GridArea[pos.Y + row][pos.X + col] = '@';
+        //                }
+        //            }
+        //        }
+        //        return false;
+        //    }
+        //    else
+        //    {
+        //        CurrentTetromino.GravityTick();
+        //        return true;
 
-            }
+        //    }
 
-        }
+        //}
+
         public void UpdateTetromino(string keyInput)
         {
             if (keyInput == null)
@@ -155,7 +170,7 @@ namespace TetrisClassLibrary
             else if (keyInput == "left")
             {
 
-                if (CurrentTetromino.GetPos().X < 2)
+                if (CurrentTetromino.GetX() < 2)
                 {
                     //wall
                 }
@@ -166,7 +181,7 @@ namespace TetrisClassLibrary
             }
             else if (keyInput == "right")
             {
-                if (CurrentTetromino.GetPos().X > 9)
+                if (CurrentTetromino.GetX() > 9)
                 {
                     //wall
                 }

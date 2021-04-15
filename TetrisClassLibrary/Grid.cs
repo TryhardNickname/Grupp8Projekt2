@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Threading;
 using TetrisClassLibrary.Tetrominos;
 
 namespace TetrisClassLibrary
@@ -86,7 +87,36 @@ namespace TetrisClassLibrary
 
         }
 
-        public bool GravityTick()
+        public bool CanTetroFit(int X, int Y)
+        {
+            //Add current tetromino position
+            //Loop through grid to see collission?
+            //if collission == revert tetro position
+            //return false
+            //else true
+            if(X == 1)
+            {
+                CurrentTetromino.Move("right");
+            }
+
+            for (int row = 0; row < 4; row++)
+            {
+                for (int col = 0; col < 4; col++)
+                {
+                    if (CurrentTetromino.Shape[row][col] == '@')
+                    {
+                        if (GridArea[CurrentTetromino.GetPos().Y+row][CurrentTetromino.GetPos().X+col] == '@')
+                        {
+                            return false;
+                        }
+
+                    }
+                }
+            }
+            return true;
+        }
+        //Checks if tetromino can move down
+        public bool TryToMoveDown()
         {
             if (CurrentTetromino.GetPos().Y > 19)
             {

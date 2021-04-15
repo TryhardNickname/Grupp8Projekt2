@@ -8,7 +8,8 @@ namespace TetrisClassLibrary
 {
     public class Game
     {
-        public Grid grid { get; set; }
+        public Grid Grid { get; set; }
+        public Score MyScore { get; set; }
 
         public Game()
         {
@@ -16,7 +17,10 @@ namespace TetrisClassLibrary
         }
         public void Start()
         {
-            grid = new Grid();
+            Grid = new Grid();
+            MyScore = new Score();
+            Console.CursorVisible = false;
+
         }
 
         /// <summary>
@@ -27,47 +31,43 @@ namespace TetrisClassLibrary
         public void Loop()
         {
             bool playing = true;
-            grid.AddNewRandomTetromino();
-            //System.Timers.Timer timer = new System.Timers.Timer();
-            //Stopwatch.StartNew();
+            Grid.AddNewRandomTetromino();
 
             int gravity = 20; //20 game tics
             int tickCounter = 0;
 
             string input = "";
 
-
             while (playing)
             {
                 //GAME TIMING================
-                var timeElapsed = Stopwatch.GetTimestamp();
-                Thread.Sleep(50); //game tick
+                Thread.Sleep(50); //game tick // System.Timers better?
                 tickCounter++;
 
 
-
-                //HANDLE USER INPUT========== check collision etc game logic
+                //HANDLE USER INPUT========== 
                 input = HandleUserInput();
 
-                //GAME LOGIC =?=============
+
+                //GAME LOGIC =?============= checking if collision -> if not -> perform action
                 switch (input)
                 {
                     case "left":
-                        if(grid.CanTetroFit(-1, 0))
+                        if(Grid.CanTetroFit(-1, 0))
                         {
-                            grid.UpdateTetromino("left");
+                            Grid.UpdateTetromino("left");
                         }
                         break;
                     case "right":
-                        if (grid.CanTetroFit(1, 0))
+                        if (Grid.CanTetroFit(1, 0))
                         {
-                            grid.UpdateTetromino("right");
+                            Grid.UpdateTetromino("right");
                         }
                         break;
                     case "rotate":
-                        if (grid.CanTetroFit(0, 0))
+                        if (Grid.CanTetroFit(0, 0))
                         {
-                            grid.UpdateTetromino("rotate");
+                            Grid.UpdateTetromino("rotate");
                         }
                         break;
                     default:
@@ -76,32 +76,53 @@ namespace TetrisClassLibrary
 
                 if (tickCounter == gravity)
                 {
-                    if (grid.CanTetroFit(0, 1))
+                    if (Grid.CanTetroFit(0, 1))
                     {
                         // it worked
-                        grid.CurrentTetromino.GravityTick();
+                        Grid.CurrentTetromino.GravityTick();
                     }
                     else
                     {
                         // check if game lose
-                        grid.AddNewRandomTetromino();
+                        //AddCurrentTetromino to stack()??
+                        Grid.AddNewRandomTetromino();
                     }
                     tickCounter = 0;
                 }
 
 
 
-                //UPDATE GRID ==============
-
-
+                //CHECK FOR FULL ROWS ==============
+                int rowsCleared = Grid.CheckForFullRow();
+                if ( rowsCleared > 0)
+                {
+                    Grid.RemoveFullRows();
+                    Grid.UpdateGrid();
+                    MyScore.UpdateScore();
+                    if (MyScore.LevelUp())
+                    {
+                        gravity--;
+                    }
+                }
 
                 //DRAW GAME==================
                 DrawGameField();
                 DrawTetromino();
+                DrawScore(); //maybe only update when score updates for performance
+                DrawLevel(); // ¨^^^¨
             }
 
         }
 
+        private void DrawLevel()
+        {
+            //throw new NotImplementedException();
+        }
+
+        private void DrawScore()
+        {
+            //throw new NotImplementedException();
+        }
 
         private void DrawGameField()
         {
@@ -111,7 +132,7 @@ namespace TetrisClassLibrary
             {
                 for (int j = 0; j < 12; j++)
                 {
-                    Console.Write(grid.GridArea[i][j]);
+                    Console.Write(Grid.GridArea[i][j]);
                 }
                 Console.WriteLine();
 
@@ -120,20 +141,20 @@ namespace TetrisClassLibrary
 
         private void DrawTetromino()
         {
-            int X = grid.CurrentTetromino.GetX();
-            int Y = grid.CurrentTetromino.GetY();
+            int X = Grid.CurrentTetromino.GetX();
+            int Y = Grid.CurrentTetromino.GetY();
             for (int row = 0; row < 4; row++)
             {
                 for (int col = 0; col < 4; col++)
                 {
-                    if (grid.CurrentTetromino.Shape[row][col] == ' ')
+                    if (Grid.CurrentTetromino.Shape[row][col] == ' ')
                     {
                         //GridArea[pos.Y + row][pos.X + col] = ' ';
                     }
                     else
                     {
                         //GridArea[row][col] = '@';
-                        Console.ForegroundColor = grid.CurrentTetromino.Color;
+                        Console.ForegroundColor = Grid.CurrentTetromino.Color;
                         Console.SetCursorPosition(X+col, Y+row);
                         Console.Write('@');
                         Console.ForegroundColor = ConsoleColor.White;
@@ -147,6 +168,7 @@ namespace TetrisClassLibrary
         /// </summary>
         public string HandleUserInput()
         {
+            
             ConsoleKey key;
             if (Console.KeyAvailable)
             {
@@ -155,14 +177,8 @@ namespace TetrisClassLibrary
                 return key switch
                 {
                     ConsoleKey.A => "left",
-                    //grid.UpdateTetromino("left");
-                    //break;
                     ConsoleKey.D => "right",
-                    //grid.UpdateTetromino("right");
-                    //break;
                     ConsoleKey.Q => "rotate",
-                    //grid.UpdateTetromino("rotate");
-                    //break;
                     _ => "null",
                 };
             }

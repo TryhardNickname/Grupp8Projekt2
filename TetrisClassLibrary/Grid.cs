@@ -31,42 +31,21 @@ namespace TetrisClassLibrary
                 if (i < GridArea[0].Count)
                 {
                     GridArea[0][i] = '░';  // Top
-                    testdraw();
 
                     GridArea[GridArea.Count - 1][i] = '░';  // Bottom
-                    testdraw();
                 }
                 GridArea[i][0] = '░';  // Left
-                testdraw();
 
                 GridArea[i][GridArea[0].Count - 1] = '░';  // Right
-                testdraw();
             }
             
         }
-        public void testdraw()
+
+        public int CheckForFullRow()
         {
-            Console.SetCursorPosition(0, 0);
-            for (int i2 = 0; i2 < 22; i2++)
-            {
-                for (int j2 = 0; j2 < 12; j2++)
-                {
-                    Console.Write(GridArea[i2][j2]);
-                }
-                Console.WriteLine();
-
-            }
-        }
-        public void UpdateGrid(string keyInput)
-        {
-
-            //kolla om tetromino landar
-            //sätt till '@'
-
-            //kolla kollision
 
             //kolla full rad?
-            for (int i = 22; i > 0; i--)
+            for (int i = 21; i <= 0; i--)
             {
                 for (int j = 0; j < 12; j++)
                 {
@@ -75,32 +54,29 @@ namespace TetrisClassLibrary
                     if (row == "@@@@@@@@@@@@")
                     {
                         //Clear row
+                        return 1;
                     }
                 }
             }
 
-            //kolla om game over?
-
-            //kolla vart nuvarande tetromino är
-            //UpdateTetromino();
-
+            return 0;
         }
 
         public bool CanTetroFit(int X, int Y)
         {
             //Add current tetromino position
-            var copytest = CurrentTetromino.Clone();
+            var ClonedTetromino = CurrentTetromino.Clone();
             if (X == 1)
             {
-                copytest.Move("right");
+                ClonedTetromino.Move("right");
             }
             else if (X == -1)
             {
-                copytest.Move("left");
+                ClonedTetromino.Move("left");
             }
             else if ( Y == 1)
             {
-                copytest.GravityTick();
+                ClonedTetromino.GravityTick();
             }
             else if (X == 0 && Y == 0)
             {
@@ -113,10 +89,10 @@ namespace TetrisClassLibrary
             {
                 for (int col = 0; col < 4; col++)
                 {
-                    if (copytest.Shape[row][col] == '@')
+                    if (ClonedTetromino.Shape[row][col] == '@')
                     {
                         //if collission return false
-                        if (GridArea[copytest.GetY()+row][copytest.GetX()+col] == '@' || GridArea[copytest.GetY() + row][copytest.GetX() + col] == '░')
+                        if (GridArea[ClonedTetromino.GetY()+row][ClonedTetromino.GetX()+col] == '@' || GridArea[ClonedTetromino.GetY() + row][ClonedTetromino.GetX() + col] == '░')
                         {
                             return false;
                         }
@@ -129,70 +105,33 @@ namespace TetrisClassLibrary
             
         }
 
-        ////Checks if tetromino can move down
-        //public bool TryToMoveDown()
-        //{
-        //    if (CurrentTetromino.GetY > 19)
-        //    {
-        //        Point pos = CurrentTetromino.GetPos();
+        internal void UpdateGrid()
+        {
+            //throw new NotImplementedException();
+        }
 
-        //        for (int row = 0; row < 4; row++)
-        //        {
-        //            for (int col = 0; col < 4; col++)
-        //            {
-        //                if (CurrentTetromino.Shape[row][col] == ' ')
-        //                {
-                            
-        //                }
-        //                else
-        //                {
-        //                    GridArea[pos.Y + row][pos.X + col] = '@';
-        //                }
-        //            }
-        //        }
-        //        return false;
-        //    }
-        //    else
-        //    {
-        //        CurrentTetromino.GravityTick();
-        //        return true;
+        internal void RemoveFullRows()
+        {
+            //throw new NotImplementedException();
+        }
 
-        //    }
 
-        //}
 
         public void UpdateTetromino(string keyInput)
         {
-            if (keyInput == null)
-            {
-                return;
-            }
-            else if (keyInput == "left")
-            {
 
-                if (CurrentTetromino.GetX() < 2)
-                {
-                    //wall
-                }
-                else
-                {
-                    CurrentTetromino.Move("left");
-                }
+            if (keyInput == "left")
+            {
+                CurrentTetromino.Move("left");
             }
             else if (keyInput == "right")
             {
-                if (CurrentTetromino.GetX() > 9)
-                {
-                    //wall
-                }
-                else
-                {
-                    CurrentTetromino.Move("right");
-                }
+
+                CurrentTetromino.Move("right");
             }
             else if (keyInput == "rotate")
             {
-                CurrentTetromino.Move("rotate");
+                CurrentTetromino.Rotate();
             }
         }
 
@@ -200,8 +139,6 @@ namespace TetrisClassLibrary
         {
             Random rng = new Random();
             int num = rng.Next(1, 7);
-            int test = 1;
-            num = test;
             switch (num)
             {
                 case 1:

@@ -6,7 +6,17 @@ using System.Threading.Tasks;
 
 namespace TetrisClassLibrary
 {
-    class Score
+    public class Score
     {
+        internal void UpdateScore()
+        {
+            //throw new NotImplementedException();
+        }
+
+        internal bool LevelUp()
+        {
+            //throw new NotImplementedException();
+            return false;
+        }
     }
 }

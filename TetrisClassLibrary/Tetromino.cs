@@ -62,15 +62,12 @@ namespace TetrisClassLibrary
                 //Position = new Point(Position.X + 1, Position.Y);
                 X = X + 1;
             }
-            else if (direction == "rotate")
-            {
-                Rotate();
-            }
 
         }
 
         public void Rotate()
         {
+
             char[,] matrix = new char[4, 4];
             for (int i = 0; i < 4; i++)
             {
@@ -97,12 +94,11 @@ namespace TetrisClassLibrary
                 }
             }
 
-            List<List<char>> newShape = new List<List<char>>();
+            List<List<char>> newShape = new();
             for (int i = 0; i < 4; i++)
             {
                 newShape.Add(new List<char>());
             }
-
             for (int row = 0; row < 4; row++)
             {
                 for (int col = 0; col < 4; col++)
@@ -112,6 +108,9 @@ namespace TetrisClassLibrary
             }
 
             Shape = newShape;
+
+            //addoffsetdata?
+
         }
 
         public void GravityTick()

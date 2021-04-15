@@ -26,7 +26,7 @@ CheckIfFullLine()
 CheckCollision()
 --
 klass som representerar spelplanen. 
-innehåller nuvarande tetrominos
+innehåller nuvarande tetrominon
 
 kollision med fyllda rutor
 
@@ -48,7 +48,7 @@ ReadInput ()
 Loop()
 
 PrintGrid()
-PrintTetromino()</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>480</x><y>28</y><w>150</w><h>100</h></coordinates><panel_attributes>Score
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>480</x><y>28</y><w>150</w><h>100</h></coordinates><panel_attributes>Score
 --
 int: score
 --

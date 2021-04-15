@@ -25,32 +25,25 @@ namespace TetrisClassLibrary
         public void Loop()
         {
             bool playing = true;
+            //first 
             grid.AddNewRandomTetromino();
+
 
             while (playing)
             {
-                grid.UpdateTetromino();
+                //DRAW GAME==================
                 Console.SetCursorPosition(0, 0);
-
                 DrawGameField();
-                Thread.Sleep(1000);
+
+                //HANDLE USER INPUT========== check collision etc game logic
+                //Console.KeyAvailable;
+
+
+                //UPDATE GRID ==============
+                //check gravity, pass into update?
+                grid.UpdateTetromino();
             }
-            //loop (playing){
-            //  printField 
-            //  printCurrenttetrino
-            //  takeinput
 
-            //    if (input left
-            //       checkCollision
-            //       currenttetrino.move()
-
-            //    if (input right
-            //        osv
-
-
-            //  check gravityCounter
-            //  update field
-            //}
         }
 
 

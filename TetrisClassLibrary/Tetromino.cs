@@ -68,45 +68,46 @@ namespace TetrisClassLibrary
         public void Rotate()
         {
 
-            char[,] matrix = new char[4, 4];
-            for (int i = 0; i < 4; i++)
+            //clockwise
+            int width;
+            int height;
+
+            width = Shape[0].Count;
+            height = Shape.Count;
+
+            List<List<char>> newShape = new List<List<char>>
             {
-                for (int j = 0; j < 4; j++)
+                new List<char>
                 {
-                    if (Shape[i][j] == '@')
-                    {
-                        matrix[i, j] = '@';
-                    }
-                    else
-                    {
-                        matrix[i, j] = ' ';
-                    }
+                    ' ', ' ', ' ', ' '
+                },
+                new List<char>
+                {
+                    ' ', ' ', ' ', ' '
+                },
+                new List<char>
+                {
+                    ' ', ' ', ' ', ' '
+                },
+                new List<char>
+                {
+                    ' ', ' ', ' ', ' '
+                }
+            };
+
+            for (int row = 0; row < height; row++)
+            {
+                for (int col = 0; col < width; col++)
+                {
+                    int newRow;
+                    int newCol;
+
+                    newRow = col;
+                    newCol = height - (row + 1);
+
+                    newShape[newRow][newCol] = Shape[row][col];
                 }
             }
-
-            char[,] newmatrix = new char[4, 4];
-            //rotate 2d array
-            for (int i = 3; i >= 0; --i)
-            {
-                for (int j = 0; j < 4; ++j)
-                {
-                    newmatrix[j, 3 - i] = matrix[i, j];
-                }
-            }
-
-            List<List<char>> newShape = new();
-            for (int i = 0; i < 4; i++)
-            {
-                newShape.Add(new List<char>());
-            }
-            for (int row = 0; row < 4; row++)
-            {
-                for (int col = 0; col < 4; col++)
-                {
-                    newShape[row].Add(newmatrix[row, col]);
-                }
-            }
-
             Shape = newShape;
 
             //addoffsetdata?

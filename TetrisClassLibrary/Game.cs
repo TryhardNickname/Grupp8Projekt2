@@ -37,7 +37,6 @@ namespace TetrisClassLibrary
             int gravity = 20; //20 game tics
             int tickCounter = 0;
 
-            string input = "";
 
             Thread inputThread = new Thread(Input);
             inputThread.Start();
@@ -50,39 +49,15 @@ namespace TetrisClassLibrary
 
 
                 //HANDLE USER INPUT========== 
-                input = HandleUserInput();
+                HandleUserInput();
                 key = new ConsoleKeyInfo();
 
-                //GAME LOGIC =?============= checking if collision -> if not -> perform action
-                switch (input)
-                {
-                    case "left":
-                        if(Grid.CanTetroFit(-1, 0))
-                        {
-                            Grid.UpdateTetromino("left");
-                        }
-                        break;
-                    case "right":
-                        if (Grid.CanTetroFit(1, 0))
-                        {
-                            Grid.UpdateTetromino("right");
-                        }
-                        break;
-                    case "rotate":
-                        if (Grid.CanTetroFit(0, 0))
-                        {
-                            Grid.UpdateTetromino("rotate");
-                        }
-                        break;
-                    default:
-                        break;
-                }
-
+                //GAME LOGIC =?==============  
                 if (tickCounter == gravity)
                 {
                     if (Grid.CanTetroFit(0, 1))
                     {
-                        // it worked
+                        // it worked 
                         Grid.CurrentTetromino.GravityTick();
                     }
                     else
@@ -181,17 +156,31 @@ namespace TetrisClassLibrary
         /// <summary>
         /// Moves or rotates based on keyboard input
         /// </summary>
-        public string HandleUserInput()
+        public void HandleUserInput()
         {
-
-            return key.Key switch
+            switch (key.Key)
             {
-                ConsoleKey.A => "left",
-                ConsoleKey.D => "right",
-                ConsoleKey.Q => "rotate",
-                _ => "null",
-            };
-
+                case ConsoleKey.A:
+                    if (Grid.CanTetroFit(-1, 0))
+                    {
+                        Grid.UpdateTetromino("left");
+                    }
+                    break;
+                case ConsoleKey.D:
+                    if (Grid.CanTetroFit(1, 0))
+                    {
+                        Grid.UpdateTetromino("right");
+                    }
+                    break;
+                case ConsoleKey.Q:
+                    if (Grid.CanTetroFit(0, 0))
+                    {
+                        Grid.UpdateTetromino("rotate");
+                    }
+                    break;
+                default:
+                    break;
+            }
 
         }
 

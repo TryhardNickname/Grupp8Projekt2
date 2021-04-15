@@ -61,14 +61,26 @@ namespace TetrisClassLibrary
         {
 
             //kolla om tetromino landar
-                //sätt till '@'
+            //sätt till '@'
 
             //kolla kollision
 
             //kolla full rad?
+            for (int i = 22; i > 0; i--)
+            {
+                for (int j = 0; j < 12; j++)
+                {
+                    string row = "";
+                    row += GridArea[i][j];
+                    if (row == "@@@@@@@@@@@@")
+                    {
+                        //Clear row
+                    }
+                }
+            }
 
             //kolla om game over?
-            
+
             //kolla vart nuvarande tetromino är
             //UpdateTetromino();
 

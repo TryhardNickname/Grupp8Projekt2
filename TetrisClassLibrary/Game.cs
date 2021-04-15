@@ -19,6 +19,8 @@ namespace TetrisClassLibrary
             grid = new Grid();
         }
 
+        string direction;
+
         /// <summary>
         /// Main Game Loop
         /// takes input, updates fields AND prints to console
@@ -34,8 +36,6 @@ namespace TetrisClassLibrary
             int gravity = 20; //20 game tics
             int tickCounter = 0;
 
-            string direction = "left";
-
             while (playing)
             {
                 //GAME TIMING================
@@ -46,12 +46,10 @@ namespace TetrisClassLibrary
 
 
                 //HANDLE USER INPUT========== check collision etc game logic
-                //Console.KeyAvailable;
-                //if hanldleuserinptu == 1
-                //grid.UpdateTetromino(left)
+                CheckInput();
 
                 //GAME LOGIC =?=============
-                grid.UpdateTetromino(direction);
+
                 if (tickCounter == gravity)
                 {
                     if (grid.GravityTick())
@@ -116,8 +114,31 @@ namespace TetrisClassLibrary
                     }
                 }
             }
-            
+        }
 
+        public void CheckInput()
+        {
+            ConsoleKey key;
+            if (Console.KeyAvailable)
+            {
+                key = Console.ReadKey().Key;
+
+                switch (key)
+                {
+                    case ConsoleKey.A:
+                        grid.UpdateTetromino("left");
+                        break;
+                    case ConsoleKey.D:
+                        grid.UpdateTetromino("right");
+                        break;
+                    case ConsoleKey.Q:
+                        grid.UpdateTetromino("rotate");
+                        break;
+                    default:
+                        direction = "null";
+                        break;
+                }
+            }
         }
 
     }

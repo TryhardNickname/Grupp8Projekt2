@@ -133,7 +133,10 @@ namespace TetrisClassLibrary
                     CurrentTetromino.Move("right");
                 }
             }
-            
+            else if (keyInput == "rotate")
+            {
+
+            }
         }
 
         public void AddNewRandomTetromino()

@@ -107,11 +107,13 @@ namespace TetrisClassLibrary
 
         internal void UpdateGrid()
         {
+            
             //throw new NotImplementedException();
         }
 
         internal void RemoveFullRows()
         {
+            //removes rows //and moves tiles over down
             //throw new NotImplementedException();
         }
 

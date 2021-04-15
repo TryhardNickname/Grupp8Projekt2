@@ -97,7 +97,7 @@ namespace TetrisClassLibrary
                 if ( rowsCleared > 0)
                 {
                     Grid.RemoveFullRows();
-                    Grid.UpdateGrid();
+                    //Grid.UpdateGrid();
                     MyScore.UpdateScore();
                     if (MyScore.LevelUp())
                     {

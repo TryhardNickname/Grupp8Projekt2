@@ -58,7 +58,7 @@ namespace TetrisClassLibrary
                     if (Grid.CanTetroFit(0, 1))
                     {
                         // it worked 
-                        Grid.CurrentTetromino.GravityTick();
+                        Grid.UpdateTetromino("gravity");
                     }
                     else
                     {
@@ -161,22 +161,13 @@ namespace TetrisClassLibrary
             switch (key.Key)
             {
                 case ConsoleKey.A:
-                    if (Grid.CanTetroFit(-1, 0))
-                    {
-                        Grid.UpdateTetromino("left");
-                    }
+                    Grid.UpdateTetromino("left");
                     break;
                 case ConsoleKey.D:
-                    if (Grid.CanTetroFit(1, 0))
-                    {
-                        Grid.UpdateTetromino("right");
-                    }
+                    Grid.UpdateTetromino("right");
                     break;
                 case ConsoleKey.Q:
-                    if (Grid.CanTetroFit(0, 0))
-                    {
-                        Grid.UpdateTetromino("rotate");
-                    }
+                    Grid.UpdateTetromino("rotate");
                     break;
                 default:
                     break;

@@ -122,19 +122,24 @@ namespace TetrisClassLibrary
         public void UpdateTetromino(string keyInput)
         {
 
-            if (keyInput == "left")
+            if (keyInput == "left" && CanTetroFit(-1, 0))
             {
                 CurrentTetromino.Move("left");
             }
-            else if (keyInput == "right")
+            else if (keyInput == "right" && CanTetroFit(1, 0))
             {
 
                 CurrentTetromino.Move("right");
             }
-            else if (keyInput == "rotate")
+            else if (keyInput == "rotate" && CanTetroFit(0, 0))
             {
                 CurrentTetromino.Rotate();
             }
+            else if (keyInput == "gravity" && CanTetroFit(0, 1))
+            {
+                CurrentTetromino.GravityTick();
+            }
+            
         }
 
         public void AddNewRandomTetromino()

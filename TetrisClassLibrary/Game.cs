@@ -54,12 +54,14 @@ namespace TetrisClassLibrary
                 grid.UpdateTetromino(direction);
                 if (tickCounter == gravity)
                 {
-                    if (grid.GravityTick())
+                    if (grid.TryToMoveDown())
                     {
                         // it worked
                     }
                     else
                     {
+                        //Check if new tetro can spawn?
+                        grid.CanTetroFit(0, 1);
                         grid.AddNewRandomTetromino();
                     }
                     tickCounter = 0;

@@ -39,7 +39,7 @@ namespace TetrisClassLibrary
             {
                 Position = new Point(Position.X-1, Position.Y);
             }
-            else if (direction == "left")
+            else if (direction == "right")
             {
                 Position = new Point(Position.X + 1, Position.Y);
             }

@@ -13,7 +13,7 @@ namespace TetrisClassLibrary
         //Point(X,Y);
         protected Point Position { get; set; }
         public List<List<char>> Shape { get; set; }
-        protected ConsoleColor Color { get; set; }
+        public ConsoleColor Color { get; set; }
         
 
         public Tetromino()
@@ -39,7 +39,7 @@ namespace TetrisClassLibrary
             {
                 Position = new Point(Position.X-1, Position.Y);
             }
-            else
+            else if (direction == "left")
             {
                 Position = new Point(Position.X + 1, Position.Y);
             }
@@ -49,6 +49,12 @@ namespace TetrisClassLibrary
         public void Rotate()
         {
 
+        }
+
+        public void GravityTick()
+        {
+            Position = new Point(Position.X, Position.Y + 1);
+            //Position = position;
         }
     }
 }

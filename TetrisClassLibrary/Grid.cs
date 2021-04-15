@@ -26,39 +26,116 @@ namespace TetrisClassLibrary
         private void BuildBarrier()
         {
 
-            for (int i = 0; i < GridArea[0].Count; i++)
+            for (int i = 0; i < GridArea.Count; i++)
             {
-                GridArea[0][i] = '░';  // Top
+                if (i < GridArea[0].Count)
+                {
+                    GridArea[0][i] = '░';  // Top
+                    testdraw();
 
-                GridArea[GridArea[0].Count - 1][i] = '░';  // Bottom
-
+                    GridArea[GridArea.Count - 1][i] = '░';  // Bottom
+                    testdraw();
+                }
                 GridArea[i][0] = '░';  // Left
+                testdraw();
 
                 GridArea[i][GridArea[0].Count - 1] = '░';  // Right
+                testdraw();
+            }
+            
+        }
+        public void testdraw()
+        {
+            Console.SetCursorPosition(0, 0);
+            for (int i2 = 0; i2 < 22; i2++)
+            {
+                for (int j2 = 0; j2 < 12; j2++)
+                {
+                    Console.Write(GridArea[i2][j2]);
+                }
+                Console.WriteLine();
 
             }
         }
-
-        public void UpdateTetromino()
+        public void UpdateGrid(string keyInput)
         {
-            Point pos = CurrentTetromino.GetPos();
 
-            for (int row = 0; row < 4; row++)
+            //kolla om tetromino landar
+                //sätt till '@'
+
+            //kolla kollision
+
+            //kolla full rad?
+
+            //kolla om game over?
+            
+            //kolla vart nuvarande tetromino är
+            //UpdateTetromino();
+
+        }
+
+        public bool GravityTick()
+        {
+            if (CurrentTetromino.GetPos().Y > 19)
             {
-                for (int col = 0; col < 4; col++)
+                Point pos = CurrentTetromino.GetPos();
+
+                for (int row = 0; row < 4; row++)
                 {
-                    if (CurrentTetromino.Shape[row][col] == ' ')
+                    for (int col = 0; col < 4; col++)
                     {
-                        //do nothing
-                    }
-                    else
-                    {
-                        //GridArea[row][col] = '@';
-                        GridArea[pos.Y + row][pos.X + col] = '@';
+                        if (CurrentTetromino.Shape[row][col] == ' ')
+                        {
+                            
+                        }
+                        else
+                        {
+                            GridArea[pos.Y + row][pos.X + col] = '@';
+                        }
                     }
                 }
+                return false;
             }
+            else
+            {
+                CurrentTetromino.GravityTick();
+                return true;
+
+            }
+
         }
+        public void UpdateTetromino(string keyInput)
+        {
+            if (keyInput == null)
+            {
+                return;
+            }
+            else if (keyInput == "left")
+            {
+
+                if (CurrentTetromino.GetPos().X < 2)
+                {
+                    //wall
+                }
+                else
+                {
+                    CurrentTetromino.Move("left");
+                }
+            }
+            else if (keyInput == "right")
+            {
+                if (CurrentTetromino.GetPos().X > 9)
+                {
+                    //wall
+                }
+                else
+                {
+                    CurrentTetromino.Move("right");
+                }
+            }
+            
+        }
+
         public void AddNewRandomTetromino()
         {
             Random rng = new Random();

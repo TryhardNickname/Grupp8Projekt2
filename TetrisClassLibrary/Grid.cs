@@ -118,6 +118,11 @@ namespace TetrisClassLibrary
         }
 
 
+        public void GravityCollision()
+        {
+
+        }
+
 
         public void UpdateTetromino(string keyInput)
         {

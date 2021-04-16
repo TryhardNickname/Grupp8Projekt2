@@ -77,7 +77,7 @@ namespace TetrisClassLibrary
                 {
                     Grid.RemoveFullRows();
                     //Grid.UpdateGrid();
-                    MyScore.UpdateScore();
+                    MyScore.UpdateScore(rowsCleared);
                     if (MyScore.LevelUp())
                     {
                         gravity--;
@@ -168,9 +168,16 @@ namespace TetrisClassLibrary
                 case ConsoleKey.D:
                     Grid.UpdateTetromino("right");
                     break;
-                case ConsoleKey.Z:
-                case ConsoleKey.Q:
+                case ConsoleKey.UpArrow:
+                case ConsoleKey.W:
                     Grid.UpdateTetromino("rotate");
+                    break;
+                case ConsoleKey.DownArrow:
+                case ConsoleKey.S:
+                    //soft drop
+                    break;
+                case ConsoleKey.Spacebar:
+                    //hard drop
                     break;
                 default:
                     break;

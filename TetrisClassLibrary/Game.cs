@@ -160,12 +160,15 @@ namespace TetrisClassLibrary
         {
             switch (key.Key)
             {
+                case ConsoleKey.LeftArrow:
                 case ConsoleKey.A:
                     Grid.UpdateTetromino("left");
                     break;
+                case ConsoleKey.RightArrow:
                 case ConsoleKey.D:
                     Grid.UpdateTetromino("right");
                     break;
+                case ConsoleKey.Z:
                 case ConsoleKey.Q:
                     Grid.UpdateTetromino("rotate");
                     break;

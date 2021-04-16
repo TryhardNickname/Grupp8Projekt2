@@ -50,8 +50,6 @@ namespace TetrisClassLibrary
                 string row = "";
                 for (int j = 1; j < 11; j++)
                 {
-                    Console.SetCursorPosition(15, 5);
-                    Console.WriteLine(row);
                     row += GridArea[i][j];
                     if (row == "@@@@@@@@@@")
                     {

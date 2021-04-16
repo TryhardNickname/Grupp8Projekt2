@@ -16,6 +16,7 @@ namespace TetrisClassLibrary
         int gravity = 20; //20 game tics
         int tickCounter = 0;
         int maxGravity = 5;
+        int gameXOffset = 5;
         public Game()
         {
             Start();
@@ -115,10 +116,10 @@ namespace TetrisClassLibrary
 
         private void DrawGameField()
         {
-            Console.SetCursorPosition(0, 0);
-
             for (int i = 0; i < 22; i++)
             {
+                Console.CursorLeft = gameXOffset;
+                Console.CursorTop = i;
                 for (int j = 0; j < 12; j++)
                 {
                     Console.Write(Grid.GridArea[i][j]);
@@ -144,7 +145,7 @@ namespace TetrisClassLibrary
                     {
                         //GridArea[row][col] = '@';
                         Console.ForegroundColor = Grid.CurrentTetromino.Color;
-                        Console.SetCursorPosition(X+col, Y+row);
+                        Console.SetCursorPosition(X+col + gameXOffset, Y+row);
                         Console.Write('@');
                         Console.ForegroundColor = ConsoleColor.White;
                     }

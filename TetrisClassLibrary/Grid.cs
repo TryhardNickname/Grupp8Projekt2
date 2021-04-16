@@ -43,7 +43,8 @@ namespace TetrisClassLibrary
 
         public int CheckForFullRow()
         {
-
+            
+            int removeCounter = 0;
             //kolla full rad?
             for (int i = 21; i > 0; i--)
             {
@@ -52,17 +53,17 @@ namespace TetrisClassLibrary
                 {
 
                     row += GridArea[i][j];
-                    if (row == "@@@@@@@@@@")
-                    {
-                        //Clear 
-                        RemoveFullRows(i);
-
-                        return 1;
-                    }
+                }
+                if (row == "@@@@@@@@@@")
+                {
+                    //Clear row
+                    removeCounter++;
+                    RemoveFullRows(i);
+                    ++i;
                 }
             }
 
-            return 0;
+            return removeCounter;
         }
 
         public bool CanTetroFit(int X, int Y)

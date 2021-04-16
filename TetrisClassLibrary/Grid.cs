@@ -47,11 +47,11 @@ namespace TetrisClassLibrary
             //kolla full rad?
             for (int i = 21; i <= 0; i--)
             {
-                for (int j = 0; j < 12; j++)
+                for (int j = 0; j < 10; j++)
                 {
                     string row = "";
                     row += GridArea[i][j];
-                    if (row == "@@@@@@@@@@@@")
+                    if (row == "@@@@@@@@@@")
                     {
                         //Clear row
                         return 1;

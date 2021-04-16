@@ -8,7 +8,7 @@ namespace TetrisClassLibrary
 {
     public class Score
     {
-        internal void UpdateScore()
+        internal void UpdateScore(int rowsCleared)
         {
             //throw new NotImplementedException();
         }

@@ -44,7 +44,7 @@ namespace TetrisClassLibrary
             while (playing)
             {
                 //GAME TIMING================
-                Thread.Sleep(50); //game tick // System.Timers better?
+                Thread.Sleep(10); //game tick // System.Timers better?
                 tickCounter++;
 
 
@@ -65,8 +65,8 @@ namespace TetrisClassLibrary
                         // check if game lose
 
                         Grid.AddCurrentTetrominoToStack();
-                        
-                        Grid.CheckForFullRow()
+
+                        Grid.CheckForFullRow();
 
                         Grid.AddNewRandomTetromino();
                     }
@@ -79,7 +79,7 @@ namespace TetrisClassLibrary
                 int rowsCleared = Grid.CheckForFullRow();
                 if ( rowsCleared > 0)
                 {
-                    Grid.RemoveFullRows();
+                    //Grid.RemoveFullRows();
                     //Grid.UpdateGrid();
                     MyScore.UpdateScore(rowsCleared);
                     if (MyScore.LevelUp())

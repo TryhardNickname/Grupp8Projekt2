@@ -19,7 +19,7 @@ namespace TetrisClassLibrary
 
         public Tetromino()
         {
-            //Position = new System.Drawing.Point(5, 1);
+            //Position = new System.Drawing.Point(5, 1);    
             X = 5;
             Y = 1;
             //1 = SShape

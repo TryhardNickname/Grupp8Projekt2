@@ -85,9 +85,9 @@ namespace TetrisClassLibrary
 
 
             //Loop through grid to see collission?
-            for (int row = 0; row < 4; row++)
+            for (int row = 0; row < ClonedTetromino.Shape.Count; row++)
             {
-                for (int col = 0; col < 4; col++)
+                for (int col = 0; col < ClonedTetromino.Shape[0].Count; col++)
                 {
                     if (ClonedTetromino.Shape[row][col] == '@')
                     {
@@ -107,11 +107,13 @@ namespace TetrisClassLibrary
 
         internal void UpdateGrid()
         {
+            
             //throw new NotImplementedException();
         }
 
         internal void RemoveFullRows()
         {
+            //removes rows //and moves tiles over down
             //throw new NotImplementedException();
         }
 
@@ -119,26 +121,31 @@ namespace TetrisClassLibrary
 
         public void UpdateTetromino(string keyInput)
         {
-
-            if (keyInput == "left")
+            //ha collioncheck här?
+            if (keyInput == "left" && CanTetroFit(-1, 0))
             {
                 CurrentTetromino.Move("left");
             }
-            else if (keyInput == "right")
+            else if (keyInput == "right" && CanTetroFit(1, 0))
             {
 
                 CurrentTetromino.Move("right");
             }
-            else if (keyInput == "rotate")
+            else if (keyInput == "rotate" && CanTetroFit(0, 0))
             {
                 CurrentTetromino.Rotate();
             }
+            else if (keyInput == "gravity" && CanTetroFit(0, 1))
+            {
+                CurrentTetromino.GravityTick();
+            }
+            
         }
 
         public void AddNewRandomTetromino()
         {
-            Random rng = new Random();
-            int num = rng.Next(1, 7);
+            Random rng = new();
+            int num = rng.Next(1, 8);
             switch (num)
             {
                 case 1:

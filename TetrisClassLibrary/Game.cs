@@ -11,6 +11,7 @@ namespace TetrisClassLibrary
         public Grid Grid { get; set; }
         public Score MyScore { get; set; }
 
+        ConsoleKeyInfo key;
         public Game()
         {
             Start();
@@ -36,7 +37,9 @@ namespace TetrisClassLibrary
             int gravity = 20; //20 game tics
             int tickCounter = 0;
 
-            string input = "";
+
+            Thread inputThread = new Thread(Input);
+            inputThread.Start();
 
             while (playing)
             {
@@ -46,40 +49,16 @@ namespace TetrisClassLibrary
 
 
                 //HANDLE USER INPUT========== 
-                input = HandleUserInput();
+                HandleUserInput();
+                key = new ConsoleKeyInfo();
 
-
-                //GAME LOGIC =?============= checking if collision -> if not -> perform action
-                switch (input)
-                {
-                    case "left":
-                        if(Grid.CanTetroFit(-1, 0))
-                        {
-                            Grid.UpdateTetromino("left");
-                        }
-                        break;
-                    case "right":
-                        if (Grid.CanTetroFit(1, 0))
-                        {
-                            Grid.UpdateTetromino("right");
-                        }
-                        break;
-                    case "rotate":
-                        if (Grid.CanTetroFit(0, 0))
-                        {
-                            Grid.UpdateTetromino("rotate");
-                        }
-                        break;
-                    default:
-                        break;
-                }
-
+                //GAME LOGIC =?==============  
                 if (tickCounter == gravity)
                 {
                     if (Grid.CanTetroFit(0, 1))
                     {
-                        // it worked
-                        Grid.CurrentTetromino.GravityTick();
+                        // it worked 
+                        Grid.UpdateTetromino("gravity");
                     }
                     else
                     {
@@ -97,7 +76,7 @@ namespace TetrisClassLibrary
                 if ( rowsCleared > 0)
                 {
                     Grid.RemoveFullRows();
-                    Grid.UpdateGrid();
+                    //Grid.UpdateGrid();
                     MyScore.UpdateScore();
                     if (MyScore.LevelUp())
                     {
@@ -110,9 +89,11 @@ namespace TetrisClassLibrary
                 DrawTetromino();
                 DrawScore(); //maybe only update when score updates for performance
                 DrawLevel(); // ¨^^^¨
+                
             }
 
         }
+
 
         private void DrawLevel()
         {
@@ -163,29 +144,35 @@ namespace TetrisClassLibrary
             }
         }
 
+
+        private void Input()
+        {
+            do
+            {
+                key = Console.ReadKey(true);
+            } while (true);//Console.KeyAvailable);
+        }
+
         /// <summary>
         /// Moves or rotates based on keyboard input
         /// </summary>
-        public string HandleUserInput()
+        public void HandleUserInput()
         {
-            
-            ConsoleKey key;
-            if (Console.KeyAvailable)
+            switch (key.Key)
             {
-                key = Console.ReadKey().Key;
+                case ConsoleKey.A:
+                    Grid.UpdateTetromino("left");
+                    break;
+                case ConsoleKey.D:
+                    Grid.UpdateTetromino("right");
+                    break;
+                case ConsoleKey.Q:
+                    Grid.UpdateTetromino("rotate");
+                    break;
+                default:
+                    break;
+            }
 
-                return key switch
-                {
-                    ConsoleKey.A => "left",
-                    ConsoleKey.D => "right",
-                    ConsoleKey.Q => "rotate",
-                    _ => "null",
-                };
-            }
-            else
-            {
-                return "null";
-            }
         }
 
     }

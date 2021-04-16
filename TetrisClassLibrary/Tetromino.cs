@@ -75,6 +75,7 @@ namespace TetrisClassLibrary
             width = Shape[0].Count;
             height = Shape.Count;
 
+            //ändra till 3x3??
             List<List<char>> newShape = new List<List<char>>
             {
                 new List<char>

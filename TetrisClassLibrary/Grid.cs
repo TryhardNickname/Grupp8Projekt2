@@ -85,9 +85,9 @@ namespace TetrisClassLibrary
 
 
             //Loop through grid to see collission?
-            for (int row = 0; row < 4; row++)
+            for (int row = 0; row < ClonedTetromino.Shape.Count; row++)
             {
-                for (int col = 0; col < 4; col++)
+                for (int col = 0; col < ClonedTetromino.Shape[0].Count; col++)
                 {
                     if (ClonedTetromino.Shape[row][col] == '@')
                     {
@@ -121,7 +121,7 @@ namespace TetrisClassLibrary
 
         public void UpdateTetromino(string keyInput)
         {
-
+            //ha collioncheck här?
             if (keyInput == "left" && CanTetroFit(-1, 0))
             {
                 CurrentTetromino.Move("left");
@@ -144,8 +144,8 @@ namespace TetrisClassLibrary
 
         public void AddNewRandomTetromino()
         {
-            Random rng = new Random();
-            int num = rng.Next(1, 7);
+            Random rng = new();
+            int num = rng.Next(1, 8);
             switch (num)
             {
                 case 1:

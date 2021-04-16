@@ -131,9 +131,13 @@ namespace TetrisClassLibrary
 
         internal void RemoveFullRows(int currentRow)
         {
-            for (int i = currentRow; i > 1; i--)
+            for (int i = currentRow; i > 0; i--)
             {
-                GridArea[i] = GridArea[i - 1];
+                GridArea[i] = new List<char>(GridArea[i - 1]);
+                if ( i == 1)
+                {
+                    GridArea[i] = new List<char> { '░', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '░' };
+                }
             }
         }
 

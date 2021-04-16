@@ -15,7 +15,6 @@ namespace TetrisClassLibrary
 
         int gravity = 5; //20 game tics
         int tickCounter = 0;
-
         public Game()
         {
             Start();

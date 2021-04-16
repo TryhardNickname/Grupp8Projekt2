@@ -43,27 +43,28 @@ namespace TetrisClassLibrary
 
         public int CheckForFullRow()
         {
-
+            
+            int removeCounter = 0;
             //kolla full rad?
             for (int i = 21; i > 0; i--)
             {
                 string row = "";
                 for (int j = 1; j < 11; j++)
                 {
-                    Console.SetCursorPosition(15, 5);
-                    Console.WriteLine(row);
                     row += GridArea[i][j];
-                    if (row == "@@@@@@@@@@")
-                    {
-                        //Clear row
-                        RemoveFullRows(i);
+                }
+                if (row == "@@@@@@@@@@")
+                {
+                    //Clear row
+                    removeCounter++;
+                    RemoveFullRows(i);
+                    ++i;
 
-                        return 1;
-                    }
+
                 }
             }
 
-            return 0;
+            return removeCounter;
         }
 
         public bool CanTetroFit(int X, int Y)

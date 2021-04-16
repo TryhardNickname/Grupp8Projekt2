@@ -76,25 +76,34 @@ namespace TetrisClassLibrary
             height = Shape.Count;
 
             //ändra till 3x3??
-            List<List<char>> newShape = new List<List<char>>
+            List<List<char>> newShape = new List<List<char>>();
+            for (int i = 0; i < Shape.Count; i++)
             {
-                new List<char>
+                List<char> temp = new List<char>();
+                for (int j = 0; j < Shape[0].Count; j++)
                 {
-                    ' ', ' ', ' ', ' '
-                },
-                new List<char>
-                {
-                    ' ', ' ', ' ', ' '
-                },
-                new List<char>
-                {
-                    ' ', ' ', ' ', ' '
-                },
-                new List<char>
-                {
-                    ' ', ' ', ' ', ' '
+                    temp.Add(' ');
                 }
-            };
+                newShape.Add(temp);
+            }
+            //{
+            //    new List<char>
+            //    {
+            //        ' ', ' ', ' ', ' '
+            //    },
+            //    new List<char>
+            //    {
+            //        ' ', ' ', ' ', ' '
+            //    },
+            //    new List<char>
+            //    {
+            //        ' ', ' ', ' ', ' '
+            //    },
+            //    new List<char>
+            //    {
+            //        ' ', ' ', ' ', ' '
+            //    }
+            //};
 
             for (int row = 0; row < height; row++)
             {

@@ -12,6 +12,10 @@ namespace TetrisClassLibrary
         public Score MyScore { get; set; }
 
         ConsoleKeyInfo key;
+
+        int gravity = 20; //20 game tics
+        int tickCounter = 0;
+        int maxGravity = 5;
         public Game()
         {
             Start();
@@ -21,6 +25,9 @@ namespace TetrisClassLibrary
             Grid = new Grid();
             MyScore = new Score();
             Console.CursorVisible = false;
+
+            Thread inputThread = new Thread(Input);
+            inputThread.Start();
 
         }
 
@@ -32,14 +39,11 @@ namespace TetrisClassLibrary
         public void Loop()
         {
             bool playing = true;
+            
+
+
+
             Grid.AddNewRandomTetromino();
-
-            int gravity = 20; //20 game tics
-            int tickCounter = 0;
-
-
-            Thread inputThread = new Thread(Input);
-            inputThread.Start();
 
             while (playing)
             {
@@ -178,7 +182,7 @@ namespace TetrisClassLibrary
                     break;
                 case ConsoleKey.DownArrow:
                 case ConsoleKey.S:
-                    //soft drop
+                    tickCounter = gravity;
                     break;
                 case ConsoleKey.Spacebar:
                     //hard drop

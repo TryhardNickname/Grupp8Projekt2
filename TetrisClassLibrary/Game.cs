@@ -13,10 +13,11 @@ namespace TetrisClassLibrary
 
         ConsoleKeyInfo key;
 
-        int gravity = 20; //20 game tics
+        int gravity = 5; //20 game tics
         int tickCounter = 0;
         int maxGravity = 5;
         int gameXOffset = 5;
+
         public Game()
         {
             Start();
@@ -49,12 +50,16 @@ namespace TetrisClassLibrary
             while (playing)
             {
                 //GAME TIMING================
-                Thread.Sleep(10); //game tick // System.Timers better?
+                Thread.Sleep(50); //game tick // System.Timers better?
                 tickCounter++;
 
 
                 //HANDLE USER INPUT========== 
-                HandleUserInput();
+                if (!HandleUserInput())
+                {
+                    //Console.SetCursorPosition(15, 0);
+                    Console.Beep();
+                }
                 key = new ConsoleKeyInfo();
 
                 //GAME LOGIC =?==============  
@@ -116,6 +121,9 @@ namespace TetrisClassLibrary
 
         private void DrawGameField()
         {
+            Console.SetCursorPosition(0, 0);
+            Console.ForegroundColor = ConsoleColor.White;
+          
             for (int i = 0; i < 22; i++)
             {
                 Console.CursorLeft = gameXOffset;
@@ -139,11 +147,10 @@ namespace TetrisClassLibrary
                 {
                     if (Grid.CurrentTetromino.Shape[row][col] == ' ')
                     {
-                        //GridArea[pos.Y + row][pos.X + col] = ' ';
+
                     }
                     else
                     {
-                        //GridArea[row][col] = '@';
                         Console.ForegroundColor = Grid.CurrentTetromino.Color;
                         Console.SetCursorPosition(X+col + gameXOffset, Y+row);
                         Console.Write('@');
@@ -165,31 +172,33 @@ namespace TetrisClassLibrary
         /// <summary>
         /// Moves or rotates based on keyboard input
         /// </summary>
-        public void HandleUserInput()
+        public bool HandleUserInput()
         {
             switch (key.Key)
             {
                 case ConsoleKey.LeftArrow:
                 case ConsoleKey.A:
-                    Grid.UpdateTetromino("left");
-                    break;
+                    return Grid.UpdateTetromino("left");
+                    //break;
                 case ConsoleKey.RightArrow:
                 case ConsoleKey.D:
-                    Grid.UpdateTetromino("right");
-                    break;
+                    return Grid.UpdateTetromino("right");
+                    //break;
                 case ConsoleKey.UpArrow:
                 case ConsoleKey.W:
-                    Grid.UpdateTetromino("rotate");
-                    break;
+                    return Grid.UpdateTetromino("rotate");
+                    //break;
                 case ConsoleKey.DownArrow:
                 case ConsoleKey.S:
                     tickCounter = gravity;
-                    break;
+                    return true;
+                    //break;
                 case ConsoleKey.Spacebar:
                     //hard drop
-                    break;
+                    return true;
+                    //break;
                 default:
-                    break;
+                    return true;
             }
 
         }

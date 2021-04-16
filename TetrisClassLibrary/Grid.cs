@@ -8,7 +8,7 @@ namespace TetrisClassLibrary
 {
     public class Grid
     {
-        public List<List<char>> GridArea;
+        public List<List<char>> GridArea { get; set; }
         public Tetromino CurrentTetromino { get; set; }
         public Grid()
         {
@@ -50,10 +50,11 @@ namespace TetrisClassLibrary
                 string row = "";
                 for (int j = 1; j < 11; j++)
                 {
+
                     row += GridArea[i][j];
                     if (row == "@@@@@@@@@@")
                     {
-                        //Clear row
+                        //Clear 
                         RemoveFullRows(i);
 
                         return 1;
@@ -82,7 +83,7 @@ namespace TetrisClassLibrary
             }
             else if (X == 0 && Y == 0)
             {
-                //check if you can rotate 
+                ClonedTetromino.Rotate();
             }
 
 
@@ -117,18 +118,16 @@ namespace TetrisClassLibrary
                     if (CurrentTetromino.Shape[row][col] == '@')
                     {
                         GridArea[CurrentTetromino.GetY() + row][CurrentTetromino.GetX() + col] = '@';
-                        
+
+                    }
+                    else
+                    {
 
                     }
                 }
             }
         }
 
-        internal void UpdateGrid()
-        {
-            
-            //throw new NotImplementedException();
-        }
 
         internal void RemoveFullRows(int currentRow)
         {
@@ -139,13 +138,7 @@ namespace TetrisClassLibrary
         }
 
 
-        public void GravityCollision()
-        {
-
-        }
-
-
-        public void UpdateTetromino(string keyInput)
+        public bool UpdateTetromino(string keyInput)
         {
             //ha collioncheck här?
             if (keyInput == "left" && CanTetroFit(-1, 0))
@@ -165,6 +158,11 @@ namespace TetrisClassLibrary
             {
                 CurrentTetromino.GravityTick();
             }
+            else
+            {
+                return false;
+            }
+            return true;
             
         }
 

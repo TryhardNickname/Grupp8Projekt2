@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using System.Threading;
+using System.Linq;
 
 namespace TetrisClassLibrary
 {
@@ -10,6 +11,7 @@ namespace TetrisClassLibrary
     {
         public Grid Grid { get; set; }
         public Score MyScore { get; set; }
+        List<int> totalScore = new List<int>();
 
         ConsoleKeyInfo key;
 
@@ -75,9 +77,6 @@ namespace TetrisClassLibrary
                         // check if game lose
 
                         Grid.AddCurrentTetrominoToStack();
-
-                        Grid.CheckForFullRow();
-
                         Grid.AddNewRandomTetromino();
                     }
                     tickCounter = 0;
@@ -85,13 +84,18 @@ namespace TetrisClassLibrary
 
 
 
+
                 //CHECK FOR FULL ROWS ==============
                 int rowsCleared = Grid.CheckForFullRow();
-                if ( rowsCleared > 0)
+                
+
+                if (rowsCleared > 0)
                 {
+                    //Console.SetCursorPosition(15, 6);
+                    //Console.WriteLine("testest");
                     //Grid.RemoveFullRows();
                     //Grid.UpdateGrid();
-                    MyScore.UpdateScore(rowsCleared);
+                    DrawScore(MyScore.UpdateScore(rowsCleared));
                     if (MyScore.LevelUp())
                     {
                         gravity--;
@@ -101,7 +105,7 @@ namespace TetrisClassLibrary
                 //DRAW GAME==================
                 DrawGameField();
                 DrawTetromino();
-                DrawScore(); //maybe only update when score updates for performance
+                //DrawScore(); //maybe only update when score updates for performance
                 DrawLevel(); // ¨^^^¨
                 
             }
@@ -114,9 +118,13 @@ namespace TetrisClassLibrary
             //throw new NotImplementedException();
         }
 
-        private void DrawScore()
+        private void DrawScore(int score)
         {
-            //throw new NotImplementedException();
+            
+            totalScore.Add(score);
+            Console.SetCursorPosition(15, 5);
+            Console.WriteLine("Score: {0}", totalScore.Sum());
+            //Console.WriteLine(score);
         }
 
         private void DrawGameField()

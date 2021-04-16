@@ -54,6 +54,7 @@ namespace TetrisClassLibrary
                     if (row == "@@@@@@@@@@@@")
                     {
                         //Clear row
+
                         return 1;
                     }
                 }
@@ -103,6 +104,23 @@ namespace TetrisClassLibrary
             //else true
             return true;
             
+        }
+
+        internal void AddCurrentTetrominoToStack()
+        {
+
+            for (int row = 0; row < CurrentTetromino.Shape.Count; row++)
+            {
+                for (int col = 0; col < CurrentTetromino.Shape[0].Count; col++)
+                {
+                    if (CurrentTetromino.Shape[row][col] == '@')
+                    {
+                        GridArea[CurrentTetromino.GetY() + row][CurrentTetromino.GetX() + col] = '@';
+                        
+
+                    }
+                }
+            }
         }
 
         internal void UpdateGrid()

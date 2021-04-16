@@ -63,7 +63,11 @@ namespace TetrisClassLibrary
                     else
                     {
                         // check if game lose
-                        //AddCurrentTetromino to stack()??
+
+                        Grid.AddCurrentTetrominoToStack();
+                        
+                        Grid.CheckForFullRow()
+
                         Grid.AddNewRandomTetromino();
                     }
                     tickCounter = 0;

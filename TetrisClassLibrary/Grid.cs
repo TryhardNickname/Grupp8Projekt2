@@ -45,15 +45,18 @@ namespace TetrisClassLibrary
         {
 
             //kolla full rad?
-            for (int i = 21; i <= 0; i--)
+            for (int i = 21; i > 0; i--)
             {
-                for (int j = 0; j < 10; j++)
+                string row = "";
+                for (int j = 1; j < 11; j++)
                 {
-                    string row = "";
+                    Console.SetCursorPosition(15, 5);
+                    Console.WriteLine(row);
                     row += GridArea[i][j];
                     if (row == "@@@@@@@@@@")
                     {
                         //Clear row
+                        RemoveFullRows(i);
 
                         return 1;
                     }
@@ -129,10 +132,12 @@ namespace TetrisClassLibrary
             //throw new NotImplementedException();
         }
 
-        internal void RemoveFullRows()
+        internal void RemoveFullRows(int currentRow)
         {
-            //removes rows //and moves tiles over down
-            //throw new NotImplementedException();
+            for (int i = currentRow; i > 1; i--)
+            {
+                GridArea[i] = GridArea[i - 1];
+            }
         }
 
 

@@ -124,9 +124,9 @@ namespace TetrisClassLibrary
         {
             int X = Grid.CurrentTetromino.GetX();
             int Y = Grid.CurrentTetromino.GetY();
-            for (int row = 0; row < 4; row++)
+            for (int row = 0; row < Grid.CurrentTetromino.Shape.Count; row++)
             {
-                for (int col = 0; col < 4; col++)
+                for (int col = 0; col < Grid.CurrentTetromino.Shape[0].Count; col++)
                 {
                     if (Grid.CurrentTetromino.Shape[row][col] == ' ')
                     {

@@ -20,19 +20,15 @@ namespace TetrisClassLibrary.Tetrominos
             {
                 new List<char>
                 {
-                    '@', '@', ' ', ' '
+                    '@', '@', ' '
                 },
                 new List<char>
                 {
-                    ' ', '@', '@', ' '
+                    ' ', '@', '@'
                 },
                 new List<char>
                 {
-                    ' ', ' ', ' ', ' '
-                },
-                new List<char>
-                {
-                    ' ', ' ', ' ', ' '
+                    ' ', ' ', ' '
                 }
             };
 

@@ -75,7 +75,7 @@ namespace TetrisClassLibrary
                         Grid.AddNewRandomTetromino();
 
                         // check if game lose i
-                        if (Grid.CanTetroFit(-2, -2))
+                        if (!(Grid.CanTetroFit(-2, -2)))
                         {
                             //return score?
                             playing = false;

@@ -9,7 +9,7 @@ namespace Tetris
         {
             string input;
             bool loop = true;
-           int result = 0;
+            int result = 0;
             while (loop)
             {
                 //console menu
@@ -27,7 +27,9 @@ namespace Tetris
                     case "start":
                         Game game;
                         bool play = true;
-
+                        Console.WriteLine("What level do you want to play on?");
+                        input = Console.ReadLine();
+                        Score.SetLevel(int.Parse(input));
                         Console.Clear();
                         if (play)
                         {

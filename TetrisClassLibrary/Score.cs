@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
 
 namespace TetrisClassLibrary
 {
@@ -43,6 +44,14 @@ namespace TetrisClassLibrary
         public static void SetLevel(int input)
         {
             currentLevel = input;
+        }
+        public static void SaveHighScore()
+        {
+            File.WriteAllText("Highscore.txt", Convert.ToString(totalScore.Sum()));
+        }
+        public static int LoadHighScore()
+        {
+            return Convert.ToInt32(File.ReadAllText("Highscore.txt"));
         }
     }
 }

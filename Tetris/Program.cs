@@ -44,7 +44,7 @@ namespace Tetris
                     case "View highscore":
                     case "View":
                     case "view":
-                        Console.WriteLine("Please add a way to save highscore before checking highscore.");
+                        Console.WriteLine("Your highscore is " + Score.LoadHighScore());
                         break;
                     case "0":
                     case "Quit":

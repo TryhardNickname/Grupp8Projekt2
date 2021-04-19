@@ -97,7 +97,7 @@ namespace TetrisClassLibrary
         //if LevelUp is true gravity goes down and the game gets faster
         private void DrawLevel()
         {
-            Console.SetCursorPosition(20, 7);
+            Console.SetCursorPosition(20, 9);
             Console.WriteLine("Level: {0}", Score.currentLevel);
             if (MyScore.LevelUp())
             {
@@ -110,7 +110,7 @@ namespace TetrisClassLibrary
         {
 
             Score.totalScore.Add(score);
-            Console.SetCursorPosition(20, 5);
+            Console.SetCursorPosition(20, 7);
             Console.WriteLine("Score: {0}", Score.totalScore.Sum());
         }
 
@@ -130,7 +130,7 @@ namespace TetrisClassLibrary
                 Console.WriteLine();
 
             }
-            Console.SetCursorPosition(20, 0);
+            Console.SetCursorPosition(18, 0);
             Console.Write("Next Tetromino");
         }
 
@@ -172,7 +172,7 @@ namespace TetrisClassLibrary
                     else
                     {
                         Console.ForegroundColor = Grid.UpcomingTetromino.Color;
-                        Console.SetCursorPosition(X + col + gameXOffset + 15, Y + row);
+                        Console.SetCursorPosition(X + col + gameXOffset + 13, Y + row);
                         Console.Write('@');
                         Console.ForegroundColor = ConsoleColor.White;
                     }
@@ -190,7 +190,7 @@ namespace TetrisClassLibrary
                 {
                     if (Grid.UpcomingTetromino.Shape[row][col] != ' ')
                     {
-                        Console.SetCursorPosition(X + col + gameXOffset + 15, Y + row);
+                        Console.SetCursorPosition(X + col + gameXOffset + 13, Y + row);
                         Console.Write(' ');
                     }
                 }

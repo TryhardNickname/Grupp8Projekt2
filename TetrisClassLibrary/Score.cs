@@ -8,7 +8,8 @@ namespace TetrisClassLibrary
 {
     public class Score
     {
-        int currentLevel = 0;
+        public static List<int> totalScore = new List<int>();
+        public static int currentLevel = 0;
         int rowsCleardThisLevel = 0;
         internal int UpdateScore(int rowsCleared)
         {
@@ -38,15 +39,6 @@ namespace TetrisClassLibrary
             {
                 return false;
             }
-            //if (currentLevel == 1)
-            //{
-            //    return true;
-            //}
-            //else
-            //{
-            //    return false;
-            //}
-
         }
     }
 }

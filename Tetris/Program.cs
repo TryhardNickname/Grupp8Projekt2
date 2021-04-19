@@ -7,31 +7,57 @@ namespace Tetris
     {
         static void Main(string[] args)
         {
-            while (true)
+            string input;
+            bool loop = true;
+            while (loop)
             {
-                Console.WriteLine("Hello Menu!");
                 //console menu
                 Console.WriteLine("Do you wanna play tetris");
                 Console.WriteLine("1. Play");
                 Console.WriteLine("2. View Highscore");
                 Console.WriteLine("0. Quit");
-                //if play
-                Game game;
-                bool play = true;
-
-                Console.Clear();
-                if (play)
+                input = Console.ReadLine();
+                switch (input)
                 {
-                    game = new Game();
-                    game.Loop();
+                    case "1":
+                    case "Play":
+                    case "play":
+                    case "Start":
+                    case "start":
+                        Game game;
+                        bool play = true;
 
-                    //print spelplan
-                    //print tetromino J 
-                    //print points
-                    //clear
+                        Console.Clear();
+                        if (play)
+                        {
+                            game = new Game();
+                            game.Loop();
+
+                            //print spelplan
+                            //print tetromino J 
+                            //print points
+                            //clear
+                        }
+                        break;
+                    case "2":
+                    case "View Highscore":
+                    case "view highscore":
+                    case "View highscore":
+                    case "View":
+                    case "view":
+                        Console.WriteLine("Please add a way to save highscore before checking highscore.");
+                        break;
+                    case "0":
+                    case "Quit":
+                    case "quit":
+                        Console.WriteLine("Bye bye!");
+                        Console.ReadKey();
+                        loop = false;
+                        break;
+                    default:
+                        Console.WriteLine("Please write a valid option.");
+                        break;
                 }
-
-                Console.ReadKey();
             }
         }
     }

@@ -18,10 +18,11 @@ namespace TetrisClassLibrary
         int gravity = 20; //20 game tics
         int tickCounter = 0;
         int gameXOffset = 5;
+        int gameYOffset = 5;
 
         public Game()
         {
-            Grid = new Grid();
+            Grid = new Grid(gameXOffset, gameYOffset);
             MyScore = new Score();
             Console.CursorVisible = false;
             Thread inputThread = new Thread(Input);
@@ -128,13 +129,14 @@ namespace TetrisClassLibrary
 
         private void DrawGameField()
         {
-            Console.SetCursorPosition(0, 0);
             Console.ForegroundColor = ConsoleColor.White;
-
+            Console.SetCursorPosition(gameXOffset, gameYOffset-1);
+            Console.WriteLine("░----------░");
+            Console.SetCursorPosition(gameXOffset, gameYOffset);
             for (int i = 0; i < Grid.GridHeight + 1; i++)
             {
                 Console.CursorLeft = gameXOffset;
-                Console.CursorTop = i;
+                Console.CursorTop = i+ gameYOffset;
                 for (int j = 0; j < Grid.GridWidth + 2; j++)
                 {
                     Console.Write(Grid.GridArea[i][j]);

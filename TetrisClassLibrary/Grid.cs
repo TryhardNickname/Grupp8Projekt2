@@ -13,7 +13,7 @@ namespace TetrisClassLibrary
         public Tetromino UpcomingTetromino { get; set; }
         public int GridWidth { get; set; }
         public int GridHeight { get; set; }
-        public Grid()
+        public Grid(int gameXOffset, int gameYOffset)
         {
             GridArea = new List<List<char>>();
             GridWidth = 10;

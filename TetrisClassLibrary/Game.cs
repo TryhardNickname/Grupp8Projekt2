@@ -11,8 +11,7 @@ namespace TetrisClassLibrary
     {
         public Grid Grid { get; set; }
         public Score MyScore { get; set; }
-        List<int> totalScore = new List<int>();
-
+        
         ConsoleKeyInfo key;
 
         int gravity = 20; //20 game tics
@@ -72,25 +71,12 @@ namespace TetrisClassLibrary
                     }
                     tickCounter = 0;
                 }
-
-
-
-
                 //CHECK FOR FULL ROWS ==============
                 int rowsCleared = Grid.CheckForFullRow();
                 
-
                 if (rowsCleared > 0)
                 {
-                    //Console.SetCursorPosition(15, 6);
-                    //Console.WriteLine("testest");
-                    //Grid.RemoveFullRows();
-                    //Grid.UpdateGrid();
                     DrawScore(MyScore.UpdateScore(rowsCleared));
-                    if (MyScore.LevelUp())
-                    {
-                        gravity--;
-                    }
                 }
 
                 //DRAW GAME==================
@@ -103,19 +89,24 @@ namespace TetrisClassLibrary
 
         }
 
-
+        //Checks currentLevel in the Score class and calls the LevelUp function
+        //if LevelUp is true gravity goes down and the game gets faster
         private void DrawLevel()
         {
-            //throw new NotImplementedException();
+            Console.SetCursorPosition(20, 7);
+            Console.WriteLine("Level: {0}", Score.currentLevel);
+            if (MyScore.LevelUp())
+            {
+                gravity --;
+            }
         }
 
+        //Checks the totalScore List in the Score class and prints it out
         private void DrawScore(int score)
         {
-            
-            totalScore.Add(score);
-            Console.SetCursorPosition(15, 5);
-            Console.WriteLine("Score: {0}", totalScore.Sum());
-            //Console.WriteLine(score);
+            Score.totalScore.Add(score);
+            Console.SetCursorPosition(20, 5);
+            Console.WriteLine("Score: {0}", Score.totalScore.Sum());
         }
 
         private void DrawGameField()

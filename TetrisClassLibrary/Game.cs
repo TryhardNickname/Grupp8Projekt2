@@ -212,10 +212,10 @@ namespace TetrisClassLibrary
                 Thread.Sleep(125);
                 Console.Beep(659, 125);
                 Thread.Sleep(167);
-                Console.Beep(698, 125);
+                Console.Beep(1048, 125);
                 Thread.Sleep(125);
-                Console.Beep(698, 125);
-                Console.Beep(698, 125);
+                Console.Beep(1048, 125);
+                Console.Beep(1048, 125);
                 Thread.Sleep(625);
                 Console.Beep(784, 125);
                 Console.Beep(740, 125);
@@ -263,10 +263,10 @@ namespace TetrisClassLibrary
                 Thread.Sleep(125);
                 Console.Beep(659, 125);
                 Thread.Sleep(167);
-                Console.Beep(698, 125);
+                Console.Beep(1048, 125);
                 Thread.Sleep(125);
-                Console.Beep(698, 125);
-                Console.Beep(698, 125);
+                Console.Beep(1048, 125);
+                Console.Beep(1048, 125);
                 Thread.Sleep(625);
                 Console.Beep(784, 125);
                 Console.Beep(740, 125);

@@ -40,6 +40,7 @@ namespace TetrisClassLibrary
             bool playing = true;
 
             Grid.AddNewRandomTetromino();
+            Grid.AddNewRandomTetrominoUpcoming();
 
             while (playing)
             {
@@ -68,7 +69,9 @@ namespace TetrisClassLibrary
                         // check if game lose
 
                         Grid.AddCurrentTetrominoToStack();
-                        Grid.AddNewRandomTetromino();
+                        ClearUpcomingTetromino();
+                        Grid.CurrentTetromino = Grid.UpcomingTetromino;
+                        Grid.AddNewRandomTetrominoUpcoming();
                     }
                     tickCounter = 0;
                 }
@@ -94,6 +97,7 @@ namespace TetrisClassLibrary
                 }
 
                 //DRAW GAME==================
+                DrawUpcomingTetromino();
                 DrawGameField();
                 DrawTetromino();
                 //DrawScore(); //maybe only update when score updates for performance
@@ -113,7 +117,7 @@ namespace TetrisClassLibrary
         {
             
             totalScore.Add(score);
-            Console.SetCursorPosition(15, 5);
+            Console.SetCursorPosition(20, 5);
             Console.WriteLine("Score: {0}", totalScore.Sum());
             //Console.WriteLine(score);
         }
@@ -134,6 +138,8 @@ namespace TetrisClassLibrary
                 Console.WriteLine();
 
             }
+            Console.SetCursorPosition(20, 0);
+            Console.Write("Next Tetromino");
         }
 
         private void DrawTetromino()
@@ -159,6 +165,45 @@ namespace TetrisClassLibrary
             }
         }
 
+        private void DrawUpcomingTetromino()
+        {
+            int X = Grid.UpcomingTetromino.GetX();
+            int Y = Grid.UpcomingTetromino.GetY();
+            for (int row = 0; row < Grid.UpcomingTetromino.Shape.Count; row++)
+            {
+                for (int col = 0; col < Grid.UpcomingTetromino.Shape[0].Count; col++)
+                {
+                    if (Grid.UpcomingTetromino.Shape[row][col] == ' ')
+                    {
+
+                    }
+                    else
+                    {
+                        Console.ForegroundColor = Grid.UpcomingTetromino.Color;
+                        Console.SetCursorPosition(X + col + gameXOffset + 15, Y + row);
+                        Console.Write('@');
+                        Console.ForegroundColor = ConsoleColor.White;
+                    }
+                }
+            }
+        }
+
+        private void ClearUpcomingTetromino()
+        {
+            int X = Grid.UpcomingTetromino.GetX();
+            int Y = Grid.UpcomingTetromino.GetY();
+            for (int row = 0; row < Grid.UpcomingTetromino.Shape.Count; row++)
+            {
+                for (int col = 0; col < Grid.UpcomingTetromino.Shape[0].Count; col++)
+                {
+                    if (Grid.UpcomingTetromino.Shape[row][col] != ' ')
+                    {
+                        Console.SetCursorPosition(X + col + gameXOffset + 15, Y + row);
+                        Console.Write(' ');
+                    }
+                }
+            }
+        }
 
         private void Input()
         {

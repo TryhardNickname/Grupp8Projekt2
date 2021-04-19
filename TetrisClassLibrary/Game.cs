@@ -11,7 +11,7 @@ namespace TetrisClassLibrary
     {
         public Grid Grid { get; set; }
         public Score MyScore { get; set; }
-        
+
         ConsoleKeyInfo key;
 
         int gravity = 20; //20 game tics
@@ -37,7 +37,7 @@ namespace TetrisClassLibrary
         public int Loop()
         {
             bool playing = true;
-            int rowsCleared= 0;
+            int rowsCleared = 0;
 
             Grid.AddNewRandomTetromino();
             Grid.AddNewRandomTetrominoUpcoming();
@@ -88,7 +88,7 @@ namespace TetrisClassLibrary
                     }
                     tickCounter = 0;
                 }
-              
+
 
 
                 if (rowsCleared > 0)
@@ -103,7 +103,7 @@ namespace TetrisClassLibrary
                 DrawTetromino();
                 //DrawScore(); //maybe only update when score updates for performance
                 DrawLevel(); // ¨^^^¨
-                
+
             }
             return Score.totalScore.Sum();
         }
@@ -116,7 +116,7 @@ namespace TetrisClassLibrary
             Console.WriteLine("Level: {0}", Score.currentLevel);
             if (MyScore.LevelUp())
             {
-                gravity --;
+                gravity--;
             }
         }
 
@@ -133,7 +133,7 @@ namespace TetrisClassLibrary
         {
             Console.SetCursorPosition(0, 0);
             Console.ForegroundColor = ConsoleColor.White;
-          
+
             for (int i = 0; i < 22; i++)
             {
                 Console.CursorLeft = gameXOffset;
@@ -164,7 +164,7 @@ namespace TetrisClassLibrary
                     else
                     {
                         Console.ForegroundColor = Grid.CurrentTetromino.Color;
-                        Console.SetCursorPosition(X+col + gameXOffset, Y+row);
+                        Console.SetCursorPosition(X + col + gameXOffset, Y + row);
                         Console.Write('@');
                         Console.ForegroundColor = ConsoleColor.White;
                     }
@@ -229,7 +229,7 @@ namespace TetrisClassLibrary
                     if (Grid.GridArea[rowsToRemove[i]][backwards] == '@')
                     {
                         Grid.GridArea[rowsToRemove[i]][backwards] = ' ';
-                    }    
+                    }
                 }
                 forwards++;
                 backwards--;
@@ -240,12 +240,23 @@ namespace TetrisClassLibrary
 
             for (int i = 0; i < rowsToRemove.Count; i++)
             {
-                Grid.GridArea[rowsToRemove[i]] = new List<char>(Grid.GridArea[rowsToRemove[i] - 1]);
-                if (rowsToRemove[i] == 1)
+                for (int j = rowsToRemove[i]; j > 0; j--)
                 {
-                    Grid.GridArea[rowsToRemove[i]] = new List<char> { '░', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '░' };
+                    Grid.GridArea[j] = new List<char>(Grid.GridArea[j - 1]);
+                    if (j == 1)
+                    {
+                        Grid.GridArea[j] = new List<char> { '░', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '░' };
+                    }
                 }
+
+                //Grid.GridArea[rowsToRemove[i]] = new List<char>(Grid.GridArea[rowsToRemove[i] - 1]);
+                //if (rowsToRemove[i] == 1)
+                //{
+                //    Grid.GridArea[rowsToRemove[i]] = new List<char> { '░', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '░' };
+                //}
             }
+
+
         }
 
 
@@ -267,24 +278,24 @@ namespace TetrisClassLibrary
                 case ConsoleKey.LeftArrow:
                 case ConsoleKey.A:
                     return Grid.UpdateTetromino("left");
-                    //break;
+                //break;
                 case ConsoleKey.RightArrow:
                 case ConsoleKey.D:
                     return Grid.UpdateTetromino("right");
-                    //break;
+                //break;
                 case ConsoleKey.UpArrow:
                 case ConsoleKey.W:
                     return Grid.UpdateTetromino("rotate");
-                    //break;
+                //break;
                 case ConsoleKey.DownArrow:
                 case ConsoleKey.S:
                     tickCounter = gravity;
                     return true;
-                    //break;
+                //break;
                 case ConsoleKey.Spacebar:
                     //hard drop
                     return true;
-                    //break;
+                //break;
                 default:
                     return true;
             }

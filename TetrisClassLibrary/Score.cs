@@ -9,9 +9,10 @@ namespace TetrisClassLibrary
     public class Score
     {
         int currentLevel = 0;
+        int rowsCleardThisLevel = 0;
         internal int UpdateScore(int rowsCleared)
         {
-
+            rowsCleardThisLevel += rowsCleared;
             switch (rowsCleared){
                 case 1:
                     return 40 * (currentLevel + 1);
@@ -27,15 +28,25 @@ namespace TetrisClassLibrary
 
         internal bool LevelUp()
         {
-            //throw new NotImplementedException();
-            if (currentLevel == 1)
+            if (rowsCleardThisLevel >= (10 * currentLevel) + 10)
             {
+                currentLevel++;
+                rowsCleardThisLevel = 0;
                 return true;
             }
             else
             {
                 return false;
             }
+            //if (currentLevel == 1)
+            //{
+            //    return true;
+            //}
+            //else
+            //{
+            //    return false;
+            //}
+
         }
     }
 }

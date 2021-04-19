@@ -69,34 +69,38 @@ namespace TetrisClassLibrary
         public bool CanTetroFit(int X, int Y)
         {
             //Add current tetromino position
-            var ClonedTetromino = CurrentTetromino.Clone();
+            var Clone = CurrentTetromino.Clone();
             if (X == 1)
             {
-                ClonedTetromino.Move("right");
+                Clone.Move("right");
             }
             else if (X == -1)
             {
-                ClonedTetromino.Move("left");
+                Clone.Move("left");
             }
             else if ( Y == 1)
             {
-                ClonedTetromino.GravityTick();
+                Clone.GravityTick();
             }
             else if (X == 0 && Y == 0)
             {
-                ClonedTetromino.Rotate();
+                Clone.Rotate();
             }
 
 
             //Loop through grid to see collission?
-            for (int row = 0; row < ClonedTetromino.Shape.Count; row++)
+            for (int row = 0; row < Clone.Shape.Count; row++)
             {
-                for (int col = 0; col < ClonedTetromino.Shape[0].Count; col++)
+                for (int col = 0; col < Clone.Shape[0].Count; col++)
                 {
-                    if (ClonedTetromino.Shape[row][col] == '@')
+                    if (Clone.Shape[row][col] == '@')
                     {
                         //if collission return false
-                        if (GridArea[ClonedTetromino.GetY()+row][ClonedTetromino.GetX()+col] == '@' || GridArea[ClonedTetromino.GetY() + row][ClonedTetromino.GetX() + col] == '░')
+                        if (GridArea[Clone.GetY()+row][Clone.GetX()+col] == '@')
+                        {
+                            return false;
+                        }
+                        if (GridArea[Clone.GetY() + row][Clone.GetX() + col] == '░')
                         {
                             return false;
                         }

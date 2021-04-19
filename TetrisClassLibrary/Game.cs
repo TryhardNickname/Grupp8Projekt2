@@ -15,16 +15,11 @@ namespace TetrisClassLibrary
 
         ConsoleKeyInfo key;
 
-        int gravity = 5; //20 game tics
+        int gravity = 20; //20 game tics
         int tickCounter = 0;
-        int maxGravity = 5;
         int gameXOffset = 5;
 
         public Game()
-        {
-            Start();
-        }
-        public void Start()
         {
             Grid = new Grid();
             MyScore = new Score();
@@ -32,8 +27,8 @@ namespace TetrisClassLibrary
 
             Thread inputThread = new Thread(Input);
             inputThread.Start();
-
         }
+
 
         /// <summary>
         /// Main Game Loop
@@ -43,9 +38,6 @@ namespace TetrisClassLibrary
         public void Loop()
         {
             bool playing = true;
-            
-
-
 
             Grid.AddNewRandomTetromino();
 
@@ -59,8 +51,7 @@ namespace TetrisClassLibrary
                 //HANDLE USER INPUT========== 
                 if (!HandleUserInput())
                 {
-                    //Console.SetCursorPosition(15, 0);
-                    Console.Beep();
+                    //Console.Beep();
                 }
                 key = new ConsoleKeyInfo();
 

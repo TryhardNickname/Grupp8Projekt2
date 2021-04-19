@@ -18,11 +18,11 @@ namespace TetrisClassLibrary
         int gravity = 20; //20 game tics
         int tickCounter = 0;
         int gameXOffset = 5;
-        int gameYOffset = 3;
+        int gameYOffset = 5;
 
         public Game()
         {
-            Grid = new Grid();
+            Grid = new Grid(gameXOffset, gameYOffset);
             MyScore = new Score();
             Console.CursorVisible = false;
             Thread inputThread = new Thread(Input);
@@ -40,7 +40,8 @@ namespace TetrisClassLibrary
             bool playing = true;
             int rowsCleared = 0;
 
-            Grid.AddNewRandomTetromino();
+            Grid.AddNewRandomTetrominoUpcoming();
+            Grid.CurrentTetromino = Grid.UpcomingTetromino;
             Grid.AddNewRandomTetrominoUpcoming();
 
             while (playing)
@@ -130,10 +131,10 @@ namespace TetrisClassLibrary
             Console.SetCursorPosition(gameXOffset, gameYOffset-1);
             Console.WriteLine("░----------░");
             Console.SetCursorPosition(gameXOffset, gameYOffset);
-            for (int i = 0; i < Grid.GridHeight + 1; i++)
+            for (int i = 0+Grid.HiddenRows; i < Grid.GridHeight + 1; i++)
             {
                 Console.CursorLeft = gameXOffset;
-                Console.CursorTop = i+ gameYOffset;
+                Console.CursorTop = i+ gameYOffset-Grid.HiddenRows;
                 for (int j = 0; j < Grid.GridWidth + 2; j++)
                 {
                     Console.Write(Grid.GridArea[i][j]);
@@ -148,7 +149,7 @@ namespace TetrisClassLibrary
         private void DrawTetromino()
         {
             int X = Grid.CurrentTetromino.GetX();
-            int Y = Grid.CurrentTetromino.GetY();
+            int Y = Grid.CurrentTetromino.GetY() - Grid.HiddenRows;
             for (int row = 0; row < Grid.CurrentTetromino.Shape.Count; row++)
             {
                 for (int col = 0; col < Grid.CurrentTetromino.Shape[0].Count; col++)
@@ -159,10 +160,13 @@ namespace TetrisClassLibrary
                     }
                     else
                     {
-                        Console.ForegroundColor = Grid.CurrentTetromino.Color;
-                        Console.SetCursorPosition(X + col + gameXOffset, Y + row + gameYOffset);
-                        Console.Write('@');
-                        Console.ForegroundColor = ConsoleColor.White;
+                        if (Y > 0)
+                        {
+                            Console.ForegroundColor = Grid.CurrentTetromino.Color;
+                            Console.SetCursorPosition(X + col + gameXOffset, Y + row + gameYOffset );
+                            Console.Write('@');
+                            Console.ForegroundColor = ConsoleColor.White;
+                        }
                     }
                 }
             }

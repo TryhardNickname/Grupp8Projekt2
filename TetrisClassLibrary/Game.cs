@@ -26,10 +26,10 @@ namespace TetrisClassLibrary
 
             Console.CursorVisible = false;
 
-            Thread soundThread = new Thread(Sound);
+            //Thread soundThread = new Thread(Sound);
             Thread inputThread = new Thread(Input);
             inputThread.Start();
-            soundThread.Start();
+            //soundThread.Start();
         }
 
 
@@ -318,11 +318,11 @@ namespace TetrisClassLibrary
             Console.SetCursorPosition(0, 0);
             Console.ForegroundColor = ConsoleColor.White;
 
-            for (int i = 0; i < 22; i++)
+            for (int i = 0; i < Grid.GridHeight + 1; i++)
             {
                 Console.CursorLeft = gameXOffset;
                 Console.CursorTop = i;
-                for (int j = 0; j < 12; j++)
+                for (int j = 0; j < Grid.GridWidth + 2; j++)
                 {
                     Console.Write(Grid.GridArea[i][j]);
                 }

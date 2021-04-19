@@ -52,7 +52,6 @@ namespace TetrisClassLibrary
                 string row = "";
                 for (int j = 1; j < 11; j++)
                 {
-
                     row += GridArea[i][j];
                 }
                 if (row == "@@@@@@@@@@")

@@ -240,33 +240,19 @@ namespace TetrisClassLibrary
 
             for (int i = 0; i < rowsToRemove.Count; i++)
             {
-                for (int j = rowsToRemove[i]; j > 0; j--)
+                while(!Grid.GridArea[rowsToRemove[i]].Contains('@'))
                 {
-                    Grid.GridArea[j] = new List<char>(Grid.GridArea[j - 1]);
-                    if (j == 1)
+                    for (int j = rowsToRemove[i]; j > 0; j--)
                     {
-                        Grid.GridArea[j] = new List<char> { '░', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '░' };
+                        Grid.GridArea[j] = new List<char>(Grid.GridArea[j - 1]);
+                        if (j == 1)
+                        {
+                            Grid.GridArea[j] = new List<char> { '░', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '░' };
+                        }
                     }
                 }
 
-
-                //for (int i = currentRow; i > 0; i--)
-                //{
-                //    GridArea[i] = new List<char>(GridArea[i - 1]);
-                //    if (i == 1)
-                //    {
-                //        GridArea[i] = new List<char> { '░', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '░' };
-                //    }
-                //}
-
-                //Grid.GridArea[rowsToRemove[i]] = new List<char>(Grid.GridArea[rowsToRemove[i] - 1]);
-                //if (rowsToRemove[i] == 1)
-                //{
-                //    Grid.GridArea[rowsToRemove[i]] = new List<char> { '░', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '░' };
-                //}
-
             }
-
 
         }
 

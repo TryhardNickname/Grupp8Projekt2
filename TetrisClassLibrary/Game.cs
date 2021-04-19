@@ -11,8 +11,7 @@ namespace TetrisClassLibrary
     {
         public Grid Grid { get; set; }
         public Score MyScore { get; set; }
-        List<int> totalScore = new List<int>();
-
+        
         ConsoleKeyInfo key;
 
         int gravity = 20; //20 game tics
@@ -41,6 +40,7 @@ namespace TetrisClassLibrary
             int rowsCleared= 0;
 
             Grid.AddNewRandomTetromino();
+            Grid.AddNewRandomTetrominoUpcoming();
 
             while (playing)
             {
@@ -72,7 +72,9 @@ namespace TetrisClassLibrary
                         rowsCleared = Grid.CheckForFullRow();
 
                         //add next tetro
-                        Grid.AddNewRandomTetromino();
+                        ClearUpcomingTetromino();
+                        Grid.CurrentTetromino = Grid.UpcomingTetromino;
+                        Grid.AddNewRandomTetrominoUpcoming();
 
                         // check if game lose i
                         if (!(Grid.CanTetroFit(-2, -2)))
@@ -83,25 +85,16 @@ namespace TetrisClassLibrary
                     }
                     tickCounter = 0;
                 }
-
-
-
+              
 
 
                 if (rowsCleared > 0)
                 {
-                    //Console.SetCursorPosition(15, 6);
-                    //Console.WriteLine("testest");
-                    //Grid.RemoveFullRows();
-                    //Grid.UpdateGrid();
                     DrawScore(MyScore.UpdateScore(rowsCleared));
-                    if (MyScore.LevelUp())
-                    {
-                        gravity--;
-                    }
                 }
 
                 //DRAW GAME==================
+                DrawUpcomingTetromino();
                 DrawGameField();
                 DrawTetromino();
                 //DrawScore(); //maybe only update when score updates for performance
@@ -111,19 +104,25 @@ namespace TetrisClassLibrary
             return totalScore.Sum();
         }
 
-
+        //Checks currentLevel in the Score class and calls the LevelUp function
+        //if LevelUp is true gravity goes down and the game gets faster
         private void DrawLevel()
         {
-            //throw new NotImplementedException();
+            Console.SetCursorPosition(20, 9);
+            Console.WriteLine("Level: {0}", Score.currentLevel);
+            if (MyScore.LevelUp())
+            {
+                gravity --;
+            }
         }
 
+        //Checks the totalScore List in the Score class and prints it out
         private void DrawScore(int score)
         {
-            
-            totalScore.Add(score);
-            Console.SetCursorPosition(15, 5);
-            Console.WriteLine("Score: {0}", totalScore.Sum());
-            //Console.WriteLine(score);
+
+            Score.totalScore.Add(score);
+            Console.SetCursorPosition(20, 7);
+            Console.WriteLine("Score: {0}", Score.totalScore.Sum());
         }
 
         private void DrawGameField()
@@ -142,6 +141,8 @@ namespace TetrisClassLibrary
                 Console.WriteLine();
 
             }
+            Console.SetCursorPosition(18, 0);
+            Console.Write("Next Tetromino");
         }
 
         private void DrawTetromino()
@@ -167,6 +168,45 @@ namespace TetrisClassLibrary
             }
         }
 
+        private void DrawUpcomingTetromino()
+        {
+            int X = Grid.UpcomingTetromino.GetX();
+            int Y = Grid.UpcomingTetromino.GetY();
+            for (int row = 0; row < Grid.UpcomingTetromino.Shape.Count; row++)
+            {
+                for (int col = 0; col < Grid.UpcomingTetromino.Shape[0].Count; col++)
+                {
+                    if (Grid.UpcomingTetromino.Shape[row][col] == ' ')
+                    {
+
+                    }
+                    else
+                    {
+                        Console.ForegroundColor = Grid.UpcomingTetromino.Color;
+                        Console.SetCursorPosition(X + col + gameXOffset + 13, Y + row);
+                        Console.Write('@');
+                        Console.ForegroundColor = ConsoleColor.White;
+                    }
+                }
+            }
+        }
+
+        private void ClearUpcomingTetromino()
+        {
+            int X = Grid.UpcomingTetromino.GetX();
+            int Y = Grid.UpcomingTetromino.GetY();
+            for (int row = 0; row < Grid.UpcomingTetromino.Shape.Count; row++)
+            {
+                for (int col = 0; col < Grid.UpcomingTetromino.Shape[0].Count; col++)
+                {
+                    if (Grid.UpcomingTetromino.Shape[row][col] != ' ')
+                    {
+                        Console.SetCursorPosition(X + col + gameXOffset + 13, Y + row);
+                        Console.Write(' ');
+                    }
+                }
+            }
+        }
 
         private void Input()
         {

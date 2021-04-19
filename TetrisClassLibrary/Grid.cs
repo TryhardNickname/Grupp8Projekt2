@@ -10,6 +10,7 @@ namespace TetrisClassLibrary
     {
         public List<List<char>> GridArea { get; set; }
         public Tetromino CurrentTetromino { get; set; }
+        public Tetromino UpcomingTetromino { get; set; }
         public Grid()
         {
             GridArea = new List<List<char>>();
@@ -212,5 +213,38 @@ namespace TetrisClassLibrary
             }
             
         }
+        public void AddNewRandomTetrominoUpcoming()
+        {
+            Random rng = new();
+            int num = rng.Next(1, 8);
+            switch (num)
+            {
+                case 1:
+                    UpcomingTetromino = new ZShape();
+                    break;
+                case 2:
+                    UpcomingTetromino = new SShape();
+                    break;
+                case 3:
+                    UpcomingTetromino = new LShape();
+                    break;
+                case 4:
+                    UpcomingTetromino = new JShape();
+                    break;
+                case 5:
+                    UpcomingTetromino = new TShape();
+                    break;
+                case 6:
+                    UpcomingTetromino = new IShape();
+                    break;
+                case 7:
+                    UpcomingTetromino = new OShape();
+                    break;
+                default:
+                    break;
+            }
+
+        }
+
     }
 }

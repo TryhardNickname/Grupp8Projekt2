@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Threading;
 using System.Linq;
+using System.Media;
 
 namespace TetrisClassLibrary
 {
@@ -11,7 +12,7 @@ namespace TetrisClassLibrary
     {
         public Grid Grid { get; set; }
         public Score MyScore { get; set; }
-        
+
         ConsoleKeyInfo key;
 
         int gravity = 20; //20 game tics
@@ -22,10 +23,13 @@ namespace TetrisClassLibrary
         {
             Grid = new Grid();
             MyScore = new Score();
+
             Console.CursorVisible = false;
 
+            Thread soundThread = new Thread(Sound);
             Thread inputThread = new Thread(Input);
             inputThread.Start();
+            soundThread.Start();
         }
 
 
@@ -37,7 +41,7 @@ namespace TetrisClassLibrary
         public int Loop()
         {
             bool playing = true;
-            int rowsCleared= 0;
+            int rowsCleared = 0;
 
             Grid.AddNewRandomTetromino();
             Grid.AddNewRandomTetrominoUpcoming();
@@ -84,7 +88,7 @@ namespace TetrisClassLibrary
                     }
                     tickCounter = 0;
                 }
-              
+
 
 
                 if (rowsCleared > 0)
@@ -99,9 +103,193 @@ namespace TetrisClassLibrary
                 DrawTetromino();
                 //DrawScore(); //maybe only update when score updates for performance
                 DrawLevel(); // ¨^^^¨
-                
+
             }
             return Score.totalScore.Sum();
+        }
+
+        private void Sound()
+        {
+            while (true)
+            {
+                Console.Beep(659, 125);
+                Console.Beep(659, 125);
+                Thread.Sleep(125);
+                Console.Beep(659, 125);
+                Thread.Sleep(167);
+                Console.Beep(523, 125);
+                Console.Beep(659, 125);
+                Thread.Sleep(125);
+                Console.Beep(784, 125);
+                Thread.Sleep(375);
+                Console.Beep(392, 125);
+                Thread.Sleep(375);
+                Console.Beep(523, 125);
+                Thread.Sleep(250);
+                Console.Beep(392, 125);
+                Thread.Sleep(250);
+                Console.Beep(330, 125);
+                Thread.Sleep(250);
+                Console.Beep(440, 125);
+                Thread.Sleep(125);
+                Console.Beep(494, 125);
+                Thread.Sleep(125);
+                Console.Beep(466, 125);
+                Thread.Sleep(42);
+                Console.Beep(440, 125);
+                Thread.Sleep(125);
+                Console.Beep(392, 125);
+                Thread.Sleep(125);
+                Console.Beep(659, 125);
+                Thread.Sleep(125);
+                Console.Beep(784, 125);
+                Thread.Sleep(125);
+                Console.Beep(880, 125);
+                Thread.Sleep(125);
+                Console.Beep(698, 125);
+                Console.Beep(784, 125);
+                Thread.Sleep(125);
+                Console.Beep(659, 125);
+                Thread.Sleep(125);
+                Console.Beep(523, 125);
+                Thread.Sleep(125);
+                Console.Beep(587, 125);
+                Console.Beep(494, 125);
+                Thread.Sleep(125);
+                Console.Beep(523, 125);
+                Thread.Sleep(250);
+                Console.Beep(392, 125);
+                Thread.Sleep(250);
+                Console.Beep(330, 125);
+                Thread.Sleep(250);
+                Console.Beep(440, 125);
+                Thread.Sleep(125);
+                Console.Beep(494, 125);
+                Thread.Sleep(125);
+                Console.Beep(466, 125);
+                Thread.Sleep(42);
+                Console.Beep(440, 125);
+                Thread.Sleep(125);
+                Console.Beep(392, 125);
+                Thread.Sleep(125);
+                Console.Beep(659, 125);
+                Thread.Sleep(125);
+                Console.Beep(784, 125);
+                Thread.Sleep(125);
+                Console.Beep(880, 125);
+                Thread.Sleep(125);
+                Console.Beep(698, 125);
+                Console.Beep(784, 125);
+                Thread.Sleep(125);
+                Console.Beep(659, 125);
+                Thread.Sleep(125);
+                Console.Beep(523, 125);
+                Thread.Sleep(125);
+                Console.Beep(587, 125);
+                Console.Beep(494, 125);
+                Thread.Sleep(375);
+                Console.Beep(784, 125);
+                Console.Beep(740, 125);
+                Console.Beep(698, 125);
+                Thread.Sleep(42);
+                Console.Beep(622, 125);
+                Thread.Sleep(125);
+                Console.Beep(659, 125);
+                Thread.Sleep(167);
+                Console.Beep(415, 125);
+                Console.Beep(440, 125);
+                Console.Beep(523, 125);
+                Thread.Sleep(125);
+                Console.Beep(440, 125);
+                Console.Beep(523, 125);
+                Console.Beep(587, 125);
+                Thread.Sleep(250);
+                Console.Beep(784, 125);
+                Console.Beep(740, 125);
+                Console.Beep(698, 125);
+                Thread.Sleep(42);
+                Console.Beep(622, 125);
+                Thread.Sleep(125);
+                Console.Beep(659, 125);
+                Thread.Sleep(167);
+                Console.Beep(698, 125);
+                Thread.Sleep(125);
+                Console.Beep(698, 125);
+                Console.Beep(698, 125);
+                Thread.Sleep(625);
+                Console.Beep(784, 125);
+                Console.Beep(740, 125);
+                Console.Beep(698, 125);
+                Thread.Sleep(42);
+                Console.Beep(622, 125);
+                Thread.Sleep(125);
+                Console.Beep(659, 125);
+                Thread.Sleep(167);
+                Console.Beep(415, 125);
+                Console.Beep(440, 125);
+                Console.Beep(523, 125);
+                Thread.Sleep(125);
+                Console.Beep(440, 125);
+                Console.Beep(523, 125);
+                Console.Beep(587, 125);
+                Thread.Sleep(250);
+                Console.Beep(622, 125);
+                Thread.Sleep(250);
+                Console.Beep(587, 125);
+                Thread.Sleep(250);
+                Console.Beep(523, 125);
+                Thread.Sleep(1125);
+                Console.Beep(784, 125);
+                Console.Beep(740, 125);
+                Console.Beep(698, 125);
+                Thread.Sleep(42);
+                Console.Beep(622, 125);
+                Thread.Sleep(125);
+                Console.Beep(659, 125);
+                Thread.Sleep(167);
+                Console.Beep(415, 125);
+                Console.Beep(440, 125);
+                Console.Beep(523, 125);
+                Thread.Sleep(125);
+                Console.Beep(440, 125);
+                Console.Beep(523, 125);
+                Console.Beep(587, 125);
+                Thread.Sleep(250);
+                Console.Beep(784, 125);
+                Console.Beep(740, 125);
+                Console.Beep(698, 125);
+                Thread.Sleep(42);
+                Console.Beep(622, 125);
+                Thread.Sleep(125);
+                Console.Beep(659, 125);
+                Thread.Sleep(167);
+                Console.Beep(698, 125);
+                Thread.Sleep(125);
+                Console.Beep(698, 125);
+                Console.Beep(698, 125);
+                Thread.Sleep(625);
+                Console.Beep(784, 125);
+                Console.Beep(740, 125);
+                Console.Beep(698, 125);
+                Thread.Sleep(42);
+                Console.Beep(622, 125);
+                Thread.Sleep(125);
+                Console.Beep(659, 125);
+                Thread.Sleep(167);
+                Console.Beep(415, 125);
+                Console.Beep(440, 125);
+                Console.Beep(523, 125);
+                Thread.Sleep(125);
+                Console.Beep(440, 125);
+                Console.Beep(523, 125);
+                Console.Beep(587, 125);
+                Thread.Sleep(250);
+                Console.Beep(622, 125);
+                Thread.Sleep(250);
+                Console.Beep(587, 125);
+                Thread.Sleep(250);
+                Console.Beep(523, 125);
+            }
         }
 
         //Checks currentLevel in the Score class and calls the LevelUp function
@@ -112,7 +300,7 @@ namespace TetrisClassLibrary
             Console.WriteLine("Level: {0}", Score.currentLevel);
             if (MyScore.LevelUp())
             {
-                gravity --;
+                gravity--;
             }
         }
 
@@ -129,7 +317,7 @@ namespace TetrisClassLibrary
         {
             Console.SetCursorPosition(0, 0);
             Console.ForegroundColor = ConsoleColor.White;
-          
+
             for (int i = 0; i < 22; i++)
             {
                 Console.CursorLeft = gameXOffset;
@@ -160,7 +348,7 @@ namespace TetrisClassLibrary
                     else
                     {
                         Console.ForegroundColor = Grid.CurrentTetromino.Color;
-                        Console.SetCursorPosition(X+col + gameXOffset, Y+row);
+                        Console.SetCursorPosition(X + col + gameXOffset, Y + row);
                         Console.Write('@');
                         Console.ForegroundColor = ConsoleColor.White;
                     }
@@ -226,24 +414,20 @@ namespace TetrisClassLibrary
                 case ConsoleKey.LeftArrow:
                 case ConsoleKey.A:
                     return Grid.UpdateTetromino("left");
-                    //break;
+                //break;
                 case ConsoleKey.RightArrow:
                 case ConsoleKey.D:
                     return Grid.UpdateTetromino("right");
-                    //break;
+                //break;
                 case ConsoleKey.UpArrow:
                 case ConsoleKey.W:
                     return Grid.UpdateTetromino("rotate");
-                    //break;
+                //break;
                 case ConsoleKey.DownArrow:
                 case ConsoleKey.S:
                     tickCounter = gravity;
                     return true;
-                    //break;
-                case ConsoleKey.Spacebar:
-                    //hard drop
-                    return true;
-                    //break;
+                //break;
                 default:
                     return true;
             }

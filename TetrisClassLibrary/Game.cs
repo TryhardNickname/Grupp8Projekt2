@@ -61,7 +61,7 @@ namespace TetrisClassLibrary
                 {
                     if (Grid.CanTetroFit(0, 1))
                     {
-                        // it worked 
+                        // it worked, move tetris down
                         Grid.UpdateTetromino("gravity");
                     }
                     else//tetromino landed
@@ -79,7 +79,6 @@ namespace TetrisClassLibrary
                         // check if game lose i
                         if (!(Grid.CanTetroFit(-2, -2)))
                         {
-                            //return score?
                             playing = false;
                         }
                     }
@@ -91,6 +90,7 @@ namespace TetrisClassLibrary
                 if (rowsCleared > 0)
                 {
                     DrawScore(MyScore.UpdateScore(rowsCleared));
+                    rowsCleared = 0;
                 }
 
                 //DRAW GAME==================
@@ -101,7 +101,7 @@ namespace TetrisClassLibrary
                 DrawLevel(); // ¨^^^¨
                 
             }
-            return totalScore.Sum();
+            return Score.totalScore.Sum();
         }
 
         //Checks currentLevel in the Score class and calls the LevelUp function

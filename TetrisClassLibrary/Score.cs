@@ -40,5 +40,9 @@ namespace TetrisClassLibrary
                 return false;
             }
         }
+        public static void SetLevel(int input)
+        {
+            currentLevel = input;
+        }
     }
 }

@@ -34,9 +34,10 @@ namespace TetrisClassLibrary
         /// takes input, updates fields AND prints to console
         /// NYI - connect with EVENTS to GUI, to seperate resposibilites
         /// </summary>
-        public void Loop()
+        public int Loop()
         {
             bool playing = true;
+            int rowsCleared= 0;
 
             Grid.AddNewRandomTetromino();
             Grid.AddNewRandomTetrominoUpcoming();
@@ -63,20 +64,30 @@ namespace TetrisClassLibrary
                         // it worked 
                         Grid.UpdateTetromino("gravity");
                     }
-                    else
+                    else//tetromino landed
                     {
-                        // check if game lose
-
                         Grid.AddCurrentTetrominoToStack();
+
+                        //CHECK FOR FULL ROWS ==============
+                        rowsCleared = Grid.CheckForFullRow();
+
+                        //add next tetro
                         ClearUpcomingTetromino();
                         Grid.CurrentTetromino = Grid.UpcomingTetromino;
                         Grid.AddNewRandomTetrominoUpcoming();
+
+                        // check if game lose i
+                        if (!(Grid.CanTetroFit(-2, -2)))
+                        {
+                            //return score?
+                            playing = false;
+                        }
                     }
                     tickCounter = 0;
                 }
-                //CHECK FOR FULL ROWS ==============
-                int rowsCleared = Grid.CheckForFullRow();
-                
+              
+
+
                 if (rowsCleared > 0)
                 {
                     DrawScore(MyScore.UpdateScore(rowsCleared));
@@ -90,7 +101,7 @@ namespace TetrisClassLibrary
                 DrawLevel(); // ¨^^^¨
                 
             }
-
+            return totalScore.Sum();
         }
 
         //Checks currentLevel in the Score class and calls the LevelUp function

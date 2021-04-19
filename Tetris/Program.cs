@@ -9,6 +9,7 @@ namespace Tetris
         {
             string input;
             bool loop = true;
+           int result = 0;
             while (loop)
             {
                 //console menu
@@ -31,12 +32,8 @@ namespace Tetris
                         if (play)
                         {
                             game = new Game();
-                            game.Loop();
+                            result = game.Loop();
 
-                            //print spelplan
-                            //print tetromino J 
-                            //print points
-                            //clear
                         }
                         break;
                     case "2":

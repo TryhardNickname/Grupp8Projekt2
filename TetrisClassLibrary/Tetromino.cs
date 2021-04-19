@@ -21,7 +21,7 @@ namespace TetrisClassLibrary
         {
             //Position = new System.Drawing.Point(5, 1);    
             X = 5;
-            Y = 10;
+            Y = 0;
             //1 = SShape
             //2 = ZShape
             //3 = LShape

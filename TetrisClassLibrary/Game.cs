@@ -235,10 +235,17 @@ namespace TetrisClassLibrary
                 backwards--;
 
                 DrawGameField();
-                Thread.Sleep(100);
+                Thread.Sleep(80);
             }
 
-
+            for (int i = 0; i < rowsToRemove.Count; i++)
+            {
+                Grid.GridArea[rowsToRemove[i]] = new List<char>(Grid.GridArea[rowsToRemove[i] - 1]);
+                if (rowsToRemove[i] == 1)
+                {
+                    Grid.GridArea[rowsToRemove[i]] = new List<char> { '░', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '░' };
+                }
+            }
         }
 
 

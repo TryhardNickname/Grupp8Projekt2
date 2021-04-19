@@ -249,11 +249,22 @@ namespace TetrisClassLibrary
                     }
                 }
 
+
+                //for (int i = currentRow; i > 0; i--)
+                //{
+                //    GridArea[i] = new List<char>(GridArea[i - 1]);
+                //    if (i == 1)
+                //    {
+                //        GridArea[i] = new List<char> { '░', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '░' };
+                //    }
+                //}
+
                 //Grid.GridArea[rowsToRemove[i]] = new List<char>(Grid.GridArea[rowsToRemove[i] - 1]);
                 //if (rowsToRemove[i] == 1)
                 //{
                 //    Grid.GridArea[rowsToRemove[i]] = new List<char> { '░', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '░' };
                 //}
+
             }
 
 

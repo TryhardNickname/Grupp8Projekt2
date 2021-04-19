@@ -42,10 +42,10 @@ namespace TetrisClassLibrary
             
         }
 
-        public int CheckForFullRow()
+        public List<int> CheckForFullRow()
         {
-            
-            int removeCounter = 0;
+            List<int> fullRowsIndex = new List<int>();
+
             //kolla full rad?
             for (int i = 21; i > 0; i--)
             {
@@ -58,13 +58,11 @@ namespace TetrisClassLibrary
                 if (row == "@@@@@@@@@@")
                 {
                     //Clear row
-                    removeCounter++;
-                    RemoveFullRows(i);
-                    ++i;
+                    fullRowsIndex.Add(i);
                 }
             }
 
-            return removeCounter;
+            return fullRowsIndex;
         }
 
         public bool CanTetroFit(int X, int Y)
@@ -138,20 +136,6 @@ namespace TetrisClassLibrary
                 }
             }
         }
-
-
-        internal void RemoveFullRows(int currentRow)
-        {
-            for (int i = currentRow; i > 0; i--)
-            {
-                GridArea[i] = new List<char>(GridArea[i - 1]);
-                if ( i == 1)
-                {
-                    GridArea[i] = new List<char> { '░', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '░' };
-                }
-            }
-        }
-
 
         public bool UpdateTetromino(string keyInput)
         {

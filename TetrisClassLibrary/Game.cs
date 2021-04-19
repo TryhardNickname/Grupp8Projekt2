@@ -69,7 +69,11 @@ namespace TetrisClassLibrary
                         Grid.AddCurrentTetrominoToStack();
 
                         //CHECK FOR FULL ROWS ==============
-                        rowsCleared = Grid.CheckForFullRow();
+                        //rowsCleared = 
+                        if (Grid.CheckForFullRow().Count > 0)
+                        {
+                            RemoveFullRows(Grid.CheckForFullRow());
+                        }
 
                         //add next tetro
                         ClearUpcomingTetromino();
@@ -207,6 +211,36 @@ namespace TetrisClassLibrary
                 }
             }
         }
+
+        internal void RemoveFullRows(List<int> rowsToRemove)
+        {
+            int forwards = 5;
+            int backwards = 5;
+
+            while (forwards < 11)
+            {
+                for (int i = 0; i < rowsToRemove.Count; i++)
+                {
+                    if (Grid.GridArea[rowsToRemove[i]][forwards] == '@')
+                    {
+                        Grid.GridArea[rowsToRemove[i]][forwards] = ' ';
+                    }
+
+                    if (Grid.GridArea[rowsToRemove[i]][backwards] == '@')
+                    {
+                        Grid.GridArea[rowsToRemove[i]][backwards] = ' ';
+                    }    
+                }
+                forwards++;
+                backwards--;
+
+                DrawGameField();
+                Thread.Sleep(100);
+            }
+
+               
+        }
+
 
         private void Input()
         {

@@ -22,7 +22,7 @@ namespace TetrisClassLibrary
 
         public Game()
         {
-            Grid = new Grid();
+            Grid = new Grid(gameXOffset, gameYOffset);
             MyScore = new Score();
             Console.CursorVisible = false;
             Thread inputThread = new Thread(Input);
@@ -38,9 +38,11 @@ namespace TetrisClassLibrary
         public int Loop()
         {
             bool playing = true;
-            int rowsCleared = 0;
+            int rowsCleared;
 
-            Grid.AddNewRandomTetromino();
+            //Grid.AddNewRandomTetromino();
+            Grid.AddNewRandomTetrominoUpcoming();
+            Grid.CurrentTetromino = Grid.UpcomingTetromino;
             Grid.AddNewRandomTetrominoUpcoming();
 
             while (playing)
@@ -50,14 +52,14 @@ namespace TetrisClassLibrary
                 tickCounter++;
 
 
-                //HANDLE USER INPUT========== 
+                //HANDLE USER INPUT (MOVEMENT) ========== 
                 if (!HandleUserInput())
                 {
                     //Console.Beep();
                 }
                 key = new ConsoleKeyInfo();
 
-                //GAME LOGIC =?==============  
+                //GAME LOGIC ===============  
                 if (tickCounter == gravity)
                 {
                     if (Grid.CanTetroFit(0, 1))
@@ -70,7 +72,14 @@ namespace TetrisClassLibrary
                         Grid.AddCurrentTetrominoToStack();
 
                         //CHECK FOR FULL ROWS ==============
-                        rowsCleared = Grid.CheckForFullRow();
+                        rowsCleared = Grid.CheckForFullRow(out int firstRowClearedIndex);
+
+                        if (rowsCleared > 0)
+                        {
+                            CoolClearLinesEffect(rowsCleared, firstRowClearedIndex);
+                            DrawScore(MyScore.UpdateScore(rowsCleared));
+                            //rowsCleared = 0;
+                        }
 
                         //add next tetro
                         ClearUpcomingTetromino();
@@ -85,11 +94,7 @@ namespace TetrisClassLibrary
                     }
                     tickCounter = 0;
                 }
-                if (rowsCleared > 0)
-                {
-                    DrawScore(MyScore.UpdateScore(rowsCleared));
-                    rowsCleared = 0;
-                }
+
 
                 //DRAW GAME==================
                 DrawUpcomingTetromino();
@@ -111,7 +116,7 @@ namespace TetrisClassLibrary
             Console.WriteLine("Level: {0}", Score.currentLevel);
             if (MyScore.LevelUp())
             {
-                gravity = gravity - 3;
+                gravity = gravity - 5;
             }
         }
 
@@ -143,6 +148,28 @@ namespace TetrisClassLibrary
             }
             Console.SetCursorPosition(18, 0);
             Console.Write("Next Tetromino");
+        }
+
+        internal void CoolClearLinesEffect(int rowsToRemove, int firstRowClearedIndex)
+        {
+            int forwards = (Grid.GridWidth/2) + 1;
+            int backwards = Grid.GridWidth / 2;
+            int rowsIndexWithOffset = firstRowClearedIndex + gameYOffset;
+
+            while (forwards <= Grid.GridWidth)
+            {
+                for (int i = rowsIndexWithOffset; i > (rowsIndexWithOffset-rowsToRemove); i--)
+                {
+                    Console.SetCursorPosition(gameXOffset + forwards, i);
+                    Console.Write(' ');
+                    Console.SetCursorPosition(gameXOffset + backwards, i);
+                    Console.Write(' ');
+                }
+                forwards++;
+                backwards--;
+
+                Thread.Sleep(100);
+            }
         }
 
         private void DrawTetromino()

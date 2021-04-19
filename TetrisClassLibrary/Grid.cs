@@ -52,26 +52,29 @@ namespace TetrisClassLibrary
             
         }
 
-        public int CheckForFullRow()
+        public int CheckForFullRow(out int firstRowIndex)
         {
             int removeCounter = 0;
-            //kolla full rad?
-            for (int i = GridHeight; i >= 0; i--)
+            firstRowIndex = 0;
+
+            for (int i = GridHeight; i >= 0; i--) //i >= 0 + HiddenRows?
             {
                 string row = "";
-                for (int j = 1; j < GridWidth + 1; j++)
+                for (int j = 1; j <= GridWidth; j++)
                 {
                     row += GridArea[i][j];
                 }
                 if (row == "@@@@@@@@@@")
                 {
                     //Clear row
+                    firstRowIndex = i;
                     removeCounter++;
                     RemoveFullRows(i);
                     ++i;
                 }
             }
 
+            firstRowIndex += removeCounter - 1;
             return removeCounter;
         }
 

@@ -15,10 +15,10 @@ namespace TetrisClassLibrary
 
         ConsoleKeyInfo key;
 
-        int gravity = 20; //20 game tics
+        int gravity = 5; //20 game tics
         int tickCounter = 0;
         int gameXOffset = 5;
-        int gameYOffset = 5;
+        int gameYOffset = 3;
 
         public Game()
         {
@@ -85,9 +85,6 @@ namespace TetrisClassLibrary
                     }
                     tickCounter = 0;
                 }
-
-
-
                 if (rowsCleared > 0)
                 {
                     DrawScore(MyScore.UpdateScore(rowsCleared));
@@ -114,7 +111,7 @@ namespace TetrisClassLibrary
             Console.WriteLine("Level: {0}", Score.currentLevel);
             if (MyScore.LevelUp())
             {
-                gravity--;
+                gravity = gravity - 3;
             }
         }
 
@@ -163,7 +160,7 @@ namespace TetrisClassLibrary
                     else
                     {
                         Console.ForegroundColor = Grid.CurrentTetromino.Color;
-                        Console.SetCursorPosition(X + col + gameXOffset, Y + row);
+                        Console.SetCursorPosition(X + col + gameXOffset, Y + row + gameYOffset);
                         Console.Write('@');
                         Console.ForegroundColor = ConsoleColor.White;
                     }

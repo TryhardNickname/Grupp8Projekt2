@@ -13,11 +13,13 @@ namespace TetrisClassLibrary
         public Tetromino UpcomingTetromino { get; set; }
         public int GridWidth { get; set; }
         public int GridHeight { get; set; }
+        public int HiddenRows { get; set; }
         public Grid(int gameXOffset, int gameYOffset)
         {
             GridArea = new List<List<char>>();
             GridWidth = 10;
-            GridHeight = 20;
+            GridHeight = 25;
+            HiddenRows = 5;
             BuildMap();
             BuildBarrier();
         }
@@ -52,15 +54,13 @@ namespace TetrisClassLibrary
 
         public int CheckForFullRow()
         {
-            
             int removeCounter = 0;
             //kolla full rad?
             for (int i = GridHeight; i >= 0; i--)
             {
                 string row = "";
-                for (int j = 1; j < GridWidth; j++)
+                for (int j = 1; j < GridWidth + 1; j++)
                 {
-
                     row += GridArea[i][j];
                 }
                 if (row == "@@@@@@@@@@")
@@ -100,8 +100,6 @@ namespace TetrisClassLibrary
                 //check spawn
 
             }
-
-
             //Loop through grid to see collission?
             for (int row = 0; row < Clone.Shape.Count; row++)
             {

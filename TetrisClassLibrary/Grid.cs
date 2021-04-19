@@ -86,6 +86,11 @@ namespace TetrisClassLibrary
             {
                 Clone.Rotate();
             }
+            else if (X == -1 && Y == -1)
+            {
+                //check spawn
+
+            }
 
 
             //Loop through grid to see collission?

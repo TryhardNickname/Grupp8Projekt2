@@ -18,17 +18,22 @@ namespace Tetris
                 //if play
                 Game game;
                 bool play = true;
+                int result = 0;
 
                 Console.Clear();
                 if (play)
                 {
                     game = new Game();
-                    game.Loop();
+                    result = game.Loop();
 
-                    //print spelplan
-                    //print tetromino J 
-                    //print points
-                    //clear
+                    Console.WriteLine($"You Scored {result} points");
+                    Console.WriteLine("Do you want to play again? [y/n]");
+                    string input = Console.ReadLine();
+                    if (input == "n")
+                    {
+                        Console.WriteLine("Thank you for playing!");
+                        play = false;
+                    }
                 }
 
                 Console.ReadKey();

@@ -38,7 +38,7 @@ namespace TetrisClassLibrary
         public int Loop()
         {
             bool playing = true;
-            int rowsCleared;
+            List<int> rowsToClear = new();
 
             Grid.AddNewRandomTetrominoUpcoming();
             Grid.CurrentTetromino = Grid.UpcomingTetromino;
@@ -71,13 +71,14 @@ namespace TetrisClassLibrary
                         Grid.AddCurrentTetrominoToStack();
 
                         //CHECK FOR FULL ROWS ==============
-                        rowsCleared = Grid.CheckForFullRow(out List<int> rowsToClear);
+                        Grid.CheckForFullRow(rowsToClear); //out List<int> rowsToClear);
 
-                        if (rowsCleared > 0)
+                        if (rowsToClear.Count > 0)
                         {
-                            CoolClearLinesEffect(rowsCleared, rowsToClear);
-                            DrawScore(MyScore.UpdateScore(rowsCleared));
-                            //rowsCleared = 0;
+                            CoolClearLinesEffect(rowsToClear);
+                            Grid.RemoveFullRows(rowsToClear);
+                            DrawScore(MyScore.UpdateScore(rowsToClear.Count));
+                            rowsToClear.Clear();
                         }
 
                         //add next tetro
@@ -160,7 +161,7 @@ namespace TetrisClassLibrary
             Console.Write("Next Tetromino");
         }
 
-        internal void CoolClearLinesEffect(int rowsToRemove, List<int> rowsToClear)
+        internal void CoolClearLinesEffect(List<int> rowsToClear)
         {
             int forwards = (Grid.GridWidth/2) + 1;
             int backwards = Grid.GridWidth / 2;
@@ -171,16 +172,16 @@ namespace TetrisClassLibrary
 
                 for (int i = 0; i < rowsToClear.Count; i++)
                 {
-                    if (((i + 1) < rowsToClear.Count) && ((rowsToClear[i] - rowsToClear[i+1]) > 1)) // if space between rows is > 1 ( GAP)
-                    {
+                    //if (((i + 1) < rowsToClear.Count) && ((rowsToClear[i] - rowsToClear[i+1]) > 1)) // if space between rows is > 1 ( GAP)
+                    //{
 
-                        gap = rowsToClear[i] - rowsToClear[i + 1] - 1;
-                    }
+                    //    gap = rowsToClear[i] - rowsToClear[i + 1] - 1;
+                    //}
                     Console.SetCursorPosition(gameXOffset + forwards, rowsToClear[i] + gap);
                     Console.Write(' ');
                     Console.SetCursorPosition(gameXOffset + backwards, rowsToClear[i] + gap);
                     Console.Write(' ');
-                    gap = 0;
+                    //gap = 0;
                 }
 
                 //for (int i = firstRowClearedIndex; i > (firstRowClearedIndex - rowsToRemove); i--)

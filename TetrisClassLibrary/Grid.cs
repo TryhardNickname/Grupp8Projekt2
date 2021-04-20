@@ -27,7 +27,7 @@ namespace TetrisClassLibrary
         {
             for (int i = 0; i < GridHeight + 1; i++) // + bottom bordeer
             {
-                GridArea.Add(new List<char>() {});
+                GridArea.Add(new List<char>() { });
                 for (int j = 0; j < GridWidth + 2; j++) // + 2 side borders
                 {
                     GridArea[i].Add(' ');
@@ -49,33 +49,12 @@ namespace TetrisClassLibrary
 
                 GridArea[i][GridArea[0].Count - 1] = '░';  // Right
             }
-            
+
         }
 
-        public int CheckForFullRow(out List<int> rowsToClear)
-        {
-            int removeCounter = 0;
-            rowsToClear = new();
 
-            for (int i = GridHeight; i >= 0; i--) //i >= 0 + HiddenRows?
-            {
-                string row = "";
-                for (int j = 1; j <= GridWidth; j++)
-                {
-                    row += GridArea[i][j];
-                }
-                if (row == "@@@@@@@@@@")
-                {
-                    //Clear row
-                    rowsToClear.Add(i);
-                    removeCounter++;
-                    
-                    ++i;
-                }
-            }
-            RemoveFullRows(rowsToClear);
-            return removeCounter;
-        }
+
+
 
         public bool CanTetroFit(int X, int Y)
         {
@@ -89,7 +68,7 @@ namespace TetrisClassLibrary
             {
                 Clone.Move("left");
             }
-            else if ( Y == 1)
+            else if (Y == 1)
             {
                 Clone.GravityTick();
             }
@@ -110,7 +89,7 @@ namespace TetrisClassLibrary
                     if (Clone.Shape[row][col] == '@')
                     {
                         //if collission return false
-                        if (GridArea[Clone.GetY()+row][Clone.GetX()+col] == '@')
+                        if (GridArea[Clone.GetY() + row][Clone.GetX() + col] == '@')
                         {
                             return false;
                         }
@@ -124,7 +103,7 @@ namespace TetrisClassLibrary
             }
             //else true
             return true;
-            
+
         }
 
         internal void AddCurrentTetrominoToStack()
@@ -146,13 +125,36 @@ namespace TetrisClassLibrary
                 }
             }
         }
-
-
-        internal void RemoveFullRows(List<int> rowToRemove)
+        public void CheckForFullRow(List<int> rowsToClear)//out List<int> rowsToClear)
         {
-            for (int row = 0; row < rowToRemove.Count; row++)
+            //int removeCounter = 0;
+           //List<int> rowsToClear = new();
+
+            for (int i = GridHeight; i >= 0; i--) //i >= 0 + HiddenRows?
             {
-                int currentRow = rowToRemove[row];
+                string row = "";
+                for (int j = 1; j <= GridWidth; j++)
+                {
+                    row += GridArea[i][j];
+                }
+                if (row == "@@@@@@@@@@")
+                {
+                    //Clear row
+                    rowsToClear.Add(i);
+                    //removeCounter++;
+                    //++i;
+                }
+            }
+
+            //RemoveFullRows(rowsToClear);
+            //return rowsToClear;
+        }
+
+        internal void RemoveFullRows(List<int> rowsToRemove)
+        {
+            //for (int row = 0; row < rowToRemove.Count; row++)
+            //{
+                int currentRow = rowsToRemove[0];
                 for (int i = currentRow; i > 0; i--)
                 {
                     GridArea[i] = new List<char>(GridArea[i - 1]);
@@ -161,7 +163,7 @@ namespace TetrisClassLibrary
                         GridArea[i] = new List<char> { '░', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '░' };
                     }
                 }
-            }
+            //}
 
         }
 
@@ -191,7 +193,7 @@ namespace TetrisClassLibrary
                 return false;
             }
             return true;
-            
+
         }
 
         public void AddNewRandomTetrominoUpcoming()

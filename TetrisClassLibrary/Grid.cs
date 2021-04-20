@@ -17,18 +17,18 @@ namespace TetrisClassLibrary
         public Grid(int gameXOffset, int gameYOffset)
         {
             GridArea = new List<List<char>>();
+            HiddenRows = gameYOffset;// dont know if they should be connected
             GridWidth = 10;
-            GridHeight = 25;
-            HiddenRows = 5;
+            GridHeight = 20 + HiddenRows;
             BuildMap();
             BuildBarrier();
         }
         private void BuildMap()
         {
-            for (int i = 0; i < GridHeight + 1; i++)
+            for (int i = 0; i < GridHeight + 1; i++) // + bottom bordeer
             {
                 GridArea.Add(new List<char>() {});
-                for (int j = 0; j < GridWidth + 2; j++)
+                for (int j = 0; j < GridWidth + 2; j++) // + 2 side borders
                 {
                     GridArea[i].Add(' ');
                 }
@@ -67,14 +67,16 @@ namespace TetrisClassLibrary
                 if (row == "@@@@@@@@@@")
                 {
                     //Clear row
-                    firstRowIndex = i;
+                    if (removeCounter == 0)
+                    {
+                        firstRowIndex = i;
+                    }
                     removeCounter++;
                     RemoveFullRows(i);
                     ++i;
                 }
             }
 
-            firstRowIndex += removeCounter - 1;
             return removeCounter;
         }
 
@@ -98,12 +100,12 @@ namespace TetrisClassLibrary
             {
                 Clone.Rotate();
             }
-            else if (X == -1 && Y == -1)
+            else if (X == -2 && Y == -2)
             {
                 //check spawn
-
             }
-            //Loop through grid to see collission?
+
+            //Loop through shape-grid to see collission?
             for (int row = 0; row < Clone.Shape.Count; row++)
             {
                 for (int col = 0; col < Clone.Shape[0].Count; col++)

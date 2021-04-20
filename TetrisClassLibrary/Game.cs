@@ -18,10 +18,12 @@ namespace TetrisClassLibrary
         int gravity = 20; //20 game tics
         int tickCounter = 0;
         int gameXOffset = 5;
+        int gameYOffset = 0;
+
 
         public Game()
         {
-            Grid = new Grid();
+            Grid = new Grid(gameXOffset, gameYOffset);
             MyScore = new Score();
             Console.CursorVisible = false;
             Thread inputThread = new Thread(Input);
@@ -32,31 +34,32 @@ namespace TetrisClassLibrary
         /// <summary>
         /// Main Game Loop
         /// takes input, updates fields AND prints to console
-        /// NYI - connect with EVENTS to GUI, to seperate resposibilites
         /// </summary>
         public int Loop()
         {
             bool playing = true;
             int rowsCleared = 0;
 
-            Grid.AddNewRandomTetromino();
+            gravity = Score.LevelChoice();
+            Grid.AddNewRandomTetrominoUpcoming();
+            Grid.CurrentTetromino = Grid.UpcomingTetromino;
             Grid.AddNewRandomTetrominoUpcoming();
 
             while (playing)
             {
                 //GAME TIMING================
-                Thread.Sleep(50); //game tick // System.Timers better?
+                Thread.Sleep(50); //game tick 
                 tickCounter++;
 
 
-                //HANDLE USER INPUT========== 
+                //HANDLE USER INPUT (MOVEMENT) ========== 
                 if (!HandleUserInput())
                 {
                     //Console.Beep();
                 }
                 key = new ConsoleKeyInfo();
 
-                //GAME LOGIC =?==============  
+                //GAME LOGIC ===============  
                 if (tickCounter == gravity)
                 {
                     if (Grid.CanTetroFit(0, 1))
@@ -69,24 +72,28 @@ namespace TetrisClassLibrary
                         Grid.AddCurrentTetrominoToStack();
 
                         //CHECK FOR FULL ROWS ==============
-                        rowsCleared = Grid.CheckForFullRow();
+                        if (Grid.CheckForFullRow().Count > 0)
+                        {
+                            rowsCleared += RemoveFullRows(Grid.CheckForFullRow());
+                        }
 
                         //add next tetro
                         ClearUpcomingTetromino();
                         Grid.CurrentTetromino = Grid.UpcomingTetromino;
                         Grid.AddNewRandomTetrominoUpcoming();
 
-                        // check if game lose i
+                        // check if game lose 
                         if (!(Grid.CanTetroFit(-2, -2)))
                         {
                             playing = false;
+                            Console.WriteLine("GAME OVER");
+                            Console.SetCursorPosition(20, 5);
+                            Console.WriteLine("PRESS ANY KEY TO EXIT");
+                            Console.ReadKey();
                         }
                     }
                     tickCounter = 0;
                 }
-
-
-
                 if (rowsCleared > 0)
                 {
                     DrawScore(MyScore.UpdateScore(rowsCleared));
@@ -97,9 +104,7 @@ namespace TetrisClassLibrary
                 DrawUpcomingTetromino();
                 DrawGameField();
                 DrawTetromino();
-                //DrawScore(); //maybe only update when score updates for performance
-                DrawLevel(); // ¨^^^¨
-
+                DrawLevel();
             }
             return Score.totalScore.Sum();
         }
@@ -111,16 +116,20 @@ namespace TetrisClassLibrary
         {
             Console.SetCursorPosition(20, 9);
             Console.WriteLine("Level: {0}", Score.currentLevel);
+            Console.WriteLine(gravity);
             if (MyScore.LevelUp())
             {
-                gravity--;
+                gravity = gravity - 2;
+                if(gravity < 2)
+                {
+                    gravity = 2;
+                }
             }
         }
 
         //Checks the totalScore List in the Score class and prints it out
         private void DrawScore(int score)
         {
-
             Score.totalScore.Add(score);
             Console.SetCursorPosition(20, 7);
             Console.WriteLine("Score: {0}", Score.totalScore.Sum());
@@ -128,13 +137,22 @@ namespace TetrisClassLibrary
 
         private void DrawGameField()
         {
-            Console.SetCursorPosition(0, 0);
             Console.ForegroundColor = ConsoleColor.White;
-
-            for (int i = 0; i < Grid.GridHeight + 1; i++)
+            //Setting the gamefield further down and to the left
+            Console.SetCursorPosition(gameXOffset, gameYOffset + Grid.HiddenRows);
+            Console.WriteLine("░----------░");
+            Console.SetCursorPosition(gameXOffset, gameYOffset);
+            for (int k = 0; k < Grid.HiddenRows; k++)
+            {
+                Console.CursorLeft = gameXOffset;
+                Console.CursorTop = k + gameYOffset;
+                Console.WriteLine("            ");
+            }
+            for (int i = 0 + Grid.HiddenRows + 1; i < Grid.GridHeight + 1; i++)
             {
                 Console.CursorLeft = gameXOffset;
                 Console.CursorTop = i;
+
                 for (int j = 0; j < Grid.GridWidth + 2; j++)
                 {
                     Console.Write(Grid.GridArea[i][j]);
@@ -161,14 +179,16 @@ namespace TetrisClassLibrary
                     else
                     {
                         Console.ForegroundColor = Grid.CurrentTetromino.Color;
-                        Console.SetCursorPosition(X + col + gameXOffset, Y + row);
+                        Console.SetCursorPosition(X + col + gameXOffset, Y + row + gameYOffset);
                         Console.Write('@');
                         Console.ForegroundColor = ConsoleColor.White;
+
                     }
                 }
             }
         }
 
+        //Draws the tetromino thats coming next
         private void DrawUpcomingTetromino()
         {
             int X = Grid.UpcomingTetromino.GetX();
@@ -209,12 +229,60 @@ namespace TetrisClassLibrary
             }
         }
 
+        //Removes the full rows with an animation
+        internal int RemoveFullRows(List<int> rowsToRemove)
+        {
+            int forwards = 5;
+            int backwards = 5;
+            int rowsRemoved = 0;
+
+            while (forwards < 11)
+            {
+                for (int i = 0; i < rowsToRemove.Count; i++)
+                {
+                    if (Grid.GridArea[rowsToRemove[i]][forwards] == '@')
+                    {
+                        Grid.GridArea[rowsToRemove[i]][forwards] = ' ';
+                    }
+
+                    if (Grid.GridArea[rowsToRemove[i]][backwards] == '@')
+                    {
+                        Grid.GridArea[rowsToRemove[i]][backwards] = ' ';
+                    }
+                }
+                forwards++;
+                backwards--;
+
+                DrawGameField();
+                Thread.Sleep(80);
+            }
+
+            for (int i = 0; i < rowsToRemove.Count; i++)
+            {
+                rowsRemoved++;
+
+                while(!Grid.GridArea[rowsToRemove[i]].Contains('@'))
+                {
+                    for (int j = rowsToRemove[i]; j > 0; j--)
+                    {
+                        Grid.GridArea[j] = new List<char>(Grid.GridArea[j - 1]);
+                        if (j == 1)
+                        {
+                            Grid.GridArea[j] = new List<char> { '░', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '░' };
+                        }
+                    }
+                }
+            }
+            return rowsRemoved;
+        }
+
+
         private void Input()
         {
             do
             {
                 key = Console.ReadKey(true);
-            } while (true);//Console.KeyAvailable);
+            } while (true);
         }
 
         /// <summary>
@@ -241,6 +309,7 @@ namespace TetrisClassLibrary
                     tickCounter = gravity;
                     return true;
                 //break;
+
                 default:
                     return true;
             }

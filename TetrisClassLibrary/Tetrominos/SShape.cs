@@ -10,11 +10,10 @@ namespace TetrisClassLibrary.Tetrominos
     {
         public SShape()
         {
-            //Position = new int[0, 5];
             Color = ConsoleColor.Magenta;
-            //0 0 1 1
-            //0 1 1 0 
-            //0 0 0 0
+            //0 0 0
+            //0 1 1 
+            //1 1 0 
             Shape = new List<List<char>>
             {
                 new List<char>

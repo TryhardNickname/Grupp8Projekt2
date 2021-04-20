@@ -12,9 +12,9 @@ namespace TetrisClassLibrary.Tetrominos
         {
             Color = ConsoleColor.Green;
 
-            //1 1 1 0
-            //0 0 1 0 
-            //0 0 0 0
+            //0 0 0
+            //1 1 1 
+            //0 0 1
             Shape = new List<List<char>>
             {
                 new List<char>

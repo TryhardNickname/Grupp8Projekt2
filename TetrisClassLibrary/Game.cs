@@ -34,7 +34,6 @@ namespace TetrisClassLibrary
         /// <summary>
         /// Main Game Loop
         /// takes input, updates fields AND prints to console
-        /// NYI - connect with EVENTS to GUI, to seperate resposibilites
         /// </summary>
         public int Loop()
         {
@@ -49,7 +48,7 @@ namespace TetrisClassLibrary
             while (playing)
             {
                 //GAME TIMING================
-                Thread.Sleep(50); //game tick // System.Timers better?
+                Thread.Sleep(50); //game tick 
                 tickCounter++;
 
 
@@ -73,8 +72,6 @@ namespace TetrisClassLibrary
                         Grid.AddCurrentTetrominoToStack();
 
                         //CHECK FOR FULL ROWS ==============
-
-                        //rowsCleared = 
                         if (Grid.CheckForFullRow().Count > 0)
                         {
                             rowsCleared += RemoveFullRows(Grid.CheckForFullRow());
@@ -85,7 +82,7 @@ namespace TetrisClassLibrary
                         Grid.CurrentTetromino = Grid.UpcomingTetromino;
                         Grid.AddNewRandomTetrominoUpcoming();
 
-                        // check if game lose i
+                        // check if game lose 
                         if (!(Grid.CanTetroFit(-2, -2)))
                         {
                             playing = false;
@@ -104,8 +101,7 @@ namespace TetrisClassLibrary
                 DrawUpcomingTetromino();
                 DrawGameField();
                 DrawTetromino();
-                //DrawScore(); //maybe only update when score updates for performance
-                DrawLevel(); // ¨^^^¨
+                DrawLevel();
 
             }
             return Score.totalScore.Sum();
@@ -161,28 +157,6 @@ namespace TetrisClassLibrary
             Console.Write("Next Tetromino");
         }
 
-        //internal void CoolClearLinesEffect(int rowsToRemove, int firstRowClearedIndex)
-        //{
-        //    int forwards = (Grid.GridWidth/2) + 1;
-        //    int backwards = Grid.GridWidth / 2;
-        //    int rowsIndexWithOffset = firstRowClearedIndex + gameYOffset;
-
-        //    while (forwards <= Grid.GridWidth)
-        //    {
-        //        for (int i = rowsIndexWithOffset; i > (rowsIndexWithOffset-rowsToRemove); i--)
-        //        {
-        //            Console.SetCursorPosition(gameXOffset + forwards, i);
-        //            Console.Write(' ');
-        //            Console.SetCursorPosition(gameXOffset + backwards, i);
-        //            Console.Write(' ');
-        //        }
-        //        forwards++;
-        //        backwards--;
-
-        //        Thread.Sleep(100);
-        //    }
-        //}
-
         private void DrawTetromino()
         {
             int X = Grid.CurrentTetromino.GetX();
@@ -207,6 +181,7 @@ namespace TetrisClassLibrary
             }
         }
 
+        //Draws the tetromino thats coming next
         private void DrawUpcomingTetromino()
         {
             int X = Grid.UpcomingTetromino.GetX();
@@ -247,6 +222,7 @@ namespace TetrisClassLibrary
             }
         }
 
+        //Removes the full rows with an animation
         internal int RemoveFullRows(List<int> rowsToRemove)
         {
             int forwards = 5;
@@ -289,11 +265,8 @@ namespace TetrisClassLibrary
                         }
                     }
                 }
-
             }
-
             return rowsRemoved;
-
         }
 
 
@@ -302,7 +275,7 @@ namespace TetrisClassLibrary
             do
             {
                 key = Console.ReadKey(true);
-            } while (true);//Console.KeyAvailable);
+            } while (true);
         }
 
         /// <summary>

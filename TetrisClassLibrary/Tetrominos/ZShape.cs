@@ -13,9 +13,9 @@ namespace TetrisClassLibrary.Tetrominos
             //Position = new System.Drawing.Point(5, 0);
             Color = ConsoleColor.Cyan;
 
-            //1 1 0 0
-            //0 1 1 0 
-            //0 0 0 0
+            //0 0 0
+            //1 1 0 
+            //0 1 1
             Shape = new List<List<char>>
             {
                 new List<char>

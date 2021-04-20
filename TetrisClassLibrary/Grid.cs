@@ -72,7 +72,7 @@ namespace TetrisClassLibrary
             }
             return fullRowsIndex;
         }
-
+        //Checks if the current tetromino collides with anything
         public bool CanTetroFit(int X, int Y)
         {
             //Add current tetromino position
@@ -122,7 +122,7 @@ namespace TetrisClassLibrary
             return true;
             
         }
-
+        //if collision with wall/tetromino add it to the stack
         internal void AddCurrentTetrominoToStack()
         {
 
@@ -145,7 +145,6 @@ namespace TetrisClassLibrary
 
         public bool UpdateTetromino(string keyInput)
         {
-            //ha collioncheck här?
             if (keyInput == "left" && CanTetroFit(-1, 0))
             {
                 CurrentTetromino.Move("left");

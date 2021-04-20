@@ -11,6 +11,7 @@ namespace TetrisClassLibrary
         public static List<int> totalScore = new List<int>();
         public static int currentLevel = 0;
         int rowsCleardThisLevel = 0;
+        //Takes rowscleared input and returns score based on rowscleared
         internal int UpdateScore(int rowsCleared)
         {
             rowsCleardThisLevel += rowsCleared;
@@ -27,6 +28,7 @@ namespace TetrisClassLibrary
             return 0;
         }
 
+        //Checks how many rows have been cleared on the current level and levels you up
         internal bool LevelUp()
         {
             if (rowsCleardThisLevel >= (10 * currentLevel) + 10)
@@ -40,6 +42,7 @@ namespace TetrisClassLibrary
                 return false;
             }
         }
+        //Lets you start at whichever level you want
         public static void SetLevel(int input)
         {
             currentLevel = input;

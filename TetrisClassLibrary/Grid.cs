@@ -52,10 +52,10 @@ namespace TetrisClassLibrary
             
         }
 
-        public int CheckForFullRow(out int firstRowIndex)
+        public int CheckForFullRow(out List<int> rowsToClear)
         {
             int removeCounter = 0;
-            firstRowIndex = 0;
+            rowsToClear = new();
 
             for (int i = GridHeight; i >= 0; i--) //i >= 0 + HiddenRows?
             {
@@ -67,16 +67,13 @@ namespace TetrisClassLibrary
                 if (row == "@@@@@@@@@@")
                 {
                     //Clear row
-                    if (removeCounter == 0)
-                    {
-                        firstRowIndex = i;
-                    }
+                    rowsToClear.Add(i);
                     removeCounter++;
-                    RemoveFullRows(i);
+                    
                     ++i;
                 }
             }
-
+            RemoveFullRows(rowsToClear);
             return removeCounter;
         }
 
@@ -151,16 +148,21 @@ namespace TetrisClassLibrary
         }
 
 
-        internal void RemoveFullRows(int currentRow)
+        internal void RemoveFullRows(List<int> rowToRemove)
         {
-            for (int i = currentRow; i > 0; i--)
+            for (int row = 0; row < rowToRemove.Count; row++)
             {
-                GridArea[i] = new List<char>(GridArea[i - 1]);
-                if ( i == 1)
+                int currentRow = rowToRemove[row];
+                for (int i = currentRow; i > 0; i--)
                 {
-                    GridArea[i] = new List<char> { '░', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '░' };
+                    GridArea[i] = new List<char>(GridArea[i - 1]);
+                    if (i == 1)
+                    {
+                        GridArea[i] = new List<char> { '░', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '░' };
+                    }
                 }
             }
+
         }
 
 
@@ -195,7 +197,7 @@ namespace TetrisClassLibrary
         public void AddNewRandomTetrominoUpcoming()
         {
             Random rng = new();
-            int num = rng.Next(1, 8);
+            int num = rng.Next(3, 6);
             switch (num)
             {
                 case 1:
@@ -211,10 +213,10 @@ namespace TetrisClassLibrary
                     UpcomingTetromino = new JShape();
                     break;
                 case 5:
-                    UpcomingTetromino = new TShape();
+                    UpcomingTetromino = new IShape();
                     break;
                 case 6:
-                    UpcomingTetromino = new IShape();
+                    UpcomingTetromino = new TShape();
                     break;
                 case 7:
                     UpcomingTetromino = new OShape();

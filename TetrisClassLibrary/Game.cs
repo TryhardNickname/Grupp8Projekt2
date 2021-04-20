@@ -71,11 +71,11 @@ namespace TetrisClassLibrary
                         Grid.AddCurrentTetrominoToStack();
 
                         //CHECK FOR FULL ROWS ==============
-                        rowsCleared = Grid.CheckForFullRow(out int firstRowClearedIndex);
+                        rowsCleared = Grid.CheckForFullRow(out List<int> rowsToClear);
 
                         if (rowsCleared > 0)
                         {
-                            CoolClearLinesEffect(rowsCleared, firstRowClearedIndex);
+                            CoolClearLinesEffect(rowsCleared, rowsToClear);
                             DrawScore(MyScore.UpdateScore(rowsCleared));
                             //rowsCleared = 0;
                         }
@@ -160,20 +160,36 @@ namespace TetrisClassLibrary
             Console.Write("Next Tetromino");
         }
 
-        internal void CoolClearLinesEffect(int rowsToRemove, int firstRowClearedIndex)
+        internal void CoolClearLinesEffect(int rowsToRemove, List<int> rowsToClear)
         {
             int forwards = (Grid.GridWidth/2) + 1;
             int backwards = Grid.GridWidth / 2;
+            int gap = 0;
 
             while (forwards <= Grid.GridWidth)
             {
-                for (int i = firstRowClearedIndex; i > (firstRowClearedIndex - rowsToRemove); i--)
+
+                for (int i = 0; i < rowsToClear.Count; i++)
                 {
-                    Console.SetCursorPosition(gameXOffset + forwards, i);
+                    if (((i + 1) < rowsToClear.Count) && ((rowsToClear[i] - rowsToClear[i+1]) > 1)) // if space between rows is > 1 ( GAP)
+                    {
+
+                        gap = rowsToClear[i] - rowsToClear[i + 1] - 1;
+                    }
+                    Console.SetCursorPosition(gameXOffset + forwards, rowsToClear[i] + gap);
                     Console.Write(' ');
-                    Console.SetCursorPosition(gameXOffset + backwards, i);
+                    Console.SetCursorPosition(gameXOffset + backwards, rowsToClear[i] + gap);
                     Console.Write(' ');
+                    gap = 0;
                 }
+
+                //for (int i = firstRowClearedIndex; i > (firstRowClearedIndex - rowsToRemove); i--)
+                //{
+                //    Console.SetCursorPosition(gameXOffset + forwards, i);
+                //    Console.Write(' ');
+                //    Console.SetCursorPosition(gameXOffset + backwards, i);
+                //    Console.Write(' ');
+                //}
                 forwards++;
                 backwards--;
 

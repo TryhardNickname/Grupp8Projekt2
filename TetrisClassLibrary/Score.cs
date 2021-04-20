@@ -47,5 +47,16 @@ namespace TetrisClassLibrary
         {
             currentLevel = input;
         }
+        public static int LevelChoice()
+        {
+            if (currentLevel > 9)
+            {
+                return 2;
+            }
+            else
+            {
+                return 20 - currentLevel * 2;
+            }
+        }
     }
 }

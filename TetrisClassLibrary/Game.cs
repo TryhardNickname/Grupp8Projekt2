@@ -130,6 +130,12 @@ namespace TetrisClassLibrary
             Console.SetCursorPosition(gameXOffset, gameYOffset + 4);
             Console.WriteLine("░----------░");
             Console.SetCursorPosition(gameXOffset, gameYOffset);
+            for (int k = 0; k < 4; k++)
+            {
+                Console.CursorLeft = gameXOffset;
+                Console.CursorTop = k + gameYOffset;
+                Console.WriteLine("            ");
+            }
             for (int i = 0+ Grid.HiddenRows; i < Grid.GridHeight + 1; i++)
             {
                 Console.CursorLeft = gameXOffset;

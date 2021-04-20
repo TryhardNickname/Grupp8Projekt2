@@ -5,6 +5,7 @@ using System.Drawing;
 using System.Threading;
 using System.Linq;
 using System.Media;
+using System.IO;
 
 namespace TetrisClassLibrary
 {
@@ -12,20 +13,26 @@ namespace TetrisClassLibrary
     {
         public Grid Grid { get; set; }
         public Score MyScore { get; set; }
+        public ConsoleKeyInfo inputKey { get; set; }
+        public int Gravity { get; set; }
 
-        ConsoleKeyInfo key;
-
-        int gravity = 20; //20 game tics
-        int tickCounter = 0;
-        int gameXOffset = 5;
-        int gameYOffset = 4;
+        public int TickCounter { get; set; }
+        public int GameXOffset { get; set; }
+        public int GameYOffset { get; set; }
 
 
         public Game()
         {
-            Grid = new Grid(gameXOffset, gameYOffset);
+            TickCounter = 0;
+            GameXOffset = 10;
+            GameYOffset = 4;
+
+            Grid = new Grid(GameXOffset, GameYOffset);
             MyScore = new Score();
+            Gravity = 20; //20 game tics (20*50ms == 1sec)
+
             Console.CursorVisible = false;
+            Console.SetWindowSize(45, 35);
             Thread inputThread = new Thread(Input);
             inputThread.Start();
         }
@@ -40,7 +47,7 @@ namespace TetrisClassLibrary
             bool playing = true;
             List<int> rowsToClear = new();
 
-            gravity = MyScore.SetGravity();
+            Gravity = MyScore.SetGravity();
             Grid.AddNewRandomTetrominoUpcoming();
             Grid.CurrentTetromino = Grid.UpcomingTetromino;
             Grid.AddNewRandomTetrominoUpcoming();
@@ -49,7 +56,7 @@ namespace TetrisClassLibrary
             {
                 //GAME TIMING================
                 Thread.Sleep(50); //game tick 
-                tickCounter++;
+                TickCounter++;
 
 
                 //HANDLE USER INPUT (MOVEMENT) ========== 
@@ -57,10 +64,10 @@ namespace TetrisClassLibrary
                 {
                     //Console.Beep();
                 }
-                key = new ConsoleKeyInfo();
+                inputKey = new ConsoleKeyInfo();
 
                 //GAME LOGIC ===============  
-                if (tickCounter == gravity)
+                if (TickCounter == Gravity)
                 {
                     if (Grid.CanTetroFit(0, 1))
                     {
@@ -99,61 +106,61 @@ namespace TetrisClassLibrary
                         }
                     }
 
+                    //Checks currentLevel in the Score class and calls the LevelUp function
+                    //if LevelUp is true Gravity goes down and the game gets faster
                     if (MyScore.LevelUp())
                     {
-                        gravity = gravity - 2;
-                        if (gravity < 2)
+                        Gravity = Gravity - 2;
+                        if (Gravity < 2)
                         {
-                            gravity = 2;
+                            Gravity = 2;
                         }
                     }
-                    tickCounter = 0;
+
+                    TickCounter = 0;
                 }
 
                 //DRAW GAME==================
                 DrawUpcomingTetromino();
                 DrawGameField();
                 DrawTetromino();
-                DrawLevel();
-                DrawScore();
+                DrawLevelAndScore();
 
             }
         }
 
 
-        //Checks currentLevel in the Score class and calls the LevelUp function
-        //if LevelUp is true gravity goes down and the game gets faster
-        private void DrawLevel()
+        //Checks the totalScore and currentlevel in the Score class and prints it out
+        private void DrawLevelAndScore()
         {
-            Console.SetCursorPosition(20, 9);
-            Console.WriteLine("Level: {0}", MyScore.CurrentLevel);
-            Console.WriteLine(gravity);
-        }
+            int infoOffset = 15;
 
-        //Checks the totalScore List in the Score class and prints it out
-        private void DrawScore()
-        {
-            Console.SetCursorPosition(20, 7);
+            Console.SetCursorPosition(GameXOffset + infoOffset, 9);
+            Console.WriteLine("Level: {0}", MyScore.CurrentLevel);
+
+            Console.WriteLine(Gravity); // test output
+
+            Console.SetCursorPosition(GameXOffset + infoOffset, 7);
             Console.WriteLine("Score: {0}", MyScore.TotalScore);
         }
 
         private void DrawGameField()
         {
             Console.ForegroundColor = ConsoleColor.White;
-            Console.SetCursorPosition(gameXOffset, gameYOffset - 1);
+            Console.SetCursorPosition(GameXOffset, GameYOffset - 1);
             Console.WriteLine("░----------░");
 
-            for (int i = 0; i < gameYOffset - 1; i++)
+            for (int i = 0; i < GameYOffset - 1; i++) 
             {
-                Console.CursorLeft = gameXOffset;
+                Console.CursorLeft = GameXOffset;
                 Console.CursorTop = i;
                 Console.WriteLine("           "); //hiding hidden rows, but not ----
             }
 
 
-            for (int i = gameYOffset; i <= Grid.GridHeight; i++) //20 rows
+            for (int i = GameYOffset; i <= Grid.GridHeight; i++) //20 rows
             {
-                Console.CursorLeft = gameXOffset;
+                Console.CursorLeft = GameXOffset;
                 Console.CursorTop = i;
 
                 for (int j = 0; j < Grid.GridWidth + 2; j++)
@@ -179,25 +186,13 @@ namespace TetrisClassLibrary
 
                 for (int i = 0; i < rowsToClear.Count; i++)
                 {
-                    //if (((i + 1) < rowsToClear.Count) && ((rowsToClear[i] - rowsToClear[i+1]) > 1)) // if space between rows is > 1 ( GAP)
-                    //{
+                    Console.SetCursorPosition(GameXOffset + forwards, rowsToClear[i] + gap);
+                    Console.Write(' ');
+                    Console.SetCursorPosition(GameXOffset + backwards, rowsToClear[i] + gap);
+                    Console.Write(' ');
 
-                    //    gap = rowsToClear[i] - rowsToClear[i + 1] - 1;
-                    //}
-                    Console.SetCursorPosition(gameXOffset + forwards, rowsToClear[i] + gap);
-                    Console.Write(' ');
-                    Console.SetCursorPosition(gameXOffset + backwards, rowsToClear[i] + gap);
-                    Console.Write(' ');
-                    //gap = 0;
                 }
 
-                //for (int i = firstRowClearedIndex; i > (firstRowClearedIndex - rowsToRemove); i--)
-                //{
-                //    Console.SetCursorPosition(gameXOffset + forwards, i);
-                //    Console.Write(' ');
-                //    Console.SetCursorPosition(gameXOffset + backwards, i);
-                //    Console.Write(' ');
-                //}
                 forwards++;
                 backwards--;
 
@@ -222,7 +217,7 @@ namespace TetrisClassLibrary
                         if (Y > 0) //try without
                         {
                             Console.ForegroundColor = Grid.CurrentTetromino.Color;
-                            Console.SetCursorPosition(X + col + gameXOffset, Y + row);
+                            Console.SetCursorPosition(X + col + GameXOffset, Y + row);
                             Console.Write('@');
                             Console.ForegroundColor = ConsoleColor.White;
                         }
@@ -248,7 +243,7 @@ namespace TetrisClassLibrary
                     else
                     {
                         Console.ForegroundColor = Grid.UpcomingTetromino.Color;
-                        Console.SetCursorPosition(X + col + gameXOffset + 13, Y + row);
+                        Console.SetCursorPosition(X + col + GameXOffset + 13, Y + row);
                         Console.Write('@');
                         Console.ForegroundColor = ConsoleColor.White;
                     }
@@ -266,7 +261,7 @@ namespace TetrisClassLibrary
                 {
                     if (Grid.UpcomingTetromino.Shape[row][col] != ' ')
                     {
-                        Console.SetCursorPosition(X + col + gameXOffset + 13, Y + row);
+                        Console.SetCursorPosition(X + col + GameXOffset + 13, Y + row);
                         Console.Write(' ');
                     }
                 }
@@ -325,7 +320,7 @@ namespace TetrisClassLibrary
         {
             do
             {
-                key = Console.ReadKey(true);
+                inputKey = Console.ReadKey(true);
             } while (true);
         }
 
@@ -334,7 +329,7 @@ namespace TetrisClassLibrary
         /// </summary>
         public bool HandleUserInput()
         {
-            switch (key.Key)
+            switch (inputKey.Key)
             {
                 case ConsoleKey.LeftArrow:
                 case ConsoleKey.A:
@@ -350,7 +345,7 @@ namespace TetrisClassLibrary
                 //break;
                 case ConsoleKey.DownArrow:
                 case ConsoleKey.S:
-                    tickCounter = gravity;
+                    TickCounter = Gravity;
                     return true;
                 //break;
 

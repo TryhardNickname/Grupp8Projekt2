@@ -40,7 +40,7 @@ namespace Tetris
 
                     case "0":
                         Console.WriteLine("Bye bye!");
-                        Console.ReadKey();
+                        //Console.ReadKey();
                         loop = false;
                         break;
 
@@ -59,7 +59,7 @@ namespace Tetris
             {
                 if (int.TryParse(userInput, out int num))
                 {
-                    if (num < amountOfChoices && num >= 0) // && > 0
+                    if (num < amountOfChoices && num >= 0) 
                     {
                         return userInput;
                     }

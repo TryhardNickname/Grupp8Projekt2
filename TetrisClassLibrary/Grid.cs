@@ -11,17 +11,27 @@ namespace TetrisClassLibrary
         public List<List<char>> GridArea { get; set; }
         public Tetromino CurrentTetromino { get; set; }
         public Tetromino UpcomingTetromino { get; set; }
-        public Grid()
+        public int GridWidth { get; set; }
+        public int GridHeight { get; set; }
+        public int HiddenRows { get; set; }
+        public Grid(int gameXOffset, int gameYOffset)
         {
             GridArea = new List<List<char>>();
+            GridWidth = 10;
+            GridHeight = 25;
+            HiddenRows = 5;
             BuildMap();
             BuildBarrier();
         }
         private void BuildMap()
         {
-            for (int i = 0; i < 22; i++)
+            for (int i = 0; i < GridHeight + 1; i++)
             {
-                GridArea.Add(new List<char>() { ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ' });
+                GridArea.Add(new List<char>() {});
+                for (int j = 0; j < GridWidth + 2; j++)
+                {
+                    GridArea[i].Add(' ');
+                }
             }
         }
         private void BuildBarrier()
@@ -31,7 +41,7 @@ namespace TetrisClassLibrary
             {
                 if (i < GridArea[0].Count)
                 {
-                    GridArea[0][i] = '░';  // Top
+                    //GridArea[0][i] = '░';  // Top
 
                     GridArea[GridArea.Count - 1][i] = '░';  // Bottom
                 }
@@ -42,26 +52,30 @@ namespace TetrisClassLibrary
             
         }
 
+
         public List<int> CheckForFullRow()
         {
             List<int> fullRowsIndex = new List<int>();
 
             //kolla full rad?
             for (int i = 21; i > 0; i--)
+
             {
                 string row = "";
-                for (int j = 1; j < 11; j++)
+                for (int j = 1; j <= GridWidth; j++)
                 {
                     row += GridArea[i][j];
                 }
                 if (row == "@@@@@@@@@@")
                 {
                     //Clear row
+
                     fullRowsIndex.Add(i);
                 }
             }
 
             return fullRowsIndex;
+
         }
 
         public bool CanTetroFit(int X, int Y)
@@ -89,8 +103,6 @@ namespace TetrisClassLibrary
                 //check spawn
 
             }
-
-
             //Loop through grid to see collission?
             for (int row = 0; row < Clone.Shape.Count; row++)
             {
@@ -164,38 +176,6 @@ namespace TetrisClassLibrary
             
         }
 
-        public void AddNewRandomTetromino()
-        {
-            Random rng = new();
-            int num = rng.Next(1, 8);
-            switch (num)
-            {
-                case 1:
-                    CurrentTetromino = new ZShape();
-                    break;
-                case 2:
-                    CurrentTetromino = new SShape();
-                    break;
-                case 3:
-                    CurrentTetromino = new LShape();
-                    break;
-                case 4:
-                    CurrentTetromino = new JShape();
-                    break;
-                case 5:
-                    CurrentTetromino = new TShape();
-                    break;
-                case 6:
-                    CurrentTetromino = new IShape();
-                    break;
-                case 7:
-                    CurrentTetromino = new OShape();
-                    break;
-                default:
-                    break;
-            }
-            
-        }
         public void AddNewRandomTetrominoUpcoming()
         {
             Random rng = new();

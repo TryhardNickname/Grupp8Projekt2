@@ -10,8 +10,6 @@ namespace TetrisClassLibrary
 {
     public abstract class Tetromino
     {
-        //Point(X,Y);
-        //protected Point Position { get; set; }
         public int X {protected get; set; }
         public int Y {protected get; set; }
         public List<List<char>> Shape { get; set; }
@@ -19,17 +17,8 @@ namespace TetrisClassLibrary
 
         public Tetromino()
         {
-            //Position = new System.Drawing.Point(5, 1);    
             X = 5;
             Y = 0;
-            //1 = SShape
-            //2 = ZShape
-            //3 = LShape
-            //4 = JShape
-            //5 = TShape
-            //6 = IShape
-            //7 = OShape
-            //Enum??
         }
         protected Tetromino(Tetromino copy) : this()
         {
@@ -54,12 +43,10 @@ namespace TetrisClassLibrary
         {
             if (direction == "left")
             {
-                //Position = new Point(Position.X-1, Position.Y);
                 X = X - 1;
             }
             else if (direction == "right")
             {
-                //Position = new Point(Position.X + 1, Position.Y);
                 X = X + 1;
             }
 
@@ -75,7 +62,6 @@ namespace TetrisClassLibrary
             width = Shape[0].Count;
             height = Shape.Count;
 
-            //ändra till 3x3??
             List<List<char>> newShape = new List<List<char>>();
             for (int i = 0; i < Shape.Count; i++)
             {
@@ -86,24 +72,6 @@ namespace TetrisClassLibrary
                 }
                 newShape.Add(temp);
             }
-            //{
-            //    new List<char>
-            //    {
-            //        ' ', ' ', ' ', ' '
-            //    },
-            //    new List<char>
-            //    {
-            //        ' ', ' ', ' ', ' '
-            //    },
-            //    new List<char>
-            //    {
-            //        ' ', ' ', ' ', ' '
-            //    },
-            //    new List<char>
-            //    {
-            //        ' ', ' ', ' ', ' '
-            //    }
-            //};
 
             for (int row = 0; row < height; row++)
             {
@@ -120,13 +88,10 @@ namespace TetrisClassLibrary
             }
             Shape = newShape;
 
-            //addoffsetdata?
-
         }
 
         public void GravityTick()
         {
-            //Position = new Point(Position.X, Position.Y + 1);
             Y = Y + 1;
             
         }

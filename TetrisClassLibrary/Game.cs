@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Threading;
 using System.Linq;
+using System.Media;
 
 namespace TetrisClassLibrary
 {
@@ -17,13 +18,13 @@ namespace TetrisClassLibrary
         int gravity = 20; //20 game tics
         int tickCounter = 0;
         int gameXOffset = 5;
+        int gameYOffset = 5;
 
         public Game()
         {
-            Grid = new Grid();
+            Grid = new Grid(gameXOffset, gameYOffset);
             MyScore = new Score();
             Console.CursorVisible = false;
-
             Thread inputThread = new Thread(Input);
             inputThread.Start();
         }
@@ -39,7 +40,9 @@ namespace TetrisClassLibrary
             bool playing = true;
             int rowsCleared = 0;
 
-            Grid.AddNewRandomTetromino();
+
+            Grid.AddNewRandomTetrominoUpcoming();
+            Grid.CurrentTetromino = Grid.UpcomingTetromino;
             Grid.AddNewRandomTetrominoUpcoming();
 
             while (playing)
@@ -49,14 +52,14 @@ namespace TetrisClassLibrary
                 tickCounter++;
 
 
-                //HANDLE USER INPUT========== 
+                //HANDLE USER INPUT (MOVEMENT) ========== 
                 if (!HandleUserInput())
                 {
                     //Console.Beep();
                 }
                 key = new ConsoleKeyInfo();
 
-                //GAME LOGIC =?==============  
+                //GAME LOGIC ===============  
                 if (tickCounter == gravity)
                 {
                     if (Grid.CanTetroFit(0, 1))
@@ -69,6 +72,7 @@ namespace TetrisClassLibrary
                         Grid.AddCurrentTetrominoToStack();
 
                         //CHECK FOR FULL ROWS ==============
+
                         //rowsCleared = 
                         if (Grid.CheckForFullRow().Count > 0)
                         {
@@ -89,14 +93,6 @@ namespace TetrisClassLibrary
                     tickCounter = 0;
                 }
 
-
-
-                if (rowsCleared > 0)
-                {
-                    DrawScore(MyScore.UpdateScore(rowsCleared));
-                    rowsCleared = 0;
-                }
-
                 //DRAW GAME==================
                 DrawUpcomingTetromino();
                 DrawGameField();
@@ -108,6 +104,7 @@ namespace TetrisClassLibrary
             return Score.totalScore.Sum();
         }
 
+
         //Checks currentLevel in the Score class and calls the LevelUp function
         //if LevelUp is true gravity goes down and the game gets faster
         private void DrawLevel()
@@ -116,7 +113,7 @@ namespace TetrisClassLibrary
             Console.WriteLine("Level: {0}", Score.currentLevel);
             if (MyScore.LevelUp())
             {
-                gravity--;
+                gravity = gravity - 5;
             }
         }
 
@@ -131,14 +128,17 @@ namespace TetrisClassLibrary
 
         private void DrawGameField()
         {
-            Console.SetCursorPosition(0, 0);
             Console.ForegroundColor = ConsoleColor.White;
 
-            for (int i = 0; i < 22; i++)
+            Console.SetCursorPosition(gameXOffset, gameYOffset-1);
+            Console.WriteLine("░----------░");
+            Console.SetCursorPosition(gameXOffset, gameYOffset);
+            for (int i = 0+Grid.HiddenRows; i < Grid.GridHeight + 1; i++)
+
             {
                 Console.CursorLeft = gameXOffset;
-                Console.CursorTop = i;
-                for (int j = 0; j < 12; j++)
+                Console.CursorTop = i+ gameYOffset-Grid.HiddenRows;
+                for (int j = 0; j < Grid.GridWidth + 2; j++)
                 {
                     Console.Write(Grid.GridArea[i][j]);
                 }
@@ -149,10 +149,32 @@ namespace TetrisClassLibrary
             Console.Write("Next Tetromino");
         }
 
+        internal void CoolClearLinesEffect(int rowsToRemove, int firstRowClearedIndex)
+        {
+            int forwards = (Grid.GridWidth/2) + 1;
+            int backwards = Grid.GridWidth / 2;
+            int rowsIndexWithOffset = firstRowClearedIndex + gameYOffset;
+
+            while (forwards <= Grid.GridWidth)
+            {
+                for (int i = rowsIndexWithOffset; i > (rowsIndexWithOffset-rowsToRemove); i--)
+                {
+                    Console.SetCursorPosition(gameXOffset + forwards, i);
+                    Console.Write(' ');
+                    Console.SetCursorPosition(gameXOffset + backwards, i);
+                    Console.Write(' ');
+                }
+                forwards++;
+                backwards--;
+
+                Thread.Sleep(100);
+            }
+        }
+
         private void DrawTetromino()
         {
             int X = Grid.CurrentTetromino.GetX();
-            int Y = Grid.CurrentTetromino.GetY();
+            int Y = Grid.CurrentTetromino.GetY() - Grid.HiddenRows;
             for (int row = 0; row < Grid.CurrentTetromino.Shape.Count; row++)
             {
                 for (int col = 0; col < Grid.CurrentTetromino.Shape[0].Count; col++)
@@ -163,10 +185,14 @@ namespace TetrisClassLibrary
                     }
                     else
                     {
-                        Console.ForegroundColor = Grid.CurrentTetromino.Color;
-                        Console.SetCursorPosition(X + col + gameXOffset, Y + row);
-                        Console.Write('@');
-                        Console.ForegroundColor = ConsoleColor.White;
+
+                        if (Y > 0)
+                        {
+                            Console.ForegroundColor = Grid.CurrentTetromino.Color;
+                            Console.SetCursorPosition(X + col + gameXOffset, Y + row + gameYOffset );
+                            Console.Write('@');
+                            Console.ForegroundColor = ConsoleColor.White;
+                        }
                     }
                 }
             }
@@ -289,10 +315,7 @@ namespace TetrisClassLibrary
                     tickCounter = gravity;
                     return true;
                 //break;
-                case ConsoleKey.Spacebar:
-                    //hard drop
-                    return true;
-                //break;
+
                 default:
                     return true;
             }

@@ -174,7 +174,7 @@ namespace TetrisClassLibrary
         private void DrawTetromino()
         {
             int X = Grid.CurrentTetromino.GetX();
-            int Y = Grid.CurrentTetromino.GetY() - Grid.HiddenRows;
+            int Y = Grid.CurrentTetromino.GetY(); ;
             for (int row = 0; row < Grid.CurrentTetromino.Shape.Count; row++)
             {
                 for (int col = 0; col < Grid.CurrentTetromino.Shape[0].Count; col++)

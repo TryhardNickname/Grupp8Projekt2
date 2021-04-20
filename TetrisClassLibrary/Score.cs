@@ -9,33 +9,53 @@ namespace TetrisClassLibrary
 {
     public class Score
     {
-        public static List<int> totalScore = new List<int>();
-        public static int currentLevel = 0;
-        int rowsCleardThisLevel = 0;
-        //Takes rowscleared input and returns score based on rowscleared
-        internal int UpdateScore(int rowsCleared)
+        public int TotalScore { get; set;}
+        public int CurrentLevel { get; set; }
+        public int RowsCleardThisLevel { get; set; }
+
+        //NYI TotalRowsCleared
+        public Score()
         {
-            rowsCleardThisLevel += rowsCleared;
-            switch (rowsCleared){
-                case 1:
-                    return 40 * (currentLevel + 1);
-                case 2:
-                    return 100 * (currentLevel + 1);
-                case 3:
-                    return 300 * (currentLevel + 1);
-                case 4:
-                    return 1200 * (currentLevel + 1);
+            TotalScore = 0;
+            CurrentLevel = 0;
+            RowsCleardThisLevel = 0;
+            if (!File.Exists("Highscore.txt"))
+            {
+                File.Create("Highscore.txt").Close();
             }
-            return 0;
+        }
+
+        //Takes rowscleared input and returns score based on rowscleared
+
+        public void UpdateScore(int rowsCleared)
+        {
+            RowsCleardThisLevel += rowsCleared;
+            switch (rowsCleared)
+            {
+                case 1:
+                    TotalScore += (40 * (CurrentLevel + 1));
+                    break;
+                case 2:
+                    TotalScore += (100 * (CurrentLevel + 1));
+                    break;
+                case 3:
+                    TotalScore += (300 * (CurrentLevel + 1));
+                    break;
+                case 4:
+                    TotalScore += (1200 * (CurrentLevel + 1));
+                    break;
+                default:
+                    break;
+            }
         }
 
         //Checks how many rows have been cleared on the current level and levels you up
-        internal bool LevelUp()
+        public bool LevelUp()
         {
-            if (rowsCleardThisLevel >= (10 * currentLevel) + 10)
+            if (RowsCleardThisLevel >= (10 * CurrentLevel) + 10)
             {
-                currentLevel++;
-                rowsCleardThisLevel = 0;
+                CurrentLevel++;
+                RowsCleardThisLevel = 0;
                 return true;
             }
             else
@@ -43,28 +63,31 @@ namespace TetrisClassLibrary
                 return false;
             }
         }
-        //Lets you start at whichever level you want
-        public static void SetLevel(int input)
+        //Lets you start at whichever level you want, (move to constructor
+        public void SetLevel(int input)
         {
-            currentLevel = input;
+            CurrentLevel = input;
         }
-        public static void SaveHighScore()
+
+        public void SaveHighScore()
         {
-            File.WriteAllText("Highscore.txt", Convert.ToString(totalScore.Sum()));
+            File.WriteAllText("Highscore.txt", Convert.ToString(TotalScore));
         }
         public static int LoadHighScore()
         {
+            File.WriteAllText("Highscore.txt", Convert.ToString(0));
             return Convert.ToInt32(File.ReadAllText("Highscore.txt"));
         }
-        public static int LevelChoice()
+
+        public int SetGravity()
         {
-            if (currentLevel > 9)
+            if (CurrentLevel > 9)
             {
                 return 2;
             }
             else
             {
-                return 20 - currentLevel * 2;
+                return 20 - CurrentLevel * 2;
             }
         }
     }

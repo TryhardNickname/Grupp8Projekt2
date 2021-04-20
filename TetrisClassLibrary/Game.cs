@@ -77,7 +77,7 @@ namespace TetrisClassLibrary
                         //rowsCleared = 
                         if (Grid.CheckForFullRow().Count > 0)
                         {
-                            RemoveFullRows(Grid.CheckForFullRow());
+                            rowsCleared += RemoveFullRows(Grid.CheckForFullRow());
                         }
 
                         //add next tetro
@@ -247,10 +247,11 @@ namespace TetrisClassLibrary
             }
         }
 
-        internal void RemoveFullRows(List<int> rowsToRemove)
+        internal int RemoveFullRows(List<int> rowsToRemove)
         {
             int forwards = 5;
             int backwards = 5;
+            int rowsRemoved = 0;
 
             while (forwards < 11)
             {
@@ -275,6 +276,8 @@ namespace TetrisClassLibrary
 
             for (int i = 0; i < rowsToRemove.Count; i++)
             {
+                rowsRemoved++;
+
                 while(!Grid.GridArea[rowsToRemove[i]].Contains('@'))
                 {
                     for (int j = rowsToRemove[i]; j > 0; j--)
@@ -288,6 +291,8 @@ namespace TetrisClassLibrary
                 }
 
             }
+
+            return rowsRemoved;
 
         }
 

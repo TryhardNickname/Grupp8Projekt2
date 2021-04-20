@@ -60,7 +60,7 @@ namespace TetrisClassLibrary
 
 
             //kolla full rad?
-            for (int i = 21; i > 0; i--)
+            for (int i = 25; i > 0; i--)
 
             {
                 string row = "";

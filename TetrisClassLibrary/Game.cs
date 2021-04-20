@@ -38,7 +38,8 @@ namespace TetrisClassLibrary
         public int Loop()
         {
             bool playing = true;
-            int rowsCleared;
+            int rowsCleared = 0;
+
 
             Grid.AddNewRandomTetrominoUpcoming();
             Grid.CurrentTetromino = Grid.UpcomingTetromino;
@@ -71,13 +72,11 @@ namespace TetrisClassLibrary
                         Grid.AddCurrentTetrominoToStack();
 
                         //CHECK FOR FULL ROWS ==============
-                        rowsCleared = Grid.CheckForFullRow(out int firstRowClearedIndex);
 
-                        if (rowsCleared > 0)
+                        //rowsCleared = 
+                        if (Grid.CheckForFullRow().Count > 0)
                         {
-                            CoolClearLinesEffect(rowsCleared, firstRowClearedIndex);
-                            DrawScore(MyScore.UpdateScore(rowsCleared));
-                            //rowsCleared = 0;
+                            RemoveFullRows(Grid.CheckForFullRow());
                         }
 
                         //add next tetro
@@ -93,7 +92,6 @@ namespace TetrisClassLibrary
                     }
                     tickCounter = 0;
                 }
-
 
                 //DRAW GAME==================
                 DrawUpcomingTetromino();
@@ -131,10 +129,12 @@ namespace TetrisClassLibrary
         private void DrawGameField()
         {
             Console.ForegroundColor = ConsoleColor.White;
+
             Console.SetCursorPosition(gameXOffset, gameYOffset-1);
             Console.WriteLine("░----------░");
             Console.SetCursorPosition(gameXOffset, gameYOffset);
             for (int i = 0+Grid.HiddenRows; i < Grid.GridHeight + 1; i++)
+
             {
                 Console.CursorLeft = gameXOffset;
                 Console.CursorTop = i+ gameYOffset-Grid.HiddenRows;
@@ -185,6 +185,7 @@ namespace TetrisClassLibrary
                     }
                     else
                     {
+
                         if (Y > 0)
                         {
                             Console.ForegroundColor = Grid.CurrentTetromino.Color;
@@ -237,6 +238,51 @@ namespace TetrisClassLibrary
             }
         }
 
+        internal void RemoveFullRows(List<int> rowsToRemove)
+        {
+            int forwards = 5;
+            int backwards = 5;
+
+            while (forwards < 11)
+            {
+                for (int i = 0; i < rowsToRemove.Count; i++)
+                {
+                    if (Grid.GridArea[rowsToRemove[i]][forwards] == '@')
+                    {
+                        Grid.GridArea[rowsToRemove[i]][forwards] = ' ';
+                    }
+
+                    if (Grid.GridArea[rowsToRemove[i]][backwards] == '@')
+                    {
+                        Grid.GridArea[rowsToRemove[i]][backwards] = ' ';
+                    }
+                }
+                forwards++;
+                backwards--;
+
+                DrawGameField();
+                Thread.Sleep(80);
+            }
+
+            for (int i = 0; i < rowsToRemove.Count; i++)
+            {
+                while(!Grid.GridArea[rowsToRemove[i]].Contains('@'))
+                {
+                    for (int j = rowsToRemove[i]; j > 0; j--)
+                    {
+                        Grid.GridArea[j] = new List<char>(Grid.GridArea[j - 1]);
+                        if (j == 1)
+                        {
+                            Grid.GridArea[j] = new List<char> { '░', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '░' };
+                        }
+                    }
+                }
+
+            }
+
+        }
+
+
         private void Input()
         {
             do
@@ -269,6 +315,7 @@ namespace TetrisClassLibrary
                     tickCounter = gravity;
                     return true;
                 //break;
+
                 default:
                     return true;
             }

@@ -40,7 +40,7 @@ namespace TetrisClassLibrary
             bool playing = true;
             int rowsCleared = 0;
 
-
+            gravity = Score.LevelChoice();
             Grid.AddNewRandomTetrominoUpcoming();
             Grid.CurrentTetromino = Grid.UpcomingTetromino;
             Grid.AddNewRandomTetrominoUpcoming();
@@ -100,13 +100,11 @@ namespace TetrisClassLibrary
                     rowsCleared = 0;
                 }
 
-
                 //DRAW GAME==================
                 DrawUpcomingTetromino();
                 DrawGameField();
                 DrawTetromino();
                 DrawLevel();
-
             }
             return Score.totalScore.Sum();
         }
@@ -118,9 +116,14 @@ namespace TetrisClassLibrary
         {
             Console.SetCursorPosition(20, 9);
             Console.WriteLine("Level: {0}", Score.currentLevel);
+            Console.WriteLine(gravity);
             if (MyScore.LevelUp())
             {
-                gravity = gravity - 3;
+                gravity = gravity - 2;
+                if(gravity < 2)
+                {
+                    gravity = 2;
+                }
             }
         }
 

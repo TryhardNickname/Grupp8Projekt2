@@ -55,14 +55,18 @@ namespace TetrisClassLibrary
 
         public List<int> CheckForFullRow()
         {
+
             List<int> fullRowsIndex = new List<int>();
+
 
             //kolla full rad?
             for (int i = 21; i > 0; i--)
 
             {
                 string row = "";
-                for (int j = 1; j <= GridWidth; j++)
+
+                for (int j = 1; j < GridWidth + 1; j++)
+
                 {
                     row += GridArea[i][j];
                 }

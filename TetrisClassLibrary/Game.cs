@@ -35,12 +35,12 @@ namespace TetrisClassLibrary
         /// Main Game Loop
         /// takes input, updates fields AND prints to console
         /// </summary>
-        public int Loop()
+        public void Loop()
         {
             bool playing = true;
             List<int> rowsToClear = new();
 
-            gravity = Score.LevelChoice();
+            gravity = MyScore.SetGravity();
             Grid.AddNewRandomTetrominoUpcoming();
             Grid.CurrentTetromino = Grid.UpcomingTetromino;
             Grid.AddNewRandomTetrominoUpcoming();
@@ -78,10 +78,8 @@ namespace TetrisClassLibrary
                         if (rowsToClear.Count > 0)
                         {
                             CoolClearLinesEffect(rowsToClear);
-                            DrawScore(MyScore.UpdateScore(rowsToClear.Count));
-
                             Grid.RemoveFullRows(rowsToClear);
-                            DrawScore(MyScore.UpdateScore(rowsToClear.Count));
+                            MyScore.UpdateScore(rowsToClear.Count);
                             rowsToClear.Clear();
                         }
 
@@ -101,17 +99,24 @@ namespace TetrisClassLibrary
                         }
                     }
 
-
-
-                    //DRAW GAME==================
-                    DrawUpcomingTetromino();
-                    DrawGameField();
-                    DrawTetromino();
-                    DrawLevel();
+                    if (MyScore.LevelUp())
+                    {
+                        gravity = gravity - 2;
+                        if (gravity < 2)
+                        {
+                            gravity = 2;
+                        }
+                    }
                     tickCounter = 0;
                 }
+
+                //DRAW GAME==================
+                DrawUpcomingTetromino();
+                DrawGameField();
+                DrawTetromino();
+                DrawLevel();
+                DrawScore();
             }
-            return Score.totalScore.Sum();
         }
 
         //Checks currentLevel in the Score class and calls the LevelUp function
@@ -119,24 +124,15 @@ namespace TetrisClassLibrary
         private void DrawLevel()
         {
             Console.SetCursorPosition(20, 9);
-            Console.WriteLine("Level: {0}", Score.currentLevel);
+            Console.WriteLine("Level: {0}", MyScore.CurrentLevel);
             Console.WriteLine(gravity);
-            if (MyScore.LevelUp())
-            {
-                gravity = gravity - 2;
-                if (gravity < 2)
-                {
-                    gravity = 2;
-                }
-            }
         }
 
         //Checks the totalScore List in the Score class and prints it out
-        private void DrawScore(int score)
+        private void DrawScore()
         {
-            Score.totalScore.Add(score);
             Console.SetCursorPosition(20, 7);
-            Console.WriteLine("Score: {0}", Score.totalScore.Sum());
+            Console.WriteLine("Score: {0}", MyScore.TotalScore);
         }
 
         private void DrawGameField()

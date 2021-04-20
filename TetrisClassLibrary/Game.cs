@@ -86,6 +86,10 @@ namespace TetrisClassLibrary
                         if (!(Grid.CanTetroFit(-2, -2)))
                         {
                             playing = false;
+                            Console.WriteLine("GAME OVER");
+                            Console.SetCursorPosition(20, 5);
+                            Console.WriteLine("PRESS ANY KEY TO EXIT");
+                            Console.ReadKey();
                         }
                     }
                     tickCounter = 0;

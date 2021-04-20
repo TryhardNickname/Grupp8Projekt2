@@ -37,6 +37,7 @@ namespace Tetris
                             result = game.Loop();
 
                         }
+                        Console.Clear();
                         break;
                     case "2":
                     case "View Highscore":

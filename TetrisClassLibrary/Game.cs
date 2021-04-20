@@ -74,6 +74,7 @@ namespace TetrisClassLibrary
                         //CHECK FOR FULL ROWS ==============
                         Grid.CheckForFullRow(rowsToClear); //out List<int> rowsToClear);
 
+                        //remove if full rows
                         if (rowsToClear.Count > 0)
                         {
                             CoolClearLinesEffect(rowsToClear);
@@ -84,21 +85,20 @@ namespace TetrisClassLibrary
                             rowsToClear.Clear();
                         }
 
-                            //add next tetro
-                            ClearUpcomingTetromino();
-                            Grid.CurrentTetromino = Grid.UpcomingTetromino;
-                            Grid.AddNewRandomTetrominoUpcoming();
+                        //add next tetro
+                        ClearUpcomingTetromino();
+                        Grid.CurrentTetromino = Grid.UpcomingTetromino;
+                        Grid.AddNewRandomTetrominoUpcoming();
 
-                            // check if game lose 
-                            if (!(Grid.CanTetroFit(-2, -2)))
-                            {
-                                playing = false;
-                                Console.WriteLine("GAME OVER");
-                                Console.SetCursorPosition(20, 5);
-                                Console.WriteLine("PRESS ANY KEY TO EXIT");
-                                Console.ReadKey();
-                            }
-                        tickCounter = 0;
+                        // check if game lose 
+                        if (!(Grid.CanTetroFit(-2, -2)))
+                        {
+                            playing = false;
+                            Console.WriteLine("GAME OVER");
+                            Console.SetCursorPosition(20, 5);
+                            Console.WriteLine("PRESS ANY KEY TO EXIT");
+                            Console.ReadKey();
+                        }
                     }
 
 
@@ -108,6 +108,7 @@ namespace TetrisClassLibrary
                     DrawGameField();
                     DrawTetromino();
                     DrawLevel();
+                    tickCounter = 0;
                 }
             }
             return Score.totalScore.Sum();
@@ -123,7 +124,7 @@ namespace TetrisClassLibrary
             if (MyScore.LevelUp())
             {
                 gravity = gravity - 2;
-                if(gravity < 2)
+                if (gravity < 2)
                 {
                     gravity = 2;
                 }
@@ -141,10 +142,10 @@ namespace TetrisClassLibrary
         private void DrawGameField()
         {
             Console.ForegroundColor = ConsoleColor.White;
-            Console.SetCursorPosition(gameXOffset, gameYOffset-1);
+            Console.SetCursorPosition(gameXOffset, gameYOffset - 1);
             Console.WriteLine("░----------░");
 
-            for (int i = 0; i < gameYOffset-1; i++) 
+            for (int i = 0; i < gameYOffset - 1; i++)
             {
                 Console.CursorLeft = gameXOffset;
                 Console.CursorTop = i;
@@ -171,7 +172,7 @@ namespace TetrisClassLibrary
 
         internal void CoolClearLinesEffect(List<int> rowsToClear)
         {
-            int forwards = (Grid.GridWidth/2) + 1;
+            int forwards = (Grid.GridWidth / 2) + 1;
             int backwards = Grid.GridWidth / 2;
             int gap = 0;
 
@@ -306,7 +307,7 @@ namespace TetrisClassLibrary
             {
                 rowsRemoved++;
 
-                while(!Grid.GridArea[rowsToRemove[i]].Contains('@'))
+                while (!Grid.GridArea[rowsToRemove[i]].Contains('@'))
                 {
                     for (int j = rowsToRemove[i]; j > 0; j--)
                     {

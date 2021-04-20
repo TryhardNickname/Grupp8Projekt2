@@ -55,7 +55,7 @@ namespace TetrisClassLibrary
         public static int LoadHighScore()
         {
             return Convert.ToInt32(File.ReadAllText("Highscore.txt"));
-
+        }
         public static int LevelChoice()
         {
             if (currentLevel > 9)

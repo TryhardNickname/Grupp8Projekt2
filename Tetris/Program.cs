@@ -35,7 +35,7 @@ namespace Tetris
                         {
                             game = new Game();
                             result = game.Loop();
-
+                            Score.SaveHighScore();
                         }
                         break;
                     case "2":

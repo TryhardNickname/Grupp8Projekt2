@@ -18,8 +18,8 @@ namespace TetrisClassLibrary
         {
             GridArea = new List<List<char>>();
             GridWidth = 10;
-            GridHeight = 25;
-            HiddenRows = 5;
+            GridHeight = 24;
+            HiddenRows = 4;
             BuildMap();
             BuildBarrier();
         }
@@ -55,31 +55,22 @@ namespace TetrisClassLibrary
 
         public List<int> CheckForFullRow()
         {
-
             List<int> fullRowsIndex = new List<int>();
-
-
             //kolla full rad?
-            for (int i = 21; i > 0; i--)
-
+            for (int i = GridHeight; i > 0; i--)
             {
                 string row = "";
-
                 for (int j = 1; j < GridWidth + 1; j++)
-
                 {
                     row += GridArea[i][j];
                 }
                 if (row == "@@@@@@@@@@")
                 {
                     //Clear row
-
                     fullRowsIndex.Add(i);
                 }
             }
-
             return fullRowsIndex;
-
         }
 
         public bool CanTetroFit(int X, int Y)

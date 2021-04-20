@@ -15,7 +15,7 @@ namespace TetrisClassLibrary
 
         ConsoleKeyInfo key;
 
-        int gravity = 5; //20 game tics
+        int gravity = 20; //20 game tics
         int tickCounter = 0;
         int gameXOffset = 5;
         int gameYOffset = 0;
@@ -127,7 +127,6 @@ namespace TetrisClassLibrary
         //Checks the totalScore List in the Score class and prints it out
         private void DrawScore(int score)
         {
-
             Score.totalScore.Add(score);
             Console.SetCursorPosition(20, 7);
             Console.WriteLine("Score: {0}", Score.totalScore.Sum());
@@ -136,19 +135,20 @@ namespace TetrisClassLibrary
         private void DrawGameField()
         {
             Console.ForegroundColor = ConsoleColor.White;
-            Console.SetCursorPosition(gameXOffset, gameYOffset + 4);
+            //Setting the gamefield further down and to the left
+            Console.SetCursorPosition(gameXOffset, gameYOffset + Grid.HiddenRows);
             Console.WriteLine("░----------░");
             Console.SetCursorPosition(gameXOffset, gameYOffset);
-            for (int k = 0; k < 4; k++)
+            for (int k = 0; k < Grid.HiddenRows; k++)
             {
                 Console.CursorLeft = gameXOffset;
                 Console.CursorTop = k + gameYOffset;
                 Console.WriteLine("            ");
             }
-            for (int i = 0+ Grid.HiddenRows; i < Grid.GridHeight + 1; i++)
+            for (int i = 0 + Grid.HiddenRows + 1; i < Grid.GridHeight + 1; i++)
             {
                 Console.CursorLeft = gameXOffset;
-                Console.CursorTop = i+ gameYOffset;
+                Console.CursorTop = i;
 
                 for (int j = 0; j < Grid.GridWidth + 2; j++)
                 {
@@ -161,32 +161,32 @@ namespace TetrisClassLibrary
             Console.Write("Next Tetromino");
         }
 
-        internal void CoolClearLinesEffect(int rowsToRemove, int firstRowClearedIndex)
-        {
-            int forwards = (Grid.GridWidth/2) + 1;
-            int backwards = Grid.GridWidth / 2;
-            int rowsIndexWithOffset = firstRowClearedIndex + gameYOffset;
+        //internal void CoolClearLinesEffect(int rowsToRemove, int firstRowClearedIndex)
+        //{
+        //    int forwards = (Grid.GridWidth/2) + 1;
+        //    int backwards = Grid.GridWidth / 2;
+        //    int rowsIndexWithOffset = firstRowClearedIndex + gameYOffset;
 
-            while (forwards <= Grid.GridWidth)
-            {
-                for (int i = rowsIndexWithOffset; i > (rowsIndexWithOffset-rowsToRemove); i--)
-                {
-                    Console.SetCursorPosition(gameXOffset + forwards, i);
-                    Console.Write(' ');
-                    Console.SetCursorPosition(gameXOffset + backwards, i);
-                    Console.Write(' ');
-                }
-                forwards++;
-                backwards--;
+        //    while (forwards <= Grid.GridWidth)
+        //    {
+        //        for (int i = rowsIndexWithOffset; i > (rowsIndexWithOffset-rowsToRemove); i--)
+        //        {
+        //            Console.SetCursorPosition(gameXOffset + forwards, i);
+        //            Console.Write(' ');
+        //            Console.SetCursorPosition(gameXOffset + backwards, i);
+        //            Console.Write(' ');
+        //        }
+        //        forwards++;
+        //        backwards--;
 
-                Thread.Sleep(100);
-            }
-        }
+        //        Thread.Sleep(100);
+        //    }
+        //}
 
         private void DrawTetromino()
         {
             int X = Grid.CurrentTetromino.GetX();
-            int Y = Grid.CurrentTetromino.GetY() - Grid.HiddenRows;
+            int Y = Grid.CurrentTetromino.GetY();
             for (int row = 0; row < Grid.CurrentTetromino.Shape.Count; row++)
             {
                 for (int col = 0; col < Grid.CurrentTetromino.Shape[0].Count; col++)

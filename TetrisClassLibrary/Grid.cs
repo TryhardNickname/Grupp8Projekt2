@@ -152,9 +152,9 @@ namespace TetrisClassLibrary
 
         internal void RemoveFullRows(List<int> rowsToRemove)
         {
-            //for (int row = 0; row < rowToRemove.Count; row++)
-            //{
-                int currentRow = rowsToRemove[0];
+            for (int row = rowsToRemove.Count-1; row >= 0 ; row--)
+            {
+                int currentRow = rowsToRemove[row];
                 for (int i = currentRow; i > 0; i--)
                 {
                     GridArea[i] = new List<char>(GridArea[i - 1]);
@@ -163,7 +163,7 @@ namespace TetrisClassLibrary
                         GridArea[i] = new List<char> { '░', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '░' };
                     }
                 }
-            //}
+            }
 
         }
 

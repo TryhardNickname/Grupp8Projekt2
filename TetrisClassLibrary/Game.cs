@@ -77,42 +77,41 @@ namespace TetrisClassLibrary
                         if (rowsToClear.Count > 0)
                         {
                             CoolClearLinesEffect(rowsToClear);
+                            DrawScore(MyScore.UpdateScore(rowsToClear.Count));
+
                             Grid.RemoveFullRows(rowsToClear);
                             DrawScore(MyScore.UpdateScore(rowsToClear.Count));
                             rowsToClear.Clear();
-
-                        //add next tetro
-                        ClearUpcomingTetromino();
-                        Grid.CurrentTetromino = Grid.UpcomingTetromino;
-                        Grid.AddNewRandomTetrominoUpcoming();
-
-                        // check if game lose 
-                        if (!(Grid.CanTetroFit(-2, -2)))
-                        {
-                            playing = false;
-                            Console.WriteLine("GAME OVER");
-                            Console.SetCursorPosition(20, 5);
-                            Console.WriteLine("PRESS ANY KEY TO EXIT");
-                            Console.ReadKey();
                         }
-                    }
-                    tickCounter = 0;
-                }
-                if (rowsCleared > 0)
-                {
-                    DrawScore(MyScore.UpdateScore(rowsCleared));
-                    rowsCleared = 0;
-                }
 
-                //DRAW GAME==================
-                DrawUpcomingTetromino();
-                DrawGameField();
-                DrawTetromino();
-                DrawLevel();
+                            //add next tetro
+                            ClearUpcomingTetromino();
+                            Grid.CurrentTetromino = Grid.UpcomingTetromino;
+                            Grid.AddNewRandomTetrominoUpcoming();
+
+                            // check if game lose 
+                            if (!(Grid.CanTetroFit(-2, -2)))
+                            {
+                                playing = false;
+                                Console.WriteLine("GAME OVER");
+                                Console.SetCursorPosition(20, 5);
+                                Console.WriteLine("PRESS ANY KEY TO EXIT");
+                                Console.ReadKey();
+                            }
+                        tickCounter = 0;
+                    }
+
+
+
+                    //DRAW GAME==================
+                    DrawUpcomingTetromino();
+                    DrawGameField();
+                    DrawTetromino();
+                    DrawLevel();
+                }
             }
             return Score.totalScore.Sum();
         }
-
 
         //Checks currentLevel in the Score class and calls the LevelUp function
         //if LevelUp is true gravity goes down and the game gets faster

@@ -100,19 +100,18 @@ namespace TetrisClassLibrary
                             Console.ReadKey();
                         }
                     }
-
-
-
                     //DRAW GAME==================
-                    DrawUpcomingTetromino();
-                    DrawGameField();
-                    DrawTetromino();
-                    DrawLevel();
                     tickCounter = 0;
                 }
+                DrawUpcomingTetromino();
+                DrawGameField();
+                DrawTetromino();
+                DrawLevel();
+                
             }
             return Score.totalScore.Sum();
         }
+
 
         //Checks currentLevel in the Score class and calls the LevelUp function
         //if LevelUp is true gravity goes down and the game gets faster

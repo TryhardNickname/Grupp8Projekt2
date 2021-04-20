@@ -17,18 +17,19 @@ namespace TetrisClassLibrary
         public Grid(int gameXOffset, int gameYOffset)
         {
             GridArea = new List<List<char>>();
+            HiddenRows = gameYOffset;// dont know if they should be connected
             GridWidth = 10;
-            GridHeight = 24;
-            HiddenRows = 4;
+            GridHeight = 20 + HiddenRows;
+
             BuildMap();
             BuildBarrier();
         }
         private void BuildMap()
         {
-            for (int i = 0; i < GridHeight + 1; i++)
+            for (int i = 0; i < GridHeight + 1; i++) // + bottom bordeer
             {
-                GridArea.Add(new List<char>() {});
-                for (int j = 0; j < GridWidth + 2; j++)
+                GridArea.Add(new List<char>() { });
+                for (int j = 0; j < GridWidth + 2; j++) // + 2 side borders
                 {
                     GridArea[i].Add(' ');
                 }
@@ -49,29 +50,9 @@ namespace TetrisClassLibrary
 
                 GridArea[i][GridArea[0].Count - 1] = '░';  // Right
             }
-            
-        }
 
-
-        public List<int> CheckForFullRow()
-        {
-            List<int> fullRowsIndex = new List<int>();
-            //kolla full rad?
-            for (int i = GridHeight; i > 0; i--)
-            {
-                string row = "";
-                for (int j = 1; j < GridWidth + 1; j++)
-                {
-                    row += GridArea[i][j];
-                }
-                if (row == "@@@@@@@@@@")
-                {
-                    //Clear row
-                    fullRowsIndex.Add(i);
-                }
-            }
-            return fullRowsIndex;
         }
+      
         //Checks if the current tetromino collides with anything
         public bool CanTetroFit(int X, int Y)
         {
@@ -85,7 +66,7 @@ namespace TetrisClassLibrary
             {
                 Clone.Move("left");
             }
-            else if ( Y == 1)
+            else if (Y == 1)
             {
                 Clone.GravityTick();
             }
@@ -93,12 +74,12 @@ namespace TetrisClassLibrary
             {
                 Clone.Rotate();
             }
-            else if (X == -1 && Y == -1)
+            else if (X == -2 && Y == -2)
             {
                 //check spawn
-
             }
-            //Loop through grid to see collission?
+
+            //Loop through shape-grid to see collission?
             for (int row = 0; row < Clone.Shape.Count; row++)
             {
                 for (int col = 0; col < Clone.Shape[0].Count; col++)
@@ -106,7 +87,7 @@ namespace TetrisClassLibrary
                     if (Clone.Shape[row][col] == '@')
                     {
                         //if collission return false
-                        if (GridArea[Clone.GetY()+row][Clone.GetX()+col] == '@')
+                        if (GridArea[Clone.GetY() + row][Clone.GetX() + col] == '@')
                         {
                             return false;
                         }
@@ -120,7 +101,7 @@ namespace TetrisClassLibrary
             }
             //else true
             return true;
-            
+
         }
         //if collision with wall/tetromino add it to the stack
         internal void AddCurrentTetrominoToStack()
@@ -141,6 +122,39 @@ namespace TetrisClassLibrary
                     }
                 }
             }
+        }
+      
+        public void CheckForFullRow(List<int> rowsToClear)//out List<int> rowsToClear)
+        {
+            for (int i = GridHeight; i >= 0; i--) //i >= 0 + HiddenRows?
+            {
+                string row = "";
+                for (int j = 1; j <= GridWidth; j++)
+                {
+                    row += GridArea[i][j];
+                }
+                if (row == "@@@@@@@@@@")
+                {
+                    rowsToClear.Add(i);
+                }
+            }
+        }
+
+        internal void RemoveFullRows(List<int> rowsToRemove)
+        {
+            for (int row = rowsToRemove.Count-1; row >= 0 ; row--)
+            {
+                int currentRow = rowsToRemove[row];
+                for (int i = currentRow; i > 0; i--)
+                {
+                    GridArea[i] = new List<char>(GridArea[i - 1]);
+                    if (i == 1)
+                    {
+                        GridArea[i] = new List<char> { '░', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '░' };
+                    }
+                }
+            }
+
         }
 
         public bool UpdateTetromino(string keyInput)
@@ -167,13 +181,13 @@ namespace TetrisClassLibrary
                 return false;
             }
             return true;
-            
+
         }
 
         public void AddNewRandomTetrominoUpcoming()
         {
             Random rng = new();
-            int num = rng.Next(1, 8);
+            int num = rng.Next(3, 6);
             switch (num)
             {
                 case 1:
@@ -189,10 +203,10 @@ namespace TetrisClassLibrary
                     UpcomingTetromino = new JShape();
                     break;
                 case 5:
-                    UpcomingTetromino = new TShape();
+                    UpcomingTetromino = new IShape();
                     break;
                 case 6:
-                    UpcomingTetromino = new IShape();
+                    UpcomingTetromino = new TShape();
                     break;
                 case 7:
                     UpcomingTetromino = new OShape();

@@ -187,7 +187,7 @@ namespace TetrisClassLibrary
         public void AddNewRandomTetrominoUpcoming()
         {
             Random rng = new();
-            int num = rng.Next(3, 6);
+            int num = rng.Next(1, 8);
             switch (num)
             {
                 case 1:

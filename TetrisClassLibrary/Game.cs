@@ -116,8 +116,10 @@ namespace TetrisClassLibrary
                 DrawTetromino();
                 DrawLevel();
                 DrawScore();
+
             }
         }
+
 
         //Checks currentLevel in the Score class and calls the LevelUp function
         //if LevelUp is true gravity goes down and the game gets faster

@@ -52,27 +52,34 @@ namespace TetrisClassLibrary
             
         }
 
-        public int CheckForFullRow()
+
+        public List<int> CheckForFullRow()
         {
-            int removeCounter = 0;
+
+            List<int> fullRowsIndex = new List<int>();
+
+
             //kolla full rad?
-            for (int i = GridHeight; i >= 0; i--)
+            for (int i = 21; i > 0; i--)
+
             {
                 string row = "";
+
                 for (int j = 1; j < GridWidth + 1; j++)
+
                 {
                     row += GridArea[i][j];
                 }
                 if (row == "@@@@@@@@@@")
                 {
                     //Clear row
-                    removeCounter++;
-                    RemoveFullRows(i);
-                    ++i;
+
+                    fullRowsIndex.Add(i);
                 }
             }
 
-            return removeCounter;
+            return fullRowsIndex;
+
         }
 
         public bool CanTetroFit(int X, int Y)
@@ -145,20 +152,6 @@ namespace TetrisClassLibrary
             }
         }
 
-
-        internal void RemoveFullRows(int currentRow)
-        {
-            for (int i = currentRow; i > 0; i--)
-            {
-                GridArea[i] = new List<char>(GridArea[i - 1]);
-                if ( i == 1)
-                {
-                    GridArea[i] = new List<char> { '░', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '░' };
-                }
-            }
-        }
-
-
         public bool UpdateTetromino(string keyInput)
         {
             //ha collioncheck här?
@@ -187,38 +180,6 @@ namespace TetrisClassLibrary
             
         }
 
-        public void AddNewRandomTetromino()
-        {
-            Random rng = new();
-            int num = rng.Next(1, 8);
-            switch (num)
-            {
-                case 1:
-                    CurrentTetromino = new ZShape();
-                    break;
-                case 2:
-                    CurrentTetromino = new SShape();
-                    break;
-                case 3:
-                    CurrentTetromino = new LShape();
-                    break;
-                case 4:
-                    CurrentTetromino = new JShape();
-                    break;
-                case 5:
-                    CurrentTetromino = new TShape();
-                    break;
-                case 6:
-                    CurrentTetromino = new IShape();
-                    break;
-                case 7:
-                    CurrentTetromino = new OShape();
-                    break;
-                default:
-                    break;
-            }
-            
-        }
         public void AddNewRandomTetrominoUpcoming()
         {
             Random rng = new();

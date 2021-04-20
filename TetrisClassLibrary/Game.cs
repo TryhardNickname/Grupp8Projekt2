@@ -20,6 +20,7 @@ namespace TetrisClassLibrary
         int gameXOffset = 5;
         int gameYOffset = 4;
 
+
         public Game()
         {
             Grid = new Grid(gameXOffset, gameYOffset);
@@ -33,13 +34,13 @@ namespace TetrisClassLibrary
         /// <summary>
         /// Main Game Loop
         /// takes input, updates fields AND prints to console
-        /// NYI - connect with EVENTS to GUI, to seperate resposibilites
         /// </summary>
         public int Loop()
         {
             bool playing = true;
             List<int> rowsToClear = new();
 
+            gravity = Score.LevelChoice();
             Grid.AddNewRandomTetrominoUpcoming();
             Grid.CurrentTetromino = Grid.UpcomingTetromino;
             Grid.AddNewRandomTetrominoUpcoming();
@@ -47,7 +48,7 @@ namespace TetrisClassLibrary
             while (playing)
             {
                 //GAME TIMING================
-                Thread.Sleep(50); //game tick // System.Timers better?
+                Thread.Sleep(50); //game tick 
                 tickCounter++;
 
 
@@ -79,30 +80,35 @@ namespace TetrisClassLibrary
                             Grid.RemoveFullRows(rowsToClear);
                             DrawScore(MyScore.UpdateScore(rowsToClear.Count));
                             rowsToClear.Clear();
-                        }
 
                         //add next tetro
                         ClearUpcomingTetromino();
                         Grid.CurrentTetromino = Grid.UpcomingTetromino;
                         Grid.AddNewRandomTetrominoUpcoming();
 
-                        // check if game lose i
+                        // check if game lose 
                         if (!(Grid.CanTetroFit(-2, -2)))
                         {
                             playing = false;
+                            Console.WriteLine("GAME OVER");
+                            Console.SetCursorPosition(20, 5);
+                            Console.WriteLine("PRESS ANY KEY TO EXIT");
+                            Console.ReadKey();
                         }
                     }
                     tickCounter = 0;
                 }
-
+                if (rowsCleared > 0)
+                {
+                    DrawScore(MyScore.UpdateScore(rowsCleared));
+                    rowsCleared = 0;
+                }
 
                 //DRAW GAME==================
                 DrawUpcomingTetromino();
                 DrawGameField();
                 DrawTetromino();
-                //DrawScore(); //maybe only update when score updates for performance
-                DrawLevel(); // ¨^^^¨
-
+                DrawLevel();
             }
             return Score.totalScore.Sum();
         }
@@ -114,16 +120,20 @@ namespace TetrisClassLibrary
         {
             Console.SetCursorPosition(20, 9);
             Console.WriteLine("Level: {0}", Score.currentLevel);
+            Console.WriteLine(gravity);
             if (MyScore.LevelUp())
             {
-                gravity = gravity - 5;
+                gravity = gravity - 2;
+                if(gravity < 2)
+                {
+                    gravity = 2;
+                }
             }
         }
 
         //Checks the totalScore List in the Score class and prints it out
         private void DrawScore(int score)
         {
-
             Score.totalScore.Add(score);
             Console.SetCursorPosition(20, 7);
             Console.WriteLine("Score: {0}", Score.totalScore.Sum());
@@ -132,7 +142,6 @@ namespace TetrisClassLibrary
         private void DrawGameField()
         {
             Console.ForegroundColor = ConsoleColor.White;
-
             Console.SetCursorPosition(gameXOffset, gameYOffset-1);
             Console.WriteLine("░----------░");
 
@@ -212,7 +221,7 @@ namespace TetrisClassLibrary
                     }
                     else
                     {
-                        if (Y > 0)
+                        if (Y > 0) //try without
                         {
                             Console.ForegroundColor = Grid.CurrentTetromino.Color;
                             Console.SetCursorPosition(X + col + gameXOffset, Y + row);
@@ -224,6 +233,7 @@ namespace TetrisClassLibrary
             }
         }
 
+        //Draws the tetromino thats coming next
         private void DrawUpcomingTetromino()
         {
             int X = Grid.UpcomingTetromino.GetX();
@@ -265,12 +275,60 @@ namespace TetrisClassLibrary
             }
         }
 
+        //Removes the full rows with an animation
+        internal int RemoveFullRows(List<int> rowsToRemove)
+        {
+            int forwards = 5;
+            int backwards = 5;
+            int rowsRemoved = 0;
+
+            while (forwards < 11)
+            {
+                for (int i = 0; i < rowsToRemove.Count; i++)
+                {
+                    if (Grid.GridArea[rowsToRemove[i]][forwards] == '@')
+                    {
+                        Grid.GridArea[rowsToRemove[i]][forwards] = ' ';
+                    }
+
+                    if (Grid.GridArea[rowsToRemove[i]][backwards] == '@')
+                    {
+                        Grid.GridArea[rowsToRemove[i]][backwards] = ' ';
+                    }
+                }
+                forwards++;
+                backwards--;
+
+                DrawGameField();
+                Thread.Sleep(80);
+            }
+
+            for (int i = 0; i < rowsToRemove.Count; i++)
+            {
+                rowsRemoved++;
+
+                while(!Grid.GridArea[rowsToRemove[i]].Contains('@'))
+                {
+                    for (int j = rowsToRemove[i]; j > 0; j--)
+                    {
+                        Grid.GridArea[j] = new List<char>(Grid.GridArea[j - 1]);
+                        if (j == 1)
+                        {
+                            Grid.GridArea[j] = new List<char> { '░', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '░' };
+                        }
+                    }
+                }
+            }
+            return rowsRemoved;
+        }
+
+
         private void Input()
         {
             do
             {
                 key = Console.ReadKey(true);
-            } while (true);//Console.KeyAvailable);
+            } while (true);
         }
 
         /// <summary>
@@ -297,6 +355,7 @@ namespace TetrisClassLibrary
                     tickCounter = gravity;
                     return true;
                 //break;
+
                 default:
                     return true;
             }

@@ -20,6 +20,7 @@ namespace TetrisClassLibrary
             HiddenRows = gameYOffset;// dont know if they should be connected
             GridWidth = 10;
             GridHeight = 20 + HiddenRows;
+
             BuildMap();
             BuildBarrier();
         }
@@ -51,11 +52,8 @@ namespace TetrisClassLibrary
             }
 
         }
-
-
-
-
-
+      
+        //Checks if the current tetromino collides with anything
         public bool CanTetroFit(int X, int Y)
         {
             //Add current tetromino position
@@ -105,7 +103,7 @@ namespace TetrisClassLibrary
             return true;
 
         }
-
+        //if collision with wall/tetromino add it to the stack
         internal void AddCurrentTetrominoToStack()
         {
 
@@ -125,11 +123,9 @@ namespace TetrisClassLibrary
                 }
             }
         }
+      
         public void CheckForFullRow(List<int> rowsToClear)//out List<int> rowsToClear)
         {
-            //int removeCounter = 0;
-           //List<int> rowsToClear = new();
-
             for (int i = GridHeight; i >= 0; i--) //i >= 0 + HiddenRows?
             {
                 string row = "";
@@ -139,15 +135,9 @@ namespace TetrisClassLibrary
                 }
                 if (row == "@@@@@@@@@@")
                 {
-                    //Clear row
                     rowsToClear.Add(i);
-                    //removeCounter++;
-                    //++i;
                 }
             }
-
-            //RemoveFullRows(rowsToClear);
-            //return rowsToClear;
         }
 
         internal void RemoveFullRows(List<int> rowsToRemove)
@@ -167,10 +157,8 @@ namespace TetrisClassLibrary
 
         }
 
-
         public bool UpdateTetromino(string keyInput)
         {
-            //ha collioncheck här?
             if (keyInput == "left" && CanTetroFit(-1, 0))
             {
                 CurrentTetromino.Move("left");

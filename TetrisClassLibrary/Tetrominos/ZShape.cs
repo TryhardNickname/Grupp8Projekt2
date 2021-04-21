@@ -74,7 +74,14 @@ namespace TetrisClassLibrary.Tetrominos
                 }
             }
 
-
+            //offset to right
+            for (int row = 0; row < height; row++)
+            {
+                for (int col = 0; col < width; col++)
+                {
+                    newShape[row][col] = ' ';
+                }
+            }
 
             Shape = newShape;
 

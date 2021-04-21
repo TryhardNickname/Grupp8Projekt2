@@ -46,8 +46,8 @@ namespace TetrisClassLibrary
 
         }
 
-        //A rotate method found online. 
-        public void Rotate()
+        //Rotates "2d array"
+        public virtual void Rotate()
         {
 
             //new empty 2darray
@@ -85,8 +85,6 @@ namespace TetrisClassLibrary
                     //newShape[(height -1) - col][row] = Shape[row][col];
                 }
             }
-
-
             
             Shape = newShape;
 

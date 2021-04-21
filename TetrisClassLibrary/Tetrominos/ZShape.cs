@@ -16,6 +16,10 @@ namespace TetrisClassLibrary.Tetrominos
             //0 0 0
             //1 1 0 
             //0 1 1
+
+            //0 1 0
+            //1 1 0 
+            //1 0 0
             Shape = new List<List<char>>
             {
                 new List<char>
@@ -35,7 +39,8 @@ namespace TetrisClassLibrary.Tetrominos
 
         }
 
-        public new void Rotate()
+        //Overrides to implement Offset
+        public override void Rotate()
         {
 
             //new empty 2darray
@@ -74,14 +79,32 @@ namespace TetrisClassLibrary.Tetrominos
                 }
             }
 
-            //offset to right
-            for (int row = 0; row < height; row++)
+
+            //OFFSET TO RIGHT
+            //0 1 0
+            //1 1 0 
+            //1 0 0
+            if (newShape[2][0] == '@')
             {
-                for (int col = 0; col < width; col++)
+                //if bot,left is filled, offset to right
+                for (int row = height-1; row >= 0; row--)
                 {
-                    newShape[row][col] = ' ';
+                    for (int col = width-1; col >= 0; col--)
+                    {
+                        if ( col == 0 )
+                        {
+                            newShape[row][col] = ' ';
+                        }
+                        else
+                        {
+                            newShape[row][col] = newShape[row][col - 1];
+                        }
+                    }
                 }
             }
+            //0 0 1
+            //0 1 1 
+            //0 1 0 
 
             Shape = newShape;
 

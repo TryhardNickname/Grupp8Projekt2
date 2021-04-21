@@ -5,7 +5,9 @@ VisualStudioVersion = 16.0.31112.23
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleUI", "Tetris\ConsoleUI.csproj", "{1CADE827-CA66-4E0E-BFB5-0D0717B77BDA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TetrisClassLibrary", "TetrisClassLibrary\TetrisClassLibrary.csproj", "{742AC00E-3D58-46FB-BBDD-0562486EBBC5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TetrisClassLibrary", "TetrisClassLibrary\TetrisClassLibrary.csproj", "{742AC00E-3D58-46FB-BBDD-0562486EBBC5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TetrisClassLibrary.Test", "XUnitTestTetrisLibrary\TetrisClassLibrary.Test.csproj", "{997B9348-CFA9-40A4-BFA3-B8C74123F7D8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{742AC00E-3D58-46FB-BBDD-0562486EBBC5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{742AC00E-3D58-46FB-BBDD-0562486EBBC5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{742AC00E-3D58-46FB-BBDD-0562486EBBC5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{997B9348-CFA9-40A4-BFA3-B8C74123F7D8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{997B9348-CFA9-40A4-BFA3-B8C74123F7D8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{997B9348-CFA9-40A4-BFA3-B8C74123F7D8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{997B9348-CFA9-40A4-BFA3-B8C74123F7D8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

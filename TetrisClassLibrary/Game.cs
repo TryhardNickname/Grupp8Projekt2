@@ -31,7 +31,7 @@ namespace TetrisClassLibrary
             MyScore = new Score();
             Gravity = 20; //20 game tics (20*50ms == 1sec)
 
-            Console.CursorVisible = false;
+            
             //Console.SetWindowSize(45, 35);
             Thread inputThread = new Thread(Input);
             inputThread.Start();

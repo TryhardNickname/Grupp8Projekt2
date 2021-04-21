@@ -10,7 +10,7 @@ namespace Tetris
         {
             if (OperatingSystem.IsWindows())
             {
-                SoundPlayer tetrisMusic = new SoundPlayer("Tetris_theme _low_volume.wav");
+                SoundPlayer tetrisMusic = new SoundPlayer("Tetris_theme _lower_volume.wav");
                 tetrisMusic.Load();
                 tetrisMusic.PlayLooping();
             }

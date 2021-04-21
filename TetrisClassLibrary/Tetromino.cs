@@ -31,6 +31,7 @@ namespace TetrisClassLibrary
 
         public abstract Tetromino Clone();
 
+        //GetX and GetY point to the topleft corner of the virtual box that the tetromino lies in.
         public int GetX()
         {
             return X;
@@ -39,6 +40,8 @@ namespace TetrisClassLibrary
         {
             return Y;
         }
+
+        //When the topleft coordinate is updated, the methods that use those coordinates start from a different point compared to before.
         public void Move(string direction)
         {
             if (direction == "left")
@@ -52,6 +55,7 @@ namespace TetrisClassLibrary
 
         }
 
+        //A rotate method found online. 
         public void Rotate()
         {
 
@@ -90,6 +94,7 @@ namespace TetrisClassLibrary
 
         }
 
+        //When the current tetromino falls.
         public void GravityTick()
         {
             Y = Y + 1;

@@ -47,6 +47,8 @@ namespace TetrisClassLibrary
             bool playing = true;
             List<int> rowsToClear = new();
 
+            //Sets up the game by using the input by player for gravity, adds a tetromino that will become the current one
+            //and adds another tetromino that will be shown as the next one.
             Gravity = MyScore.SetGravity();
             Grid.AddNewRandomTetrominoUpcoming();
             Grid.CurrentTetromino = Grid.UpcomingTetromino;
@@ -56,7 +58,7 @@ namespace TetrisClassLibrary
             {
                 //GAME TIMING================
                 Thread.Sleep(50); //game tick 
-                TickCounter++;
+                TickCounter++; //for each loop, add 1 to TickCounter.
 
 
                 //HANDLE USER INPUT (MOVEMENT) ========== 
@@ -67,21 +69,23 @@ namespace TetrisClassLibrary
                 inputKey = new ConsoleKeyInfo();
 
                 //GAME LOGIC ===============  
-                if (TickCounter == Gravity)
+                //Gravity dictates how often the current Tetromino will fall down.
+                if (TickCounter == Gravity) 
                 {
                     if (Grid.CanTetroFit(0, 1))
                     {
-                        // it worked, move tetris down
+                        //CanTetroFit is a collision check, if it returns true the current tetromino falls down one step.
                         Grid.UpdateTetromino("gravity");
                     }
-                    else//tetromino landed
+                    else //If CanTetroFit returns false it means it cannot fall down anymore.
                     {
+                        //This method turns the current tetromino into at signs in the gamefield at the position where it couldnt fall anymore.
                         Grid.AddCurrentTetrominoToStack();
 
                         //CHECK FOR FULL ROWS ==============
                         Grid.CheckForFullRow(rowsToClear); //out List<int> rowsToClear);
 
-                        //remove if full rows
+                        //Remove if full rows
                         if (rowsToClear.Count > 0)
                         {
                             CoolClearLinesEffect(rowsToClear);
@@ -90,12 +94,12 @@ namespace TetrisClassLibrary
                             rowsToClear.Clear();
                         }
 
-                        //add next tetro
+                        //Add next tetro
                         ClearUpcomingTetromino();
                         Grid.CurrentTetromino = Grid.UpcomingTetromino;
                         Grid.AddNewRandomTetrominoUpcoming();
 
-                        // check if game lose 
+                        // Check if game lose 
                         if (!(Grid.CanTetroFit(-2, -2)))
                         {
                             playing = false;
@@ -144,6 +148,8 @@ namespace TetrisClassLibrary
             Console.WriteLine("Score: {0}", MyScore.TotalScore);
         }
 
+        //Goes through "GridArea" which is a list of list of chars. List<List<char>>. 
+        //This function writes out the content of each list after eachother vertically so that it looks like its a gamefield.
         private void DrawGameField()
         {
             Console.ForegroundColor = ConsoleColor.White;
@@ -175,6 +181,9 @@ namespace TetrisClassLibrary
             Console.Write("Next Tetromino");
         }
 
+        //This method imitates how the classical tetris removes full lines. 
+        //It starts in the middle of each line that is full and goes out to the edge of that line, both ways, char by char
+        //And replaces those chars with empty spaces so that it looks like the row is removed from the inside out.
         internal void CoolClearLinesEffect(List<int> rowsToClear)
         {
             int forwards = (Grid.GridWidth / 2) + 1;
@@ -200,6 +209,8 @@ namespace TetrisClassLibrary
             }
         }
 
+        //This is where the current tetromino is drawn. The X and Y values are the topleft corner of the invisible square that 
+        //contains the current tetromino. It then uses those values to write At symbols in the correct coordinates in GridArea.
         private void DrawTetromino()
         {
             int X = Grid.CurrentTetromino.GetX();
@@ -226,7 +237,7 @@ namespace TetrisClassLibrary
             }
         }
 
-        //Draws the tetromino thats coming next
+        //Draws the tetromino thats coming next. Same technique as DrawTetromino(), but to the right of GridArea. 
         private void DrawUpcomingTetromino()
         {
             int X = Grid.UpcomingTetromino.GetX();
@@ -251,6 +262,8 @@ namespace TetrisClassLibrary
             }
         }
 
+        //This method is used to erase the old upcoming tetromino when it is moved to GridArea. 
+        //Without this, the new upcoming tetromino will just be placed over the old one and it looks ugly.
         private void ClearUpcomingTetromino()
         {
             int X = Grid.UpcomingTetromino.GetX();
@@ -268,54 +281,7 @@ namespace TetrisClassLibrary
             }
         }
 
-        //Removes the full rows with an animation
-        internal int RemoveFullRows(List<int> rowsToRemove)
-        {
-            int forwards = 5;
-            int backwards = 5;
-            int rowsRemoved = 0;
-
-            while (forwards < 11)
-            {
-                for (int i = 0; i < rowsToRemove.Count; i++)
-                {
-                    if (Grid.GridArea[rowsToRemove[i]][forwards] == '@')
-                    {
-                        Grid.GridArea[rowsToRemove[i]][forwards] = ' ';
-                    }
-
-                    if (Grid.GridArea[rowsToRemove[i]][backwards] == '@')
-                    {
-                        Grid.GridArea[rowsToRemove[i]][backwards] = ' ';
-                    }
-                }
-                forwards++;
-                backwards--;
-
-                DrawGameField();
-                Thread.Sleep(80);
-            }
-
-            for (int i = 0; i < rowsToRemove.Count; i++)
-            {
-                rowsRemoved++;
-
-                while (!Grid.GridArea[rowsToRemove[i]].Contains('@'))
-                {
-                    for (int j = rowsToRemove[i]; j > 0; j--)
-                    {
-                        Grid.GridArea[j] = new List<char>(Grid.GridArea[j - 1]);
-                        if (j == 1)
-                        {
-                            Grid.GridArea[j] = new List<char> { '░', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '░' };
-                        }
-                    }
-                }
-            }
-            return rowsRemoved;
-        }
-
-
+        //Handles inputs.
         private void Input()
         {
             do

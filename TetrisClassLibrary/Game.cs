@@ -176,14 +176,13 @@ namespace TetrisClassLibrary
                     Console.Write(Grid.GridArea[i][j]);
                 }
                 Console.WriteLine();
-
             }
         }
 
         //This method imitates how the classical tetris removes full lines. 
         //It starts in the middle of each line that is full and goes out to the edge of that line, both ways, char by char
         //And replaces those chars with empty spaces so that it looks like the row is removed from the inside out.
-        internal void CoolClearLinesEffect(List<int> rowsToClear)
+        private void CoolClearLinesEffect(List<int> rowsToClear)
         {
             int forwards = (Grid.GridWidth / 2);
             int backwards = Grid.GridWidth / 2;

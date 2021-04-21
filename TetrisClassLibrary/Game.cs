@@ -20,6 +20,8 @@ namespace TetrisClassLibrary
         private int GameXOffset { get; set; }
         private int GameYOffset { get; set; }
 
+        public bool playing { get; set; }
+
 
         public Game()
         {
@@ -44,7 +46,7 @@ namespace TetrisClassLibrary
         /// </summary>
         public void Loop()
         {
-            bool playing = true;
+            playing = true;
             List<int> rowsToClear = new();
 
             //Sets up the game by using the input by player for gravity, adds a tetromino that will become the current one
@@ -286,7 +288,7 @@ namespace TetrisClassLibrary
             do
             {
                 InputKey = Console.ReadKey(true);
-            } while (true);
+            } while (playing);
         }
 
         /// <summary>

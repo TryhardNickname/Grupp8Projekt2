@@ -29,8 +29,8 @@ namespace Tetris
                 switch (input)
                 {
                     case "1":
-                        Game game = new Game();  
-
+                        Game game = new Game();
+                        Console.CursorVisible = false;
 
                         Console.WriteLine("What level do you want to play on? [0-9]");
                         input = GetMenuInput(10);

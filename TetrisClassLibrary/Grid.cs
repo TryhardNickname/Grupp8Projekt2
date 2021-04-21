@@ -115,7 +115,7 @@ namespace TetrisClassLibrary
         }
 
         //if collision with bottom/tetromino-stack add it to the stack. 
-        internal void AddCurrentTetrominoToStack()
+        public void AddCurrentTetrominoToStack()
         {
 
             for (int row = 0; row < CurrentTetromino.Shape.Count; row++)

@@ -2,150 +2,144 @@
 <diagram program="umlet" version="14.3.0">
   <help_text>/TETROMINO/
 </help_text>
-  <zoom_level>8</zoom_level>
+  <zoom_level>10</zoom_level>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>272</x>
-      <y>232</y>
-      <w>176</w>
-      <h>176</h>
+      <x>370</x>
+      <y>270</y>
+      <w>230</w>
+      <h>180</h>
     </coordinates>
     <panel_attributes>/Tetromino/
 --
-+X : int
-+Y : int
-+Shape : List&lt;char&gt;
-+Color : ConsoleColor
++&lt;&lt;get&gt;&gt;, -&lt;&lt;set&gt;&gt;X : int
++&lt;&lt;get&gt;&gt;, -&lt;&lt;set&gt;&gt;Y : int
++&lt;&lt;get&gt;&gt;, #&lt;&lt;set&gt;&gt;Shape : List&lt;char&gt;
++&lt;&lt;get&gt;&gt;, #&lt;&lt;set&gt;&gt;Color : ConsoleColor
 --
 #Tetromino(Tetromino copy)
 +Move (input: string) : void
-+Rotate () : void
++Rotate () : &lt;&lt;virtual&gt;&gt; : void
 /+Clone() : Tetromino/
 +GravityTick(): void
-+GetY() : int
-+GetX() : int
+
 </panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>88</x>
-      <y>488</y>
-      <w>168</w>
-      <h>64</h>
+      <x>150</x>
+      <y>590</y>
+      <w>210</w>
+      <h>80</h>
     </coordinates>
     <panel_attributes>Tetromino-L
 -
-#LShape(Lshape copy)
-+ Clone() : Tetromino &lt;&lt;override&gt;&gt;
--</panel_attributes>
+-LShape(Lshape copy)
++ Clone() : Tetromino &lt;&lt;override&gt;&gt;</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>368</x>
-      <y>560</y>
-      <w>176</w>
-      <h>56</h>
+      <x>500</x>
+      <y>680</y>
+      <w>220</w>
+      <h>70</h>
     </coordinates>
     <panel_attributes>Tetromino-J
 -
-#TShape(Tshape copy)
-+ Clone() : Tetromino &lt;&lt;override&gt;&gt;
--</panel_attributes>
+-JShape(Jshape copy)
++ Clone() : Tetromino &lt;&lt;override&gt;&gt;</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>272</x>
-      <y>488</y>
-      <w>176</w>
-      <h>64</h>
+      <x>380</x>
+      <y>590</y>
+      <w>220</w>
+      <h>80</h>
     </coordinates>
     <panel_attributes>Tetromino-Z
 -
-#TShape(Tshape copy)
-+ Clone() : Tetromino &lt;&lt;override&gt;&gt;
--</panel_attributes>
+-ZShape(Zshape copy)
++ Clone() : &lt;&lt;override&gt;&gt; : Tetromino
++ Rotate() : &lt;&lt;override&gt;&gt; : void</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>184</x>
-      <y>560</y>
-      <w>168</w>
-      <h>56</h>
+      <x>270</x>
+      <y>680</y>
+      <w>210</w>
+      <h>70</h>
     </coordinates>
     <panel_attributes>Tetromino-O
 -
-#OShape(Oshape copy)
-+ Clone() : Tetromino &lt;&lt;override&gt;&gt;
--</panel_attributes>
+-OShape(Oshape copy)
++ Clone() : Tetromino &lt;&lt;override&gt;&gt;</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>560</x>
-      <y>560</y>
-      <w>176</w>
-      <h>56</h>
+      <x>740</x>
+      <y>680</y>
+      <w>220</w>
+      <h>80</h>
     </coordinates>
     <panel_attributes>Tetromino-I
 -
-#TShape(Tshape copy)
-+ Clone() : Tetromino &lt;&lt;override&gt;&gt;
--</panel_attributes>
+-IShape(Ishape copy)
++ Clone() : &lt;&lt;override&gt;&gt; : Tetromino
++ Rotate() : &lt;&lt;override&gt;&gt; : void</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>464</x>
-      <y>488</y>
-      <w>176</w>
-      <h>64</h>
+      <x>620</x>
+      <y>590</y>
+      <w>220</w>
+      <h>80</h>
     </coordinates>
     <panel_attributes>Tetromino-S
 -
-#TShape(Tshape copy)
-+ Clone() : Tetromino &lt;&lt;override&gt;&gt;
--</panel_attributes>
+-SShape(Sshape copy)
++ Clone() : &lt;&lt;override&gt;&gt; : Tetromino
++ Rotate() : &lt;&lt;override&gt;&gt; : void</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>576</x>
-      <y>208</y>
-      <w>232</w>
-      <h>248</h>
+      <x>760</x>
+      <y>240</y>
+      <w>300</w>
+      <h>280</h>
     </coordinates>
     <panel_attributes>Grid
 --
-List&lt;List&lt;char&gt;&gt; : 2d-array[10+2 , 20+2].
-+CurrentTetromino : Tetromino
++&lt;&lt;get&gt;&gt;, -&lt;&lt;set&gt;&gt;GridArea : List&lt;List&lt;char&gt;&gt;
++&lt;&lt;get&gt;&gt;, -&lt;&lt;set&gt;&gt;CurrentTetromino : Tetromino
++&lt;&lt;get&gt;&gt;, -&lt;&lt;set&gt;&gt;UpcomingTetromino : Teromino
++&lt;&lt;get&gt;&gt;, -&lt;&lt;set&gt;&gt;GridWidth : int
++&lt;&lt;get&gt;&gt;, -&lt;&lt;set&gt;&gt;GridHeight : int
+-HiddenRows : int
 --
 -BuildMap() : void
 -BuildBarrier() : void
-+CheckForFullRow() : int
++CheckForFullRow(input: List) : void
 +CanTetroFit(input: int) : bool
-~UpdateGrid() : void
-~RemoveFullRows() : void
-+UpdateTetromino(input: string) : void
-+AddNewRandomTetromino() : void
---
-klass som representerar spelplanen. 
-innehåller nuvarande tetrominon
-
-kollision med fyllda rutor
-
-Nytt block: CurrentTetromino = AddNewBlock
+~RemoveFullRows(input: List) : void
++UpdateTetromino(input: string) : bool
++SetCurrentTetromino() : void
+~AddCurrentTetrominoToStack() : void
++AddNewRandomTetrominoUpcoming() : void
 
 </panel_attributes>
     <additional_attributes/>
@@ -153,37 +147,36 @@ Nytt block: CurrentTetromino = AddNewBlock
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>0</x>
-      <y>560</y>
-      <w>168</w>
-      <h>56</h>
+      <x>40</x>
+      <y>680</y>
+      <w>210</w>
+      <h>70</h>
     </coordinates>
     <panel_attributes>Tetromino-T
 -
-#TShape(Tshape copy)
+-TShape(Tshape copy)
 + Clone() : Tetromino &lt;&lt;override&gt;&gt;
--
 </panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>352</x>
-      <y>400</y>
-      <w>24</w>
-      <h>88</h>
+      <x>480</x>
+      <y>440</y>
+      <w>30</w>
+      <h>150</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;90.0</additional_attributes>
+    <additional_attributes>10.0;10.0;10.0;130.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>352</x>
-      <y>464</y>
-      <w>24</w>
-      <h>40</h>
+      <x>480</x>
+      <y>560</y>
+      <w>30</w>
+      <h>50</h>
     </coordinates>
     <panel_attributes/>
     <additional_attributes>10.0;10.0;10.0;30.0</additional_attributes>
@@ -191,10 +184,10 @@ Nytt block: CurrentTetromino = AddNewBlock
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>456</x>
-      <y>456</y>
-      <w>216</w>
-      <h>120</h>
+      <x>610</x>
+      <y>550</y>
+      <w>270</w>
+      <h>150</h>
     </coordinates>
     <panel_attributes/>
     <additional_attributes>10.0;20.0;250.0;20.0;250.0;130.0</additional_attributes>
@@ -202,10 +195,10 @@ Nytt block: CurrentTetromino = AddNewBlock
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>352</x>
-      <y>456</y>
-      <w>224</w>
-      <h>48</h>
+      <x>480</x>
+      <y>550</y>
+      <w>280</w>
+      <h>60</h>
     </coordinates>
     <panel_attributes/>
     <additional_attributes>10.0;20.0;260.0;20.0;260.0;40.0</additional_attributes>
@@ -213,10 +206,10 @@ Nytt block: CurrentTetromino = AddNewBlock
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>168</x>
-      <y>456</y>
-      <w>208</w>
-      <h>48</h>
+      <x>250</x>
+      <y>550</y>
+      <w>260</w>
+      <h>60</h>
     </coordinates>
     <panel_attributes/>
     <additional_attributes>240.0;20.0;10.0;20.0;10.0;40.0</additional_attributes>
@@ -224,117 +217,89 @@ Nytt block: CurrentTetromino = AddNewBlock
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>64</x>
-      <y>464</y>
-      <w>216</w>
-      <h>112</h>
+      <x>120</x>
+      <y>560</y>
+      <w>270</w>
+      <h>140</h>
     </coordinates>
     <panel_attributes/>
     <additional_attributes>10.0;120.0;10.0;10.0;250.0;10.0</additional_attributes>
   </element>
   <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>440</x>
-      <y>320</y>
-      <w>152</w>
-      <h>24</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;.</panel_attributes>
-    <additional_attributes>10.0;10.0;165.0;10.0</additional_attributes>
-  </element>
-  <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>928</x>
-      <y>240</y>
-      <w>240</w>
-      <h>160</h>
+      <x>1200</x>
+      <y>160</y>
+      <w>300</w>
+      <h>320</h>
     </coordinates>
     <panel_attributes>Game
 --
-key : ConsoleKeyInfo
+-inputKey : ConsoleKeyInfo
+-TickCounter : int
+-GameXOffset : int
+-GameYOffset : int
+-Gravity : int
+-Grid : Grid
++&lt;&lt;get&gt;&gt;, -&lt;&lt;set&gt;&gt;MyScore : Score
 --
 +Start() : void
 +Loop() : void
--DrawLevel() : void
--DrawScore() : void
+-Input() : void
++HandleUserInput() : bool
+-DrawLevelAndScore() : void
 -DrawGameField() : void
 -DrawTetromino() : void
--Input() : void
-+HandleUserInput() : void
+-DrawUpcomingTetromino() : void
+-CoolClearLinesEffect(input: List) : void
+-ClearUpcomingTetromino() : void
+
 </panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>928</x>
-      <y>464</y>
-      <w>120</w>
-      <h>80</h>
+      <x>1190</x>
+      <y>560</y>
+      <w>260</w>
+      <h>180</h>
     </coordinates>
     <panel_attributes>Score
 --
-score : int
++&lt;&lt;get&gt;&gt;, -&lt;&lt;set&gt;&gt;TotalScore : int
++&lt;&lt;get&gt;&gt;, -&lt;&lt;set&gt;&gt;CurrentLevel : int
++&lt;&lt;get&gt;&gt;, -&lt;&lt;set&gt;&gt;RowsCleardThisLevel : int
 --
-~UpdateScore() : void
-~LevelUp() : void
++UpdateScore(input: int) : void
++LevelUp() : bool
++SetLevel(input: int) : void
++SaveHighScore : void
++LoadHighScore : int
++SetGravity() : int
 </panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLNote</id>
-    <coordinates>
-      <x>232</x>
-      <y>16</y>
-      <w>184</w>
-      <h>112</h>
-    </coordinates>
-    <panel_attributes>Note..
-bg=blue
-
-Rotation saktar ned fallet?
-Rotation för evigt i botten?</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>1096</x>
-      <y>440</y>
-      <w>192</w>
-      <h>104</h>
-    </coordinates>
-    <panel_attributes>Level
---
-int :currentLevel
-Dictionary&lt; int level, int gravity&gt; :D?
---
-LevelAdvancement()
-UpdateGravity()</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>800</x>
-      <y>320</y>
-      <w>136</w>
-      <h>40</h>
+      <x>1050</x>
+      <y>380</y>
+      <w>160</w>
+      <h>50</h>
     </coordinates>
     <panel_attributes>lt=-
 m2=1
 </panel_attributes>
-    <additional_attributes>150.0;20.0;10.0;20.0</additional_attributes>
+    <additional_attributes>140.0;20.0;10.0;20.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>256</x>
-      <y>464</y>
-      <w>24</w>
-      <h>112</h>
+      <x>360</x>
+      <y>560</y>
+      <w>30</w>
+      <h>140</h>
     </coordinates>
     <panel_attributes/>
     <additional_attributes>10.0;10.0;10.0;120.0</additional_attributes>
@@ -342,10 +307,10 @@ m2=1
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>448</x>
-      <y>464</y>
-      <w>24</w>
-      <h>112</h>
+      <x>600</x>
+      <y>560</y>
+      <w>30</w>
+      <h>140</h>
     </coordinates>
     <panel_attributes/>
     <additional_attributes>10.0;10.0;10.0;120.0</additional_attributes>
@@ -353,10 +318,10 @@ m2=1
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>976</x>
-      <y>392</y>
-      <w>24</w>
-      <h>80</h>
+      <x>1340</x>
+      <y>470</y>
+      <w>30</w>
+      <h>100</h>
     </coordinates>
     <panel_attributes>lt=&lt;.</panel_attributes>
     <additional_attributes>10.0;80.0;10.0;10.0</additional_attributes>
@@ -364,12 +329,12 @@ m2=1
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1136</x>
-      <y>392</y>
-      <w>24</w>
-      <h>56</h>
+      <x>590</x>
+      <y>400</y>
+      <w>190</w>
+      <h>30</h>
     </coordinates>
     <panel_attributes>lt=&lt;.</panel_attributes>
-    <additional_attributes>10.0;50.0;10.0;10.0</additional_attributes>
+    <additional_attributes>10.0;10.0;165.0;10.0</additional_attributes>
   </element>
 </diagram>

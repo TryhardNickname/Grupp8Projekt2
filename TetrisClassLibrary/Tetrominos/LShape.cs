@@ -8,7 +8,7 @@ namespace TetrisClassLibrary.Tetrominos
 {
     class LShape : Tetromino
     {
-        public LShape()
+        public LShape(int middleOfGrid, int topOfGrid) : base(middleOfGrid, topOfGrid)
         {
             Color = ConsoleColor.Yellow;
 

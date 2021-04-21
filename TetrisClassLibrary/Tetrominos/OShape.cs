@@ -8,7 +8,7 @@ namespace TetrisClassLibrary.Tetrominos
 {
     class OShape : Tetromino
     {
-        public OShape()
+        public OShape(int middleOfGrid, int topOfGrid) : base(middleOfGrid, topOfGrid)
         {
             Color = ConsoleColor.Blue;
 

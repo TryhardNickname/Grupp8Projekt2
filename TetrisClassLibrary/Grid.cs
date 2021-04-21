@@ -8,12 +8,13 @@ namespace TetrisClassLibrary
 {
     public class Grid
     {
-        public List<List<char>> GridArea { get; set; }
-        public Tetromino CurrentTetromino { get; set; }
-        public Tetromino UpcomingTetromino { get; set; }
-        public int GridWidth { get; set; }
-        public int GridHeight { get; set; }
-        public int HiddenRows { get; set; }
+        public List<List<char>> GridArea { get; private set; }
+        public Tetromino CurrentTetromino { get; private set; }
+        public Tetromino UpcomingTetromino { get; private set; }
+        public int GridWidth { get; private set; }
+        public int GridHeight { get; private set; }
+        private int HiddenRows { get; set; }
+
         public Grid(int gameXOffset, int gameYOffset)
         {
             GridArea = new List<List<char>>();
@@ -35,6 +36,7 @@ namespace TetrisClassLibrary
                 }
             }
         }
+
         private void BuildBarrier()
         {
 
@@ -56,7 +58,7 @@ namespace TetrisClassLibrary
         //Checks if the current tetromino collides with anything
         public bool CanTetroFit(int X, int Y)
         {
-            //Add current tetromino position
+            //Clone current tetromino position
             var Clone = CurrentTetromino.Clone();
             if (X == 1)
             {
@@ -79,19 +81,26 @@ namespace TetrisClassLibrary
                 //check spawn
             }
 
-            //Loop through shape-grid to see collission?
+            //Loop through shape-grid to see collission
             for (int row = 0; row < Clone.Shape.Count; row++)
             {
                 for (int col = 0; col < Clone.Shape[0].Count; col++)
                 {
                     if (Clone.Shape[row][col] == '@')
                     {
-                        //if collission return false
-                        if (GridArea[Clone.GetY() + row][Clone.GetX() + col] == '@')
+                        //check if shape-grid has negative value to prevent out of bounds
+                        if (Clone.X+col <= 0)
                         {
                             return false;
                         }
-                        if (GridArea[Clone.GetY() + row][Clone.GetX() + col] == '░')
+
+
+                        //if collission return false
+                        if (GridArea[Clone.Y + row][Clone.X + col] == '@')
+                        {
+                            return false;
+                        }
+                        if (GridArea[Clone.Y + row][Clone.X + col] == '░')
                         {
                             return false;
                         }
@@ -103,6 +112,7 @@ namespace TetrisClassLibrary
             return true;
 
         }
+
         //if collision with wall/tetromino add it to the stack
         internal void AddCurrentTetrominoToStack()
         {
@@ -113,7 +123,7 @@ namespace TetrisClassLibrary
                 {
                     if (CurrentTetromino.Shape[row][col] == '@')
                     {
-                        GridArea[CurrentTetromino.GetY() + row][CurrentTetromino.GetX() + col] = '@';
+                        GridArea[CurrentTetromino.Y + row][CurrentTetromino.X + col] = '@';
 
                     }
                     else
@@ -124,7 +134,7 @@ namespace TetrisClassLibrary
             }
         }
       
-        public void CheckForFullRow(List<int> rowsToClear)//out List<int> rowsToClear)
+        public void CheckForFullRow(List<int> rowsToClear)
         {
             for (int i = GridHeight; i >= 0; i--) //i >= 0 + HiddenRows?
             {
@@ -181,7 +191,12 @@ namespace TetrisClassLibrary
                 return false;
             }
             return true;
+        }
 
+        public void SetCurrentTetromino()
+        {
+            CurrentTetromino = UpcomingTetromino;
+            AddNewRandomTetrominoUpcoming();
         }
 
         public void AddNewRandomTetrominoUpcoming()
@@ -191,25 +206,25 @@ namespace TetrisClassLibrary
             switch (num)
             {
                 case 1:
-                    UpcomingTetromino = new ZShape();
+                    UpcomingTetromino = new ZShape(GridWidth / 2, 0);
                     break;
                 case 2:
-                    UpcomingTetromino = new SShape();
+                    UpcomingTetromino = new SShape(GridWidth / 2, 0);
                     break;
                 case 3:
-                    UpcomingTetromino = new LShape();
+                    UpcomingTetromino = new LShape(GridWidth / 2, 0);
                     break;
                 case 4:
-                    UpcomingTetromino = new JShape();
+                    UpcomingTetromino = new JShape(GridWidth / 2, 0);
                     break;
                 case 5:
-                    UpcomingTetromino = new IShape();
+                    UpcomingTetromino = new IShape(GridWidth / 2, 0);
                     break;
                 case 6:
-                    UpcomingTetromino = new TShape();
+                    UpcomingTetromino = new TShape(GridWidth / 2, 0);
                     break;
                 case 7:
-                    UpcomingTetromino = new OShape();
+                    UpcomingTetromino = new OShape(GridWidth / 2, 0);
                     break;
                 default:
                     break;

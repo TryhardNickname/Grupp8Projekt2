@@ -9,9 +9,9 @@ namespace TetrisClassLibrary
 {
     public class Score
     {
-        public int TotalScore { get; set;}
-        public int CurrentLevel { get; set; }
-        public int RowsCleardThisLevel { get; set; }
+        public int TotalScore { get; private set;}
+        public int CurrentLevel { get; private set; }
+        public int RowsCleardThisLevel { get; private set; }
 
         //NYI TotalRowsCleared
         public Score()
@@ -75,7 +75,10 @@ namespace TetrisClassLibrary
         }
         public static int LoadHighScore()
         {
-            File.WriteAllText("Highscore.txt", Convert.ToString(0));
+            if (!File.Exists("Highscore.txt"))
+            {
+                File.WriteAllText("Highscore.txt", Convert.ToString(0));
+            }
             return Convert.ToInt32(File.ReadAllText("Highscore.txt"));
         }
 

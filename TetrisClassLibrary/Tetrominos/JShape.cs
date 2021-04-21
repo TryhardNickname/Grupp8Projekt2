@@ -8,7 +8,7 @@ namespace TetrisClassLibrary.Tetrominos
 {
     class JShape : Tetromino
     {
-        public JShape()
+        public JShape(int middleOfGrid, int topOfGrid) : base(middleOfGrid, topOfGrid)
         {
             Color = ConsoleColor.Green;
 

@@ -10,17 +10,18 @@ namespace TetrisClassLibrary
 {
     public abstract class Tetromino
     {
-        public int X {protected get; set; }
-        public int Y {protected get; set; }
-        public List<List<char>> Shape { get; set; }
-        public ConsoleColor Color { get; set; }       
+        public int X { get; private set; }
+        public int Y { get; private set; }
+        public List<List<char>> Shape { get; protected set; }
+        public ConsoleColor Color { get; protected set; }       
 
-        public Tetromino()
+        public Tetromino(int middleOfGrid, int topOfGrid)
         {
-            X = 5;
-            Y = 0;
+            X = middleOfGrid;
+            Y = topOfGrid;
         }
-        protected Tetromino(Tetromino copy) : this()
+
+        protected Tetromino(Tetromino copy) //: this()
         {
             this.X = copy.X;
             this.Y = copy.Y;
@@ -31,14 +32,6 @@ namespace TetrisClassLibrary
 
         public abstract Tetromino Clone();
 
-        public int GetX()
-        {
-            return X;
-        }
-        public int GetY()
-        {
-            return Y;
-        }
         public void Move(string direction)
         {
             if (direction == "left")
@@ -55,7 +48,7 @@ namespace TetrisClassLibrary
         public void Rotate()
         {
 
-            //clockwise
+            //new empty 2darray
             int width;
             int height;
 
@@ -73,6 +66,7 @@ namespace TetrisClassLibrary
                 newShape.Add(temp);
             }
 
+            //clockwise
             for (int row = 0; row < height; row++)
             {
                 for (int col = 0; col < width; col++)
@@ -84,8 +78,14 @@ namespace TetrisClassLibrary
                     newCol = height - (row + 1);
 
                     newShape[newRow][newCol] = Shape[row][col];
+
+                    //NYI counter clockwise
+                    //newShape[(height -1) - col][row] = Shape[row][col];
                 }
             }
+
+
+            
             Shape = newShape;
 
         }
@@ -93,7 +93,6 @@ namespace TetrisClassLibrary
         public void GravityTick()
         {
             Y = Y + 1;
-            
         }
     }
 }

@@ -26,7 +26,6 @@ namespace TetrisClassLibrary
         }
 
         //Takes rowscleared input and returns score based on rowscleared
-
         public void UpdateScore(int rowsCleared)
         {
             RowsCleardThisLevel += rowsCleared;
@@ -63,25 +62,25 @@ namespace TetrisClassLibrary
                 return false;
             }
         }
-        //Lets you start at whichever level you want, (move to constructor
+        //Lets you start at whichever level you want, (move to constructor)
         public void SetLevel(int input)
         {
             CurrentLevel = input;
         }
 
+        //Saves the score to a .txt file
         public void SaveHighScore()
         {
             File.WriteAllText("Highscore.txt", Convert.ToString(TotalScore));
         }
+
+        //Since there is only one number, it loads that number.
         public static int LoadHighScore()
-        {
-            if (!File.Exists("Highscore.txt"))
-            {
-                File.WriteAllText("Highscore.txt", Convert.ToString(0));
-            }
+        { 
             return Convert.ToInt32(File.ReadAllText("Highscore.txt"));
         }
 
+        //Cahnges the gravity through a formula.
         public int SetGravity()
         {
             if (CurrentLevel > 9)

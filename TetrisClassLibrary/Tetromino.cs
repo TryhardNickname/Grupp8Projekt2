@@ -45,6 +45,7 @@ namespace TetrisClassLibrary
 
         }
 
+        //A rotate method found online. 
         public void Rotate()
         {
 
@@ -90,6 +91,7 @@ namespace TetrisClassLibrary
 
         }
 
+        //When the current tetromino falls.
         public void GravityTick()
         {
             Y = Y + 1;

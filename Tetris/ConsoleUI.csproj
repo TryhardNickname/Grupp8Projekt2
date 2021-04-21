@@ -7,10 +7,17 @@
 
   <ItemGroup>
     <PackageReference Include="Spectre.Console" Version="0.38.0" />
+    <PackageReference Include="System.Windows.Extensions" Version="5.0.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\TetrisClassLibrary\TetrisClassLibrary.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Tetris_theme.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

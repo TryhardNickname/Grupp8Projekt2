@@ -1,5 +1,6 @@
 ﻿using System;
 using TetrisClassLibrary;
+using System.Media;
 
 namespace Tetris
 {
@@ -7,6 +8,14 @@ namespace Tetris
     {
         static void Main(string[] args)
         {
+            if (OperatingSystem.IsWindows())
+            {
+                SoundPlayer tetrisMusic = new SoundPlayer("Tetris_theme.wav");
+                tetrisMusic.Load();
+                tetrisMusic.PlayLooping();
+            }
+
+
             string input;
             bool loop = true;
             while (loop)

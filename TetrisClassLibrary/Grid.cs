@@ -17,7 +17,7 @@ namespace TetrisClassLibrary
         public Grid(int gameXOffset, int gameYOffset)
         {
             GridArea = new List<List<char>>();
-            HiddenRows = gameYOffset;// dont know if they should be connected
+            HiddenRows = gameYOffset; // dont know if they should be connected
             GridWidth = 10;
             GridHeight = 20 + HiddenRows;
 
@@ -26,7 +26,7 @@ namespace TetrisClassLibrary
         }
         private void BuildMap()
         {
-            for (int i = 0; i < GridHeight + 1; i++) // + bottom bordeer
+            for (int i = 0; i < GridHeight + 1; i++) // + bottom border
             {
                 GridArea.Add(new List<char>() { });
                 for (int j = 0; j < GridWidth + 2; j++) // + 2 side borders
@@ -37,12 +37,11 @@ namespace TetrisClassLibrary
         }
         private void BuildBarrier()
         {
-
             for (int i = 0; i < GridArea.Count; i++)
             {
                 if (i < GridArea[0].Count)
                 {
-                    //GridArea[0][i] = '░';  // Top
+                    //GridArea[0][i] = '░';  // Top part which is replaced by '-' in Game.DrawGameField.
 
                     GridArea[GridArea.Count - 1][i] = '░';  // Bottom
                 }
@@ -53,7 +52,9 @@ namespace TetrisClassLibrary
 
         }
       
-        //Checks if the current tetromino collides with anything
+        //Checks if the current tetromino collides with anything.
+        //It uses a virtual clone of the current tetromino in the position that the user wants to move to.
+        //If it works out the current tetromino is used to that position, otherwise it doesnt move.
         public bool CanTetroFit(int X, int Y)
         {
             //Add current tetromino position
@@ -103,7 +104,8 @@ namespace TetrisClassLibrary
             return true;
 
         }
-        //if collision with wall/tetromino add it to the stack
+
+        //if collision with wall/tetromino add it to the stack. 
         internal void AddCurrentTetrominoToStack()
         {
 
@@ -124,7 +126,9 @@ namespace TetrisClassLibrary
             }
         }
       
-        public void CheckForFullRow(List<int> rowsToClear)//out List<int> rowsToClear)
+        //This method checks if a row is completely filled. It then fills rowsToClear with ints.
+        //These ints are used in RemoveFullRows to know which rows to clear.
+        public void CheckForFullRow(List<int> rowsToClear) //out List<int> rowsToClear)
         {
             for (int i = GridHeight; i >= 0; i--) //i >= 0 + HiddenRows?
             {
@@ -140,6 +144,10 @@ namespace TetrisClassLibrary
             }
         }
 
+        //Uses a list of Y-cooordinates (rows) to know from where to go. 
+        //It takes an int and from there it loops downward in the gamefield.
+        //So row 16, becomes 17. Row 15 becomes row 16 and so on. 
+        //This is repeated for every line that is empty in rowsToRemove.
         internal void RemoveFullRows(List<int> rowsToRemove)
         {
             for (int row = rowsToRemove.Count-1; row >= 0 ; row--)
@@ -157,6 +165,7 @@ namespace TetrisClassLibrary
 
         }
 
+        //This method moves the current tetromino if the virtual tetromino in CanTetroFit returns true.
         public bool UpdateTetromino(string keyInput)
         {
             if (keyInput == "left" && CanTetroFit(-1, 0))
@@ -165,7 +174,6 @@ namespace TetrisClassLibrary
             }
             else if (keyInput == "right" && CanTetroFit(1, 0))
             {
-
                 CurrentTetromino.Move("right");
             }
             else if (keyInput == "rotate" && CanTetroFit(0, 0))
@@ -184,6 +192,7 @@ namespace TetrisClassLibrary
 
         }
 
+        //Spawns a random tetromino which is placed to the right of the gamefield.
         public void AddNewRandomTetrominoUpcoming()
         {
             Random rng = new();

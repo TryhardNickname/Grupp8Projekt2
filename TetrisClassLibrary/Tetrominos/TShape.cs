@@ -32,7 +32,7 @@ namespace TetrisClassLibrary.Tetrominos
             };
         }
 
-        protected TShape(TShape copy) : base(copy)
+        private TShape(TShape copy) : base(copy)
         {
             //?
         }

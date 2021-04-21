@@ -110,7 +110,7 @@ namespace TetrisClassLibrary.Tetrominos
 
         }
 
-        protected IShape(IShape copy) : base(copy)
+        private IShape(IShape copy) : base(copy)
         {
             //?
         }

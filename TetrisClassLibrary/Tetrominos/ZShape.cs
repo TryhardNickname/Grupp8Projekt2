@@ -110,8 +110,7 @@ namespace TetrisClassLibrary.Tetrominos
 
         }
     
-
-        protected ZShape(ZShape copy) : base(copy)
+        private ZShape(ZShape copy) : base(copy)
         {
             //?
         }

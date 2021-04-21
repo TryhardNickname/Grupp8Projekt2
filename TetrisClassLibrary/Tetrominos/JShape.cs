@@ -33,7 +33,7 @@ namespace TetrisClassLibrary.Tetrominos
             };
         }
 
-        protected JShape(JShape copy) : base(copy)
+        private JShape(JShape copy) : base(copy)
         {
             //?
         }

@@ -36,7 +36,7 @@ namespace TetrisClassLibrary.Tetrominos
                 }
             };
         }
-        protected OShape(OShape copy) : base(copy)
+        private OShape(OShape copy) : base(copy)
         {
             //?
         }

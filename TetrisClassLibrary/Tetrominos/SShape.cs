@@ -103,7 +103,7 @@ namespace TetrisClassLibrary.Tetrominos
 
         }
 
-        protected SShape(SShape copy) : base(copy)
+        private SShape(SShape copy) : base(copy)
         {
             //?
         }

@@ -90,7 +90,7 @@ namespace TetrisClassLibrary
                     if (Clone.Shape[row][col] == '@')
                     {
                         //check if shape-grid has negative value to prevent out of bounds
-                        if (Clone.X+col <= 0)
+                        if (Clone.X + col <= 0)
                         {
                             return false;
                         }
@@ -114,7 +114,7 @@ namespace TetrisClassLibrary
 
         }
 
-        //if collision with wall/tetromino add it to the stack. 
+        //if collision with bottom/tetromino-stack add it to the stack. 
         internal void AddCurrentTetrominoToStack()
         {
 

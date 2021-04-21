@@ -32,6 +32,7 @@ namespace TetrisClassLibrary
 
         public abstract Tetromino Clone();
 
+        //When the topleft coordinate is updated, the methods that use those coordinates start from a different point compared to before.
         public void Move(string direction)
         {
             if (direction == "left")

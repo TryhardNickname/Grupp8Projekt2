@@ -4,8 +4,8 @@
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>252</x>
-      <y>300</y>
+      <x>660</x>
+      <y>312</y>
       <w>36</w>
       <h>72</h>
     </coordinates>
@@ -15,8 +15,8 @@
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>204</x>
-      <y>276</y>
+      <x>612</x>
+      <y>288</y>
       <w>120</w>
       <h>36</h>
     </coordinates>
@@ -27,19 +27,19 @@ bg=orange</panel_attributes>
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>252</x>
-      <y>348</y>
+      <x>660</x>
+      <y>360</y>
       <w>24</w>
-      <h>300</h>
+      <h>348</h>
     </coordinates>
-    <panel_attributes/>
+    <panel_attributes>bg=orange</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>264</x>
-      <y>336</y>
+      <x>672</x>
+      <y>348</y>
       <w>168</w>
       <h>48</h>
     </coordinates>
@@ -50,20 +50,20 @@ Press key to start</panel_attributes>
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>360</x>
-      <y>276</y>
+      <x>768</x>
+      <y>288</y>
       <w>120</w>
       <h>36</h>
     </coordinates>
-    <panel_attributes>_:Tetris_
+    <panel_attributes>_:ConsoleUI_
 bg=red</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>408</x>
-      <y>300</y>
+      <x>816</x>
+      <y>312</y>
       <w>36</w>
       <h>72</h>
     </coordinates>
@@ -73,10 +73,10 @@ bg=red</panel_attributes>
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>408</x>
-      <y>348</y>
+      <x>816</x>
+      <y>360</y>
       <w>24</w>
-      <h>360</h>
+      <h>336</h>
     </coordinates>
     <panel_attributes>
 bg=red</panel_attributes>
@@ -85,9 +85,9 @@ bg=red</panel_attributes>
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>516</x>
-      <y>276</y>
-      <w>120</w>
+      <x>960</x>
+      <y>288</y>
+      <w>96</w>
       <h>36</h>
     </coordinates>
     <panel_attributes>_:Game_
@@ -97,32 +97,20 @@ bg=green</panel_attributes>
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>588</x>
-      <y>360</y>
+      <x>996</x>
+      <y>372</y>
       <w>24</w>
-      <h>216</h>
+      <h>288</h>
     </coordinates>
     <panel_attributes>
-bg=red</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLGeneric</id>
-    <coordinates>
-      <x>672</x>
-      <y>276</y>
-      <w>120</w>
-      <h>36</h>
-    </coordinates>
-    <panel_attributes>_:O2_
-bg=blue</panel_attributes>
+bg=green</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>420</x>
-      <y>348</y>
+      <x>828</x>
+      <y>360</y>
       <w>192</w>
       <h>48</h>
     </coordinates>
@@ -131,22 +119,10 @@ Start game</panel_attributes>
     <additional_attributes>10.0;20.0;140.0;20.0</additional_attributes>
   </element>
   <element>
-    <id>UMLGeneric</id>
-    <coordinates>
-      <x>720</x>
-      <y>372</y>
-      <w>24</w>
-      <h>72</h>
-    </coordinates>
-    <panel_attributes>
-bg=blue</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
     <id>Relation</id>
     <coordinates>
-      <x>420</x>
-      <y>384</y>
+      <x>828</x>
+      <y>396</y>
       <w>192</w>
       <h>48</h>
     </coordinates>
@@ -157,22 +133,22 @@ Loaded game field</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>264</x>
-      <y>396</y>
+      <x>672</x>
+      <y>408</y>
       <w>168</w>
       <h>72</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
 Game starts
 with falling
-tetrino</panel_attributes>
+tetromino</panel_attributes>
     <additional_attributes>10.0;20.0;120.0;20.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>264</x>
-      <y>468</y>
+      <x>672</x>
+      <y>480</y>
       <w>168</w>
       <h>48</h>
     </coordinates>
@@ -183,10 +159,10 @@ Inputs to move</panel_attributes>
   <element>
     <id>UMLFrame</id>
     <coordinates>
-      <x>132</x>
-      <y>456</y>
-      <w>576</w>
-      <h>120</h>
+      <x>552</x>
+      <y>468</y>
+      <w>480</w>
+      <h>108</h>
     </coordinates>
     <panel_attributes>Game loop</panel_attributes>
     <additional_attributes/>
@@ -194,8 +170,8 @@ Inputs to move</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>420</x>
-      <y>480</y>
+      <x>828</x>
+      <y>492</y>
       <w>192</w>
       <h>48</h>
     </coordinates>
@@ -206,8 +182,8 @@ input to move</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>420</x>
-      <y>504</y>
+      <x>828</x>
+      <y>516</y>
       <w>192</w>
       <h>48</h>
     </coordinates>
@@ -218,8 +194,8 @@ updated field</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>264</x>
-      <y>516</y>
+      <x>672</x>
+      <y>528</y>
       <w>168</w>
       <h>60</h>
     </coordinates>
@@ -227,5 +203,99 @@ updated field</panel_attributes>
 show updated 
 field</panel_attributes>
     <additional_attributes>10.0;20.0;120.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>996</x>
+      <y>312</y>
+      <w>36</w>
+      <h>84</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;50.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>672</x>
+      <y>576</y>
+      <w>168</w>
+      <h>48</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-
+Loses</panel_attributes>
+    <additional_attributes>120.0;20.0;10.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>828</x>
+      <y>588</y>
+      <w>192</w>
+      <h>48</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-
+Game ended</panel_attributes>
+    <additional_attributes>140.0;20.0;10.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>828</x>
+      <y>612</y>
+      <w>192</w>
+      <h>48</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+Stop</panel_attributes>
+    <additional_attributes>10.0;20.0;140.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>660</x>
+      <y>696</y>
+      <w>36</w>
+      <h>60</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;30.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>672</x>
+      <y>624</y>
+      <w>168</w>
+      <h>60</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+Game over
+Screen</panel_attributes>
+    <additional_attributes>10.0;20.0;120.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>672</x>
+      <y>660</y>
+      <w>168</w>
+      <h>48</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+Play again?</panel_attributes>
+    <additional_attributes>10.0;20.0;120.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLSpecialState</id>
+    <coordinates>
+      <x>660</x>
+      <y>720</y>
+      <w>24</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>type=termination</panel_attributes>
+    <additional_attributes/>
   </element>
 </diagram>

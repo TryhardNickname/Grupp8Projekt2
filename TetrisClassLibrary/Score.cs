@@ -74,8 +74,7 @@ namespace TetrisClassLibrary
             File.WriteAllText("Highscore.txt", Convert.ToString(TotalScore));
         }
         public static int LoadHighScore()
-        {
-            File.WriteAllText("Highscore.txt", Convert.ToString(0));
+        { 
             return Convert.ToInt32(File.ReadAllText("Highscore.txt"));
         }
 

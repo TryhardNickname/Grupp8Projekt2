@@ -8,9 +8,13 @@ namespace Tetris
     {
         static void Main(string[] args)
         {
-            SoundPlayer tetrisMusic = new SoundPlayer("Tetris_theme.wav");
-            tetrisMusic.Load();
-            tetrisMusic.PlayLooping();
+            if (OperatingSystem.IsWindows())
+            {
+                SoundPlayer tetrisMusic = new SoundPlayer("Tetris_theme.wav");
+                tetrisMusic.Load();
+                tetrisMusic.PlayLooping();
+            }
+
 
             string input;
             bool loop = true;

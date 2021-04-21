@@ -173,7 +173,19 @@ namespace TetrisClassLibrary
 
                 for (int j = 0; j < Grid.GridWidth + 2; j++) //+2 -> borders
                 {
-                    Console.Write(Grid.GridArea[i][j]);
+                    if (Grid.GridArea[i][j] == 0)
+                    {
+                        Console.Write(' ');
+                    }
+                    else if (Grid.GridArea[i][j] == 1)
+                    {
+                        Console.Write('@');
+                    }
+                    else if (Grid.GridArea[i][j] == 2)// ta ut bordern från gridden och lägg här
+                    {
+                        Console.Write('░');
+                    }
+                    
                 }
                 Console.WriteLine();
             }
@@ -215,7 +227,7 @@ namespace TetrisClassLibrary
             {
                 for (int col = 0; col < Grid.CurrentTetromino.Shape[0].Count; col++)
                 {
-                    if (Grid.CurrentTetromino.Shape[row][col] == ' ')
+                    if (Grid.CurrentTetromino.Shape[row][col] == 0)
                     {
 
                     }
@@ -245,7 +257,7 @@ namespace TetrisClassLibrary
             {
                 for (int col = 0; col < Grid.UpcomingTetromino.Shape[0].Count; col++)
                 {
-                    if (Grid.UpcomingTetromino.Shape[row][col] == ' ')
+                    if (Grid.UpcomingTetromino.Shape[row][col] == 0)
                     {
 
                     }
@@ -272,7 +284,7 @@ namespace TetrisClassLibrary
             {
                 for (int col = 0; col < Grid.UpcomingTetromino.Shape[0].Count; col++)
                 {
-                    if (Grid.UpcomingTetromino.Shape[row][col] != ' ')
+                    if (Grid.UpcomingTetromino.Shape[row][col] != 0)
                     {
                         Console.SetCursorPosition(X + col + GameXOffset + upcomingOffsetX, Y + row);
                         Console.Write(' ');

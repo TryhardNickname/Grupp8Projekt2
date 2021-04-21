@@ -12,7 +12,7 @@ namespace TetrisClassLibrary
     {
         public int X { get; private set; }
         public int Y { get; private set; }
-        public List<List<char>> Shape { get; protected set; }
+        public List<List<int>> Shape { get; protected set; }
         public ConsoleColor Color { get; protected set; }       
 
         public Tetromino(int middleOfGrid, int topOfGrid)
@@ -57,13 +57,13 @@ namespace TetrisClassLibrary
             width = Shape[0].Count;
             height = Shape.Count;
 
-            List<List<char>> newShape = new List<List<char>>();
+            List<List<int>> newShape = new List<List<int>>();
             for (int i = 0; i < Shape.Count; i++)
             {
-                List<char> temp = new List<char>();
+                List<int> temp = new List<int>();
                 for (int j = 0; j < Shape[0].Count; j++)
                 {
-                    temp.Add(' ');
+                    temp.Add(0);
                 }
                 newShape.Add(temp);
             }

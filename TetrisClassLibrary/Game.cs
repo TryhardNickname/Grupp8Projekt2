@@ -174,7 +174,6 @@ namespace TetrisClassLibrary
                     Console.Write(Grid.GridArea[i][j]);
                 }
                 Console.WriteLine();
-
             }
         }
 

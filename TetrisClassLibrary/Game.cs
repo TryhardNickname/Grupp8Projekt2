@@ -32,7 +32,6 @@ namespace TetrisClassLibrary
             Grid = new Grid(GameXOffset, GameYOffset);
             MyScore = new Score();
             Gravity = 20; //20 game tics (20*50ms == 1sec)
-
             
             //Console.SetWindowSize(45, 35);
 
@@ -313,21 +312,16 @@ namespace TetrisClassLibrary
                 case ConsoleKey.LeftArrow:
                 case ConsoleKey.A:
                     return Grid.UpdateTetromino("left");
-                //break;
                 case ConsoleKey.RightArrow:
                 case ConsoleKey.D:
                     return Grid.UpdateTetromino("right");
-                //break;
                 case ConsoleKey.UpArrow:
                 case ConsoleKey.W:
                     return Grid.UpdateTetromino("rotate");
-                //break;
                 case ConsoleKey.DownArrow:
                 case ConsoleKey.S:
                     TickCounter = Gravity;
                     return true;
-                //break;
-
                 default:
                     return true;
             }

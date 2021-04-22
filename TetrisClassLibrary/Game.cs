@@ -35,8 +35,7 @@ namespace TetrisClassLibrary
 
             
             //Console.SetWindowSize(45, 35);
-            Thread inputThread = new Thread(Input);
-            inputThread.Start();
+
         }
 
 
@@ -48,6 +47,8 @@ namespace TetrisClassLibrary
         {
             playing = true;
             List<int> rowsToClear = new();
+            Thread inputThread = new Thread(Input);
+            inputThread.Start();
 
             //Sets up the game by using the input by player for gravity, adds a tetromino that will become the current one
             //and adds another tetromino that will be shown as the next one.

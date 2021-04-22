@@ -182,7 +182,7 @@ namespace TetrisClassLibrary
                     {
                         Console.Write('@');
                     }
-                    else if (Grid.GridArea[i][j] == 2)// ta ut bordern från gridden och lägg här
+                    else if (Grid.GridArea[i][j] == 2)
                     {
                         Console.Write('░');
                     }

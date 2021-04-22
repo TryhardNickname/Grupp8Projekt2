@@ -15,19 +15,19 @@ namespace TetrisClassLibrary.Tetrominos
             //0 0 0
             //1 1 1 
             //0 0 1
-            Shape = new List<List<char>>
+            Shape = new List<List<int>>
             {
-                new List<char>
+                new List<int>
                 {
-                    ' ', ' ', ' '
+                    0, 0, 0
                 },
-                new List<char>
+                new List<int>
                 {
-                    '@', '@', '@'
+                    1, 1, 1
                 },
-                new List<char>
+                new List<int>
                 {
-                    ' ', ' ', '@'
+                    0, 0, 1
                 }
 
             };

@@ -32,11 +32,9 @@ namespace TetrisClassLibrary
             Grid = new Grid(GameXOffset, GameYOffset);
             MyScore = new Score();
             Gravity = 20; //20 game tics (20*50ms == 1sec)
-
             
             //Console.SetWindowSize(45, 35);
-            Thread inputThread = new Thread(Input);
-            inputThread.Start();
+
         }
 
 
@@ -48,6 +46,8 @@ namespace TetrisClassLibrary
         {
             playing = true;
             List<int> rowsToClear = new();
+            Thread inputThread = new Thread(Input);
+            inputThread.Start();
 
             //Sets up the game by using the input by player for gravity, adds a tetromino that will become the current one
             //and adds another tetromino that will be shown as the next one.
@@ -173,7 +173,19 @@ namespace TetrisClassLibrary
 
                 for (int j = 0; j < Grid.GridWidth + 2; j++) //+2 -> borders
                 {
-                    Console.Write(Grid.GridArea[i][j]);
+                    if (Grid.GridArea[i][j] == 0)
+                    {
+                        Console.Write(' ');
+                    }
+                    else if (Grid.GridArea[i][j] == 1)
+                    {
+                        Console.Write('@');
+                    }
+                    else if (Grid.GridArea[i][j] == 2)
+                    {
+                        Console.Write('░');
+                    }
+                    
                 }
                 Console.WriteLine();
             }
@@ -215,7 +227,7 @@ namespace TetrisClassLibrary
             {
                 for (int col = 0; col < Grid.CurrentTetromino.Shape[0].Count; col++)
                 {
-                    if (Grid.CurrentTetromino.Shape[row][col] == ' ')
+                    if (Grid.CurrentTetromino.Shape[row][col] == 0)
                     {
 
                     }
@@ -245,7 +257,7 @@ namespace TetrisClassLibrary
             {
                 for (int col = 0; col < Grid.UpcomingTetromino.Shape[0].Count; col++)
                 {
-                    if (Grid.UpcomingTetromino.Shape[row][col] == ' ')
+                    if (Grid.UpcomingTetromino.Shape[row][col] == 0)
                     {
 
                     }
@@ -272,7 +284,7 @@ namespace TetrisClassLibrary
             {
                 for (int col = 0; col < Grid.UpcomingTetromino.Shape[0].Count; col++)
                 {
-                    if (Grid.UpcomingTetromino.Shape[row][col] != ' ')
+                    if (Grid.UpcomingTetromino.Shape[row][col] != 0)
                     {
                         Console.SetCursorPosition(X + col + GameXOffset + upcomingOffsetX, Y + row);
                         Console.Write(' ');
@@ -300,21 +312,16 @@ namespace TetrisClassLibrary
                 case ConsoleKey.LeftArrow:
                 case ConsoleKey.A:
                     return Grid.UpdateTetromino("left");
-                //break;
                 case ConsoleKey.RightArrow:
                 case ConsoleKey.D:
                     return Grid.UpdateTetromino("right");
-                //break;
                 case ConsoleKey.UpArrow:
                 case ConsoleKey.W:
                     return Grid.UpdateTetromino("rotate");
-                //break;
                 case ConsoleKey.DownArrow:
                 case ConsoleKey.S:
                     TickCounter = Gravity;
                     return true;
-                //break;
-
                 default:
                     return true;
             }

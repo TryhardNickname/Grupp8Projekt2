@@ -8,7 +8,7 @@ namespace TetrisClassLibrary
 {
     public class Grid
     {
-        public List<List<char>> GridArea { get; private set; }
+        public List<List<int>> GridArea { get; private set; }
         public Tetromino CurrentTetromino { get; private set; }
         public Tetromino UpcomingTetromino { get; private set; }
         public int GridWidth { get; private set; }
@@ -17,7 +17,7 @@ namespace TetrisClassLibrary
 
         public Grid(int gameXOffset, int gameYOffset)
         {
-            GridArea = new List<List<char>>();
+            GridArea = new List<List<int>>();
             HiddenRows = gameYOffset; // dont know if they should be connected
             GridWidth = 10;
             GridHeight = 20 + HiddenRows;
@@ -29,10 +29,10 @@ namespace TetrisClassLibrary
         {
             for (int i = 0; i < GridHeight + 1; i++) // + bottom border
             {
-                GridArea.Add(new List<char>() { });
+                GridArea.Add(new List<int>() { });
                 for (int j = 0; j < GridWidth + 2; j++) // + 2 side borders
                 {
-                    GridArea[i].Add(' ');
+                    GridArea[i].Add(0);
                 }
             }
         }
@@ -45,11 +45,11 @@ namespace TetrisClassLibrary
                 {
                     //GridArea[0][i] = '░';  // Top part which is replaced by '-' in Game.DrawGameField.
 
-                    GridArea[GridArea.Count - 1][i] = '░';  // Bottom
+                    GridArea[GridArea.Count - 1][i] = 2;  // Bottom
                 }
-                GridArea[i][0] = '░';  // Left
+                GridArea[i][0] = 2;  // Left
 
-                GridArea[i][GridArea[0].Count - 1] = '░';  // Right
+                GridArea[i][GridArea[0].Count - 1] = 2;  // Right
             }
 
         }
@@ -87,7 +87,7 @@ namespace TetrisClassLibrary
             {
                 for (int col = 0; col < Clone.Shape[0].Count; col++)
                 {
-                    if (Clone.Shape[row][col] == '@')
+                    if (Clone.Shape[row][col] == 1)
                     {
                         //check if shape-grid has negative value to prevent out of bounds
                         if (Clone.X + col <= 0)
@@ -97,11 +97,11 @@ namespace TetrisClassLibrary
 
 
                         //if collission return false
-                        if (GridArea[Clone.Y + row][Clone.X + col] == '@')
+                        if (GridArea[Clone.Y + row][Clone.X + col] == 1)
                         {
                             return false;
                         }
-                        if (GridArea[Clone.Y + row][Clone.X + col] == '░')
+                        if (GridArea[Clone.Y + row][Clone.X + col] == 2) //check bounds someway instead
                         {
                             return false;
                         }
@@ -122,9 +122,9 @@ namespace TetrisClassLibrary
             {
                 for (int col = 0; col < CurrentTetromino.Shape[0].Count; col++)
                 {
-                    if (CurrentTetromino.Shape[row][col] == '@')
+                    if (CurrentTetromino.Shape[row][col] == 1)
                     {
-                        GridArea[CurrentTetromino.Y + row][CurrentTetromino.X + col] = '@';
+                        GridArea[CurrentTetromino.Y + row][CurrentTetromino.X + col] = 1;
 
                     }
                     else
@@ -141,12 +141,12 @@ namespace TetrisClassLibrary
         {
             for (int i = GridHeight; i >= 0; i--) //i >= 0 + HiddenRows?
             {
-                string row = "";
+                int row = 0;
                 for (int j = 1; j <= GridWidth; j++)
                 {
                     row += GridArea[i][j];
                 }
-                if (row == "@@@@@@@@@@")
+                if (row == 10)
                 {
                     rowsToClear.Add(i);
                 }
@@ -164,10 +164,10 @@ namespace TetrisClassLibrary
                 int currentRow = rowsToRemove[row];
                 for (int i = currentRow; i > 0; i--)
                 {
-                    GridArea[i] = new List<char>(GridArea[i - 1]);
+                    GridArea[i] = new List<int>(GridArea[i - 1]);
                     if (i == 1)
                     {
-                        GridArea[i] = new List<char> { '░', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '░' };
+                        GridArea[i] = new List<int> { 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2 };
                     }
                 }
             }

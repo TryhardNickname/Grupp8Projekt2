@@ -20,19 +20,19 @@ namespace TetrisClassLibrary.Tetrominos
             //0 1 0
             //1 1 0 
             //1 0 0
-            Shape = new List<List<char>>
+            Shape = new List<List<int>>
             {
-                new List<char>
+                new List<int>
                 {
-                    ' ', ' ', ' '
+                    0, 0, 0
                 },
-                new List<char>
+                new List<int>
                 {
-                    '@', '@', ' '
+                    1, 1, 0
                 },
-                new List<char>
+                new List<int>
                 {
-                    ' ', '@', '@'
+                    0, 1, 1
                 }
 
             };
@@ -50,13 +50,13 @@ namespace TetrisClassLibrary.Tetrominos
             width = Shape[0].Count;
             height = Shape.Count;
 
-            List<List<char>> newShape = new List<List<char>>();
+            List<List<int>> newShape = new List<List<int>>();
             for (int i = 0; i < Shape.Count; i++)
             {
-                List<char> temp = new List<char>();
+                List<int> temp = new List<int>();
                 for (int j = 0; j < Shape[0].Count; j++)
                 {
-                    temp.Add(' ');
+                    temp.Add(0);
                 }
                 newShape.Add(temp);
             }
@@ -84,7 +84,7 @@ namespace TetrisClassLibrary.Tetrominos
             //0 1 0
             //1 1 0 
             //1 0 0
-            if (newShape[2][0] == '@')
+            if (newShape[2][0] == 1)
             {
                 //if bot,left is filled, offset to right
                 for (int row = height-1; row >= 0; row--)
@@ -93,7 +93,7 @@ namespace TetrisClassLibrary.Tetrominos
                     {
                         if ( col == 0 )
                         {
-                            newShape[row][col] = ' ';
+                            newShape[row][col] = 0;
                         }
                         else
                         {
